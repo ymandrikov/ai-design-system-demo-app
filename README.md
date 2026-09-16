@@ -1,5 +1,18 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Local database
+
+Deploy Board uses a local SQLite database at `data/deploy-board.sqlite`. Set
+`DB_FILE_NAME` to use another file; the application and database commands use
+the same value.
+
+```bash
+pnpm db:generate # create and save a migration after changing lib/db/schema.ts
+pnpm db:migrate  # apply saved migrations
+pnpm db:seed     # add api, web, and worker (safe to re-run)
+pnpm db:studio   # open Drizzle Studio
+```
+
 ## Getting Started
 
 First, run the development server:
