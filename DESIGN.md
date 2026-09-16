@@ -31,10 +31,13 @@ Contracts belong in `design-system/components/`, `design-system/layouts/` and
 The root document layout is framework-owned. Table owns its shared styling and native
 scrollable structure; see its [contract](design-system/components/table.md).
 
-The Services page owns its width, spacing, header, native environment links and empty
-state. These are product-local markup, not managed components. Environment links use
-`aria-current="page"` and URL navigation. No shared navigation or status variant is
-introduced. Components receive content through props and never access SQLite.
+The Services page owns its width, spacing, header and empty state. Environment
+selection uses the shared Tabs composition and the page-local `app/environment-tabs.tsx`
+adapter to synchronise controlled selection with URL navigation. The server owns
+environment validation and data loading. This owner-requested composition is a
+[local exception](design-system/gaps.md#environment-tabs-url-synchronisation) to the
+Tabs contract's URL-navigation exclusion; it introduces no shared navigation variant.
+Components receive content through props and never access SQLite.
 
 ## Verification
 
@@ -53,6 +56,8 @@ with the relevant kind and all three indexes, following [formats](.agents/skills
 Source hashes establish reviewed source snapshots, not runtime correctness.
 
 ## Gaps and decisions
+
+[Contract adoption progress](design-system/adoption.md) tracks the new Tabs contract.
 
 [Open gaps](design-system/gaps.md); [archive](design-system/gaps-archive.md).
 The initial connection was documentation-only. This screen adds the first shared

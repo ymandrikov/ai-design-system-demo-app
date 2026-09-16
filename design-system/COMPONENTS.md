@@ -5,3 +5,7 @@
 - **Table**
   - Description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
   - Contract: [contract](components/table.md)
+
+- **Tabs**
+  - Description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
+  - Contract: [contract](components/tabs.md)
