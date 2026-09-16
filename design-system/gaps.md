@@ -7,5 +7,4 @@ demonstrating the original expected result.
 ## Open gaps
 
 None recorded. Missing design sources and verification capabilities are listed in
-[DESIGN.md](../DESIGN.md), including
-[root-layout runtime limits](../DESIGN.md#verification).
+[DESIGN.md](../DESIGN.md), including the absence of automated visual checks.

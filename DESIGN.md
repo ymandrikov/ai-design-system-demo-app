@@ -1,107 +1,61 @@
-# AI design system demo design
+# Deploy Board design
 
 ## Intent and shared rules
 
-The current interface is the Next.js starter: instructions and links to templates,
-learning, deployment and documentation in [app/page.tsx](app/page.tsx).
-Product-specific end-user tasks, brand direction and shared composition rules: none
-documented. Its current presentation is implementation evidence, not a reusable
-design specification.
+Deploy Board is a local deployment demo. The Services screen compares service health,
+current versions and the last completed deployment by environment. Health and deployment
+outcome are separate and must use explicit text labels. No real deployment is performed.
 
-Repository requirements remain in [AGENTS.md](AGENTS.md), including the requirement
-to read the installed Next.js guides before writing code and Conventional Commits.
-Use the [design-system skill](.agents/skills/design-system/SKILL.md) for design work.
-A contract documents a UI entity's intended use and observable promises; a token is
-a named design choice such as a foreground colour.
+Follow [AGENTS.md](AGENTS.md) and the [design-system skill](.agents/skills/design-system/SKILL.md).
+Product composition uses `use`; authorised reusable work uses `craft`, then checks,
+then `use` and its checks. Page-specific compositions do not require pattern extraction.
 
 ## Design-system sources
 
 - Components: [index](design-system/COMPONENTS.md)
 - Layouts: [index](design-system/LAYOUTS.md)
 - Patterns: [index](design-system/PATTERNS.md)
-- Tokens and themes: [app/globals.css](app/globals.css) defines background and
-  foreground CSS variables, their Tailwind colour aliases and font aliases. Dark
-  colours follow `prefers-color-scheme`. A separate token catalogue and documented
-  usage constraints: none.
-- Fonts and stylesheet entry: [app/layout.tsx](app/layout.tsx) imports global CSS
-  and loads Geist and Geist Mono variables. The body stylesheet uses Arial/Helvetica;
-  the starter page selects the sans token with `font-sans`.
-- Visual specifications, design references and a theme-switching API: none.
+- Tokens and themes: [app/globals.css](app/globals.css). Existing shadcn semantic roles
+  govern background/foreground, card surfaces, muted content, primary navigation,
+  borders, focus and destructive outcomes. Pair surface tokens with their foreground
+  counterparts. Colour supplements status text. No new status palette is needed.
+- Fonts: [app/layout.tsx](app/layout.tsx) loads Geist Sans and Geist Mono; global sans
+  and mono aliases resolve to these variables. The sans font is applied on HTML.
+- Dark tokens activate under `.dark`; there is no theme-switching UI or system-preference
+  activation. No external visual specification or screenshot baseline is supplied.
 
 ## Contracts and public use
 
-Component contracts belong in `design-system/components/`, layout contracts in
-`design-system/layouts/` and pattern contracts in `design-system/patterns/`.
-The three uppercase indexes are generated from discoverable contracts. Component
-and pattern indexes remain empty. The [root document layout](design-system/layouts/root-layout.md)
-documents the existing framework-owned route composition boundary.
-Implementation paths stay unchanged.
+Contracts belong in `design-system/components/`, `design-system/layouts/` and
+`design-system/patterns/`. The uppercase indexes are generated from discoverable contracts.
+The root document layout is framework-owned. Table owns its shared styling and native
+scrollable structure; see its [contract](design-system/components/table.md).
 
-The starter page remains an unmanaged consumer (without a design-system contract).
-There is no project-owned reusable UI library or documented shared override API.
-The page uses native elements, `next/image` and Tailwind classes; these observations
-do not establish shared component promises. Global CSS is loaded by the root layout.
-
-Use `design-system use` for product selection and composition, and `design-system
-craft` for authorised shared design and contract development. When both are
-authorised, follow craft → checks → use → checks, then return evidence to the calling
-project task. Component internals and business logic remain project-owned, as do
-engineering procedures, approvals and overall completion criteria.
+The Services page owns its width, spacing, header, native environment links and empty
+state. These are product-local markup, not managed components. Environment links use
+`aria-current="page"` and URL navigation. No shared navigation or status variant is
+introduced. Components receive content through props and never access SQLite.
 
 ## Verification
 
-Run commands from the repository root. [package.json](package.json) selects pnpm
-and provides `pnpm dev` (preview), `pnpm lint`, `pnpm build` and `pnpm start`
-(production preview after building). See [README.md](README.md) for local preview
-instructions and [eslint.config.mjs](eslint.config.mjs) for lint configuration.
-
-Generate and check indexes with the installed skill:
+From the repository root: `pnpm lint`, `pnpm build`, and `pnpm exec tsc --noEmit`.
+Preview with `pnpm dev`; database setup is in [README.md](README.md).
+No automated tests are added at this stage. Browser checks cover environment switching,
+reload persistence, text status distinctions, empty data and narrow-width scrolling.
 
 ```sh
 node .agents/skills/design-system/scripts/generate-indexes.mjs .
 node .agents/skills/design-system/scripts/generate-indexes.mjs --check .
 ```
 
-Contract structure checks are supplied by the installed skill's
-[checker](.agents/skills/design-system/scripts/check-contract.mjs) and
-[format instructions](.agents/skills/design-system/reference/formats.md).
-The root-layout contract is checked with `--kind layout` and all three indexes.
-Dedicated test commands, automated browser/accessibility or visual regression
-checks, and a project browser-support or
-accessibility policy: none configured. Runtime appearance and accessibility remain
-unverified by this documentation-only migration. Rendered heights, theme appearance,
-font loading and browser interactions have source evidence only. Detailed migration
-verification records are not retained, by user choice.
-
-Setup verification choice: run (selected by the user). This choice applies only to this connection and
-its selected next-step handoff, not unrelated future work. Applicable setup checks
-cover local links, generated indexes, instruction preservation and independent review.
+Use the [contract checker](.agents/skills/design-system/scripts/check-contract.mjs)
+with the relevant kind and all three indexes, following [formats](.agents/skills/design-system/reference/formats.md).
+Source hashes establish reviewed source snapshots, not runtime correctness.
 
 ## Gaps and decisions
 
-Open gaps: [journal](design-system/gaps.md). Closed entries:
-[archive](design-system/gaps-archive.md). Move closed entries there in full with their
-disposition, closure date and evidence of the original expected result.
-
-Initial connection and repository-wide automatic migration are complete. Migration
-used mode 3 (contracts only), with verification enabled and runtime code unchanged.
-One existing layout is documented and discoverable. The starter page and its inline
-regions are consumers, not extracted components or patterns; unwrapped `next/image`
-is external and was not adopted. Tokens remain at their existing source.
-Contract/source-hash validation, index freshness, local links, independent discovery
-and final independent review passed. No blockers remain for documentation completion.
-Independent discovery confirmed route-level use and excluded use as an inner section
-wrapper. Runtime verification limits remain in Verification above.
-No repairs or exceptions are introduced.
-Missing design decisions and verification capabilities are recorded above; setup
-does not invent them or introduce new components.
-
-Agent mode is multiple-agent, evidenced by `AGENTS.md` and `.agents/`.
-`AGENTS.md` is canonical; `CLAUDE.md` points to it through the relative symlink
-`AGENTS.md`, preserving its former `@AGENTS.md` import. There are no nested agent
-instruction files. Inspected repository skills: only
-`.agents/skills/design-system`, also exposed at `.claude/skills/design-system` through
-`../../.agents/skills/design-system`. Both paths retain the same installed package.
-The installation is recorded in [skills-lock.json](skills-lock.json); no competing
-repository skill, additional project workflow, or instruction conflict was found.
-Global and session skills were outside this repository reconciliation.
+[Open gaps](design-system/gaps.md); [archive](design-system/gaps-archive.md).
+The initial connection was documentation-only. This screen adds the first shared
+component. Page width and spacing remain page-owned choices. There is no shared
+inner layout, theme control or automated visual/accessibility suite. No decisions
+are required for the current read-only screen.

@@ -1,5 +1,5 @@
 ---
-sourcesHash: 9f3924c4f20d6ec48afca2013522b54b791d92ed9a67ef1123ea0fc613e269b0
+sourcesHash: 9de7d36a36cd60baa73df988c59994ba3b2cc62c7b1ee241f409b3b9f402b228
 id: root-layout
 description: >-
   Provide the application's shared HTML document shell around route content,
@@ -55,13 +55,12 @@ export default function HelpPage() {
 There are no public variants, callbacks, methods, extra named slots or forwarded
 native attributes. `className`, `style`, `lang` and theme are not consumer props.
 The shell owns `lang="en"`, global CSS loading and font variable setup. Its static
-metadata defaults to the starter title and description; route metadata uses the
+metadata provides document defaults; route metadata uses the
 Next.js metadata API rather than shell props or manually inserted `head` elements.
 
 The [theme definitions](../../app/globals.css) provide background/foreground roles
-and sans/mono aliases. Dark colours follow the system preference; there is no
-manual theme control. Geist variables are available, but body text defaults to
-Arial/Helvetica unless descendant styling selects a font alias, as the starter does.
+and sans/mono aliases. Dark colours use an ancestor `.dark` class; no theme control is exposed by the shell.
+The sans alias resolves to Geist Sans and is selected on HTML; the mono alias resolves to Geist Mono.
 
 ## Composition
 
@@ -91,9 +90,8 @@ None defined. There is no public shell override or local-exception API.
 ### Provided by the component
 
 The document declares English through `lang="en"`. The shell introduces no controls,
-focus handling, keyboard interactions or main landmark. Theme/font and rendered
-layout outcomes have only source evidence; see the
-[verification limits](../../DESIGN.md#verification) for the unverified runtime limits.
+focus handling, keyboard interactions or main landmark. The Services composition has been checked in Chrome; see
+[verification](../../DESIGN.md#verification). No theme-switching interface is provided.
 
 ### Required of consumers
 

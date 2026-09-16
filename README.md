@@ -7,9 +7,10 @@ Deploy Board uses a local SQLite database at `data/deploy-board.sqlite`. Set
 the same value.
 
 ```bash
+mkdir -p data
 pnpm db:generate # create and save a migration after changing lib/db/schema.ts
 pnpm db:migrate  # apply saved migrations
-pnpm db:seed     # add api, web, and worker (safe to re-run)
+pnpm db:seed     # add demo services, environment versions and completed history (safe to re-run)
 pnpm db:studio   # open Drizzle Studio
 ```
 
@@ -47,3 +48,18 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Services screen
+
+Open `/?environment=production` or `/?environment=staging`. Missing, invalid or
+repeated environment parameters fall back to production. Data is queried from SQLite
+on each request. Dates are shown in UTC.
+
+The seed demonstrates API remaining healthy on v1.0.0 after a failed production
+deployment, newer staging versions, successful history and an undeployed staging
+worker with no history. Re-running the seed preserves existing state and history.
+Only completed deployments are modelled at this stage; deployment simulation is not implemented.
+
+Checks: `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm build`. If Turbopack cannot bind
+its internal ports in a restricted environment, `pnpm build --webpack` and
+`pnpm dev --webpack` use the supported alternative bundler.
