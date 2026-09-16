@@ -11,7 +11,7 @@ Compare contracts, then choose. An omitted fact is unknown, not false.
 For managed UI selection, use the request, DESIGN.md's public rules, supplied design
 references, indexes, contracts and their linked public dependencies. Component
 implementations, private styles, tests, previews and existing call sites are not
-selection inputs; frontmatter source/evidence paths serve authoring and verification.
+selection inputs; frontmatter source, test and example paths serve authoring and verification.
 Public token definitions remain inputs to token selection even when stored in CSS.
 The deciding rule must be available in a contract or a linked public rule. When it
 is missing, return the contract gap to the caller rather than inferring it from code,
@@ -55,7 +55,7 @@ in full, including linked composition obligations. The generated description
 routes; it does not add requirements, metadata authority or visual values.
 
 Read linked known defects and verification limits as well. A discoverable entity
-admitted through migration may have unverified or failing promises.
+admitted through migration may lack runtime evidence or have failing promises.
 If a known defect prevents the requested result, report it and seek a working
 alternative; missing evidence requires verification by the caller, not an assumed pass.
 

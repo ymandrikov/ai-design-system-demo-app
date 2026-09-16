@@ -6,7 +6,7 @@ and the index's Contract link. Store component/layout/pattern
 contracts in their standard group directories. Before any audit, read the caller's
 [admission and verification policy](admission.md) and reuse its saved choice.
 Maintain id, status and root-relative
-source/evidence paths in frontmatter; connect source files to the supported public
+source, test and example paths in frontmatter; connect source files to the supported public
 bindings in Public API or the pattern's Structure.
 Use actual paths instead of deriving them from an id. A document-only pattern needs
 no new code.
@@ -78,17 +78,15 @@ component name or a successful answer to a restated criterion is insufficient ev
 For patterns/layouts also check a deliberate violation of a
 required composition rule.
 
-Read [admission policy](admission.md#select-the-applicable-policy) before deciding
-which independent checks apply. Run the [independent discovery gate](blind-gates.md)
-for ordinary per-batch authoring when required. For whole-set migration, return the
-ordinary audit and structural results to the migration caller, which owns the final
-[whole-set check](blind-gates.md#whole-set-migration-discovery). This changes timing,
-not the ordinary audit above. Independent consumption remains conditional on the
-policy, task and project requirements.
+Read [admission policy](admission.md#select-the-applicable-policy). Run independent
+[discovery or consumption](blind-gates.md) only when explicitly requested or required
+by project policy. For those checks, ordinary authoring uses per-batch timing and
+whole-set migration returns ordinary audit results to its caller for the final check.
 
 Use existing tests, examples and focused public-use checks as evidence where they
-prove the current promises; inspect their actual results. Missing runtime evidence
-remains unverified. Browser-dependent promises need rendered/interactive evidence via
+prove the current promises; inspect their actual results. Apply the
+[shared verification rule](model.md#skipped-and-unavailable-verification) to unavailable
+checks. Browser-dependent promises need rendered/interactive evidence via
 [UI verification](verify.md). Unchanged evidenced promises
 need no new test or browser run merely because their wording was clarified.
 
@@ -114,7 +112,7 @@ The checker validates its sections, metadata, index membership, cross-group iden
 and source snapshot.
 Source paths resolve from the nearest ancestor DESIGN.md.
 
-Record the command, result and output or evidence path. The checker validates
+Report the command and result briefly in the response. The checker validates
 structure/links/indexes and source freshness, not semantic correctness. Fix structural errors and report
 semantic contradictions, failing or unavailable checks to the caller. Complete the
 audit when each affected public promise has evidence or an explicit limitation and

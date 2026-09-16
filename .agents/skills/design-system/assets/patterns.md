@@ -38,4 +38,4 @@ Use this pattern when all of these hold:
 
 ## Verification
 
-<Checks for a valid composition and a deliberate violation; link executable evidence when available.>
+<Checks for a valid composition and a deliberate violation; reference existing tests when available.>

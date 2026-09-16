@@ -150,8 +150,9 @@ or skip verification, recommending run. Wait for the choice; source survey may c
 Reuse an explicit or saved choice. Save it in DESIGN.md for this operation and the
 selected next-step handoff; do not apply it to unrelated later work. A refusal skips
 validators, audits, tests, builds, browser checks, demonstrations and independent review;
-report the result as unverified. [Final document reconciliation](completion.md#reconcile-final-documents)
-remains mandatory. Refusal changes neither scope nor authority.
+it also skips [final document reconciliation](completion.md#reconcile-final-documents).
+Follow the [shared verification rule](model.md#skipped-and-unavailable-verification).
+Refusal changes neither scope nor authority.
 For an explicitly requested migration, gather its missing boundary and verification
 decisions in that same round; for gradual adoption, include batch size.
 
@@ -207,13 +208,18 @@ relative symlink targets, source and installed-skill paths, preserved project en
 stage order, approvals and completion checks. Supply these requirements to
 [delegation](delegation.md#review-the-final-result) as well. Connection without changed
 contract boundaries requires no contract discovery gate.
-Run [final document reconciliation](completion.md#reconcile-final-documents), then
-[the final independent review](delegation.md#review-the-final-result) when enabled,
-and [completion cleanup](completion.md#clean-up-completed-work). Report connection
+When verification is enabled, run
+[final document reconciliation](completion.md#reconcile-final-documents), then
+[the final independent review](delegation.md#review-the-final-result) only when explicitly
+requested or required by project policy. Apply
+[completion cleanup](completion.md#clean-up-completed-work) even when verification is skipped. Report connection
 complete only when its own required work is complete. Retain materials needed by
 an already selected migration, without making migration completion a setup condition.
 Preserve the verification choice in DESIGN.md for the next-step handoff even when
 cleaning up execution files; once selected, save it with that migration's progress.
+
+Report setup and optional demonstration checks in the response; no separate
+evidence files or archive are needed. Apply the shared cleanup to temporary materials.
 
 Report DESIGN.md, linked sources, created artifacts, unmanaged UI and decisions needed,
 including inspected repository skills, preserved workflows, specialist routing,
@@ -242,7 +248,8 @@ Choosing B or C hands off to the corresponding [adoption](adoption.md) step
 without renewed permission. Before B starts, save the selected scope, verification
 choice and these admission conditions in `design-system/adoption.md`: admit fully
 documented existing entities after ordinary author audits and structural checks;
-run independent discovery after the whole selected set is ready. Apply the
+run independent discovery only if explicitly requested or required by project policy,
+after the whole selected set is ready. Apply the
 [verification-refusal exception](admission.md#migration-verification) when selected.
 These concrete conditions persist on resume; no origin label is needed. Adoption
 owns work-list enumeration and batch-size selection. Choosing D ends setup.
@@ -255,6 +262,6 @@ Its absence does not make ordinary setup incomplete.
 When an analogous-page demonstration is requested, use an existing page found during
 setup or named by the task. Give a fresh worker an analogous request, root DESIGN.md
 and public sources in an isolated copy. Run build with actual discovery, then verify
-the resulting page and a deliberate composition violation. Save requests, artifacts,
-commands and available browser evidence. Report demonstration limits separately from
+the resulting page and a deliberate composition violation. Report the demonstration
+result, commands run and browser-check outcomes in the response. Report its limits separately from
 the completed connection; this does not authorise admission of unadmitted entities.

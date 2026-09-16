@@ -26,7 +26,7 @@ UI eligibility statuses. Empty UI indexes are valid. A layout appears only in La
 
 Component contracts live in `design-system/components/`, layouts in `design-system/layouts/`
 and patterns in `design-system/patterns/`, each with its uppercase index. Apply this
-structure when connecting existing projects too. Contract frontmatter owns id/description/status and source/evidence paths
+structure when connecting existing projects too. Contract frontmatter owns id/description/status and source, test and example paths
 relative to this project root; Markdown links resolve from their containing document.
 Name public imports/invocation for supported bindings and which product areas use them.
 Link project guidance for product views and component development. Link shared
@@ -40,7 +40,8 @@ pattern can describe a recipe without introducing a component.
 Link the established project testing and preview procedures, including their actual
 commands and working directories where useful. State accessibility and browser support
 policy and authoritative visual sources. The framework checks contract promises and
-composition using those procedures; missing evidence remains explicitly unverified.
+composition using those procedures, respecting the user’s verification choice.
+Report actual results; briefly mention unavailable requested checks in the conversation.
 
 ## Gaps and decisions
 

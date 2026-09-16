@@ -97,22 +97,25 @@ Add mechanisms only where needed.
 
 Apply the [selected admission policy](admission.md#select-the-applicable-policy) to
 each item's actual documentation and evidence. Keep intended promises and link
-known defects and unverified promises from the affected contract sections. Track
+known defects from the affected contract sections. Track
 admission separately from runtime evidence and required repairs. After authoring the
 whole area, run [whole-set discovery](blind-gates.md#whole-set-migration-discovery)
-when verification is enabled, then return here with its evidence and any blockers.
+only if explicitly requested or required by project policy and verification is enabled;
+return its results and any blockers in the response.
 
 ### Validate plan completion
 
 After the batches finish, follow [plan completion validation](migration-planning.md#validate-plan-completion)
-to reconcile the plan with actual results and save the assessment in
-`design-system/adoption.md`. Complete any actionable omissions before the final report;
+when verification is enabled and save the assessment in `design-system/adoption.md`.
+Otherwise use the progress maintained during execution. Complete any actionable omissions before the final report;
 if only blocked work remains, record the partial result.
 
 ### Complete and report
 
-Before reporting, complete [final document reconciliation](completion.md#reconcile-final-documents)
-for documents changed by migration and apply the enabled
+When verification is enabled, before reporting complete
+[final document reconciliation](completion.md#reconcile-final-documents)
+for documents changed by migration and, only if explicitly requested or required by
+project policy and verification is enabled, apply the
 [final independent review](delegation.md#review-the-final-result).
 When the selected scope is complete, [clean up completed work](completion.md#clean-up-completed-work)
 before the final report; preserve continuation materials for a partial result.

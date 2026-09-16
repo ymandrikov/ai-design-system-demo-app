@@ -47,7 +47,9 @@ is valid for screen-specific composition within existing contracts. A missing
 reusable capability requires an extension, a justified new entity or a bounded
 exception before introducing an independent shared variant; merely recording a gap
 does not authorise that variant. Hidden/deprecated entries and missing managed
-contracts cannot enter through fallback. Do not create a contract during product work.
+contracts cannot enter through fallback. Contract work belongs to craft. An authorised
+external source addition includes [bounded adoption](craft.md#adopt-locally-added-external-components)
+in the same task; product work alone does not authorise that addition.
 
 When implementation contradicts a contract, record the defect and use a working
 alternative if available. Shared component design, contract, rule and token

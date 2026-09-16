@@ -81,7 +81,7 @@ design-system/
 ```
 
 Each component/layout/pattern has one Markdown contract in its group directory. Its
-frontmatter owns the stable id, description, status and code/evidence paths; see [formats](formats.md).
+frontmatter owns the stable id, description, status and code, test and example paths; see [formats](formats.md).
 The three generated indexes contain only `discoverable` contracts: H1 display names,
 full frontmatter descriptions and Contract links, sorted by id. See the
 [index generation rules](../assets/inventory.md). Identity and eligibility remain
@@ -170,11 +170,12 @@ Preserve independent legacy violations and unrelated gaps; report them separatel
 subject to the [contrast scope](verify.md#contrast-scope) exception.
 Honour explicit scope and decisions already given in the current task.
 
-[Improve](improve.md) coordinates a bounded survey and craft work on an existing
-system's presentation, structure and documentation. Its boundary preserves business
-logic and component internals, including when a defect is found. Related consumer
-presentation may change within scope; changes requiring excluded logic remain project
-work. These limits remain in force in called procedures and every migration mode.
+[Improve](improve.md) starts with a read-only survey of an existing system and presents
+the result before one choice to document it or perform bounded craft work. Its boundary
+preserves business logic and component internals, including when a defect is found.
+Related consumer presentation may change within scope; changes requiring excluded logic
+remain project work. These limits remain in force in called procedures and every
+migration mode.
 
 ## Questions to the user
 
@@ -206,9 +207,27 @@ before asking dependent questions; continue independent authorised work meanwhil
 This format creates no requirement for an interview or repeated confirmation when
 the task is clear and authorised. Silence is not an answer or delegation.
 
+## Skipped and unavailable verification
+
+Apply this rule across every workflow, admission decision and supporting procedure.
+Honour the user's verification choice throughout its authorised scope. Omit skipped
+checks, including separate final document reconciliation and post-cleanup rechecks;
+update affected documents and links as part of the work itself.
+Skipped or unavailable checks create no `unverified` labels, contract or progress
+entries, risk-acceptance notices, or admission/completion blockers. Save an explicit
+run-or-skip choice where the workflow needs it for continuation, without per-check records.
+If a requested check cannot run because a tool, browser or reference is unavailable,
+briefly say so in the conversation and continue independent work. Report only actual
+check outcomes; never claim that an omitted check passed or that its promises were verified.
+Keep discovered defects, unresolved decisions and unfinished implementation explicit.
+
 ## Reports
 
-Report decisions, material assumptions and evidence clearly. Labels shown by the
+Report decisions, material assumptions and actual check results clearly. Return check
+outcomes briefly in the response; the skill requires no separate evidence files, logs,
+screenshots, transcripts or execution archives. Keep meaningful source/test references,
+decisions and limitations in their existing documents. Honour explicit user or project
+requirements for additional deliverables. Labels shown by the
 workflow procedures are convenient examples; equivalent prose or tables are valid
 for reports. User questions follow the format above.
 Do not manufacture fields, alternatives or explanations just to fill a template.

@@ -17,7 +17,9 @@ migrate; that call does not start gradual batching or API analysis.
 ## Save the work list
 
 Inspect source exports, implementations and consumers to enumerate all project-owned
-reusable components, layouts and existing patterns in scope, including wrappers around dependencies.
+reusable components, layouts and existing patterns in scope, including locally copied
+external sources and wrappers around dependencies. External origin alone does not
+exclude project-owned source or change this migration's admission policy.
 Exclude private implementation details, pages and unwrapped third-party components;
 record ambiguous candidates with the classification question still open. Group
 bindings of the same entity together and order dependencies before their consumers.
@@ -81,11 +83,11 @@ authority for each batch.
 It does not settle new normative choices or authorise unrelated implementation changes.
 
 After authoring the whole area, run [whole-set discovery](blind-gates.md#whole-set-migration-discovery)
-when selected by policy and enabled. Complete admission and migration only under
+only if explicitly requested or required by project policy and verification is enabled. Complete admission and migration only under
 the [applicable policy](admission.md#select-the-applicable-policy), retaining the
-separate document-only result where requested. Before final completion, run
-[document reconciliation](completion.md#reconcile-final-documents), the enabled
-[final review](delegation.md#review-the-final-result), then the existing cleanup step.
+separate document-only result where requested. When verification is enabled, run
+[document reconciliation](completion.md#reconcile-final-documents) and any explicitly requested
+or project-required [final review](delegation.md#review-the-final-result). Then apply the existing cleanup step.
 A partial batch or failed migration keeps its continuation state and unresolved work.
 
 ## Analyse APIs and escape hatches
@@ -106,6 +108,6 @@ Save recommendations in the work list and link systemic findings to the gap jour
 an evidenced finding that no change is needed also completes analysis of an item.
 Record unavailable evidence as unfinished analysis with a reason.
 
-Complete an analysis item when its findings are supported by saved evidence. Implementation
+Complete an analysis item when its findings are supported by inspected sources and actual check results. Implementation
 of recommendations is a separate craft step requiring that scope; analysis alone
 does not change APIs, consumers or contract promises.

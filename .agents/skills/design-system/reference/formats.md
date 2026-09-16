@@ -50,14 +50,14 @@ its nonempty string is required for every status.
 `sources` lists implementation files for every supported binding and the styles
 that define the entity. Native/CSS-only entities may list just their stylesheet.
 For an intended contract awaiting implementation, use `sources: []`, keep it hidden
-and report implementation as unverified. A document-only pattern can use `sources: []`
+and report implementation as pending. A document-only pattern can use `sources: []`
 and become discoverable after its selection and composition obligations are checked;
 it needs no implementation of its own. Empty sources never establish runtime readiness.
 
 All path fields are lists of concrete files relative to the project root containing
 DESIGN.md, using forward slashes. Paths stay inside the project, including through
 symlinks; absolute paths, URLs, globs, fragments and `.`/`..` segments are invalid.
-Tests and examples point to existing evidence files, not commands or proof of passing.
+Tests and examples point to existing project files, not commands or proof of passing.
 Check listed files exist. Ordinary Markdown links remain relative to their document.
 
 For nonempty `sources`, `sourcesHash` records the source snapshot at the last contract
@@ -247,7 +247,7 @@ a suggested example from an invariant. **Accessibility** follows component owner
 ## Pattern
 
 Use [the pattern contract template](../assets/patterns.md) for one file in
-`design-system/patterns/`. Keep identity, status and source/evidence paths in
+`design-system/patterns/`. Keep identity, status and source, test and example paths in
 [frontmatter](#contract-frontmatter). PATTERNS.md links to each contract using the
 shared index format. Link executable examples and checks from Structure or Verification
 and list their files in the corresponding frontmatter fields when available.
@@ -293,4 +293,5 @@ verifiable promises; apply the [contrast scope](verify.md#contrast-scope) during
 Use native elements, attributes and anatomy where needed for invocation, forms,
 composition, events or accessibility. Keep internal DOM dumps out of contracts.
 Report unresolved normative choices to [craft](craft.md) rather than filling a contract with
-placeholders. Draft work with unresolved choices is incomplete and not admitted.
+placeholders. Draft work with unresolved choices is incomplete; eligibility follows
+[admission policy](admission.md), including its external-addition exception.

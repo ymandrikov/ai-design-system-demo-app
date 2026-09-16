@@ -1,6 +1,6 @@
 # Plan automatic migration
 
-Plan the design-system migration and its evidence. Write the plan in
+Plan the design-system migration and its checks. Write the plan in
 `design-system/adoption.md`, extending the [saved work list](adoption.md#save-the-work-list)
 with tasks and steps. The plan and execution progress share this document.
 [Automatic migration](migrate.md) owns scope, authority, batching,
@@ -71,7 +71,9 @@ defines concrete steps for settled work and identifies what blocks the remainder
 
 ## Validate plan completion
 
-After executing the plan, or when only blocked work remains, reconcile every task
+When verification is skipped, maintain task progress as work proceeds and omit this
+separate validation pass. Otherwise, after executing the plan, or when only blocked
+work remains, reconcile every task
 and step in `design-system/adoption.md` with the actual files and saved results
 before reporting completion. Checked boxes alone are not evidence of execution.
 
@@ -79,14 +81,13 @@ before reporting completion. Checked boxes alone are not evidence of execution.
    implementation and affected consumers, within the selected mode's scope.
 2. Match required enabled checks to recorded outcomes covering the final changes.
    Run missing checks and repeat invalidated ones under the saved verification choice.
-   With verification skipped, limit this stage to source and progress reconciliation;
-   retain `unverified — skipped by user choice` without running the skipped audits.
+   Omit skipped or unavailable checks under the shared verification rule.
 3. Reopen incorrectly completed steps and add any omitted in-scope work. Continue
    actionable tasks, then reconcile their results again. Keep unresolved blockers
    attached to unfinished tasks.
 
 Save the completion assessment in `design-system/adoption.md`, with references to
-the resulting files and evidence, remaining work and blockers. Declare the plan
+the resulting files, concise check outcomes, remaining work and blockers. Declare the plan
 complete only when every task satisfies the selected mode's completion rules;
 otherwise report it as partially complete. Preserve the distinction between
 completed work and verified behaviour when checks were skipped.

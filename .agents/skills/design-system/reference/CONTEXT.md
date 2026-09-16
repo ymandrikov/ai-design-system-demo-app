@@ -176,9 +176,9 @@ A system gap in which the behaviour or result provided by a UI entity differs fr
 its observable contract promises.
 
 **Improve**:
-The procedure for surveying and improving an existing design system's presentation,
-structure and documentation through bounded craft work, with saved progress and
-verification. Related consumer presentation may change within scope; component
+The procedure for surveying an existing design system without changing files, then
+offering one choice for the whole result: save a document or perform bounded craft
+work and verification. Related consumer presentation may change within scope; component
 internals and business logic remain unchanged. Improvements depending on excluded
 work remain proposals for project development.
 

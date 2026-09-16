@@ -1,20 +1,12 @@
 # Independent contract gates
 
-Read [admission policy](admission.md#select-the-applicable-policy) to determine which
-gates apply and whether discovery runs per authoring batch or over the whole migration
-area. An explicit verification refusal skips these gates. Admission and completion
-are decided by that policy; this document supplies task preparation, isolation and
-result assessment. For whole-set work, start at [migration discovery](#whole-set-migration-discovery).
-
-Use one fresh subagent or independent session for discovery requests in each required
-set, with only the public inputs below. Use a separate fresh context for optional
-consumption. The author's reasoning is not independent evidence. Return failed or
-unavailable checks explicitly to the caller; never substitute a self-review.
-The controller saves prompts, complete answers, generated artifacts and executable
-results in the provided evidence directory outside the product copy when supplied. Do not
-supply expected answers to the worker. A controller checks results, not prose style.
-Return execution artifacts to the caller for its cleanup; identify evidence needed
-by current contracts and continuing work.
+Use this procedure only for independent checks explicitly requested by the task or
+required by project policy. Read [admission policy](admission.md#select-the-applicable-policy)
+for timing and completion conditions. An explicit verification refusal skips these checks.
+Use a fresh subagent or independent session with only the public inputs below; a
+self-review cannot replace an explicitly required independent check. Keep expected
+answers outside worker inputs. Return decisions, failures and unavailable checks in
+the conversation; no separate prompts, transcripts, logs or evidence archive are required.
 
 ## Whole-set migration discovery
 
@@ -28,7 +20,7 @@ If any selected contract is blocked, finish independent work and save blockers;
 defer this gate until the whole selected set and its indexes are ready. Discovery
 for actual consumer updates may run earlier against ready eligible contracts.
 
-Before dispatch, save a coverage list of real page scenarios and groups of similar
+Before dispatch, prepare a coverage list of real page scenarios and groups of similar
 components, layouts and patterns. Cover each such group with at least one request
 that distinguishes candidates. Where real consumers or comparison groups are absent,
 derive synthetic requests from documented purposes and composition rules and label
@@ -38,7 +30,7 @@ use product situations and deciding differences, with their origins recorded out
 the worker's inputs. A restated contract condition does not cover a comparison group.
 Whole-set coverage does not require a must-fit/must-not-fit pair for every entity.
 
-Run the saved requests against the complete public set in a fresh independent context,
+Run the prepared requests against the complete public set in a fresh independent context,
 using [the discovery gate's public inputs and result assessment](#discovery-gate-run-the-actual-procedure).
 Keep expected answers outside worker inputs. Correct discovered contract errors and
 rerun affected cases in fresh context against final inputs. Retain failures and return
@@ -67,7 +59,7 @@ record which rule the verifier must reject. Prefer an actual project defect or b
 Start with a product situation: who is doing what, what the content represents,
 its surrounding context and the required interaction or outcome. Derive real cases
 from consumer tasks and product requirements; derive synthetic cases when those are
-absent and identify them as synthetic in the controller's evidence. Prepare these
+absent and identify them as synthetic in the controller's assessment. Prepare these
 facts independently of the contract's wording and keep gate cases out of its examples.
 
 For a close comparison, hold the task/context steady and change the fact that should
@@ -76,8 +68,8 @@ a state marker beside its name with an explanation of the failure and recovery s
 in the same location. The controller establishes the expected choice from this
 project's rules; this example sets no universal Badge policy.
 
-Before dispatch, save each case's origin, competing uses and deciding fact beside
-the separate expectations. A request must leave the component decision to discovery.
+Before dispatch, identify each case's origin, competing uses and deciding fact
+in the controller context, separate from worker inputs. A request must leave the component decision to discovery.
 Copying or paraphrasing a selection criterion, naming the desired presentation, or
 saying that the required recipe already calls for it does not exercise that decision.
 Shared domain words are fine; judge whether the request supplies a situation or the
@@ -89,7 +81,7 @@ A correct answer to an invalid case supplies no evidence of contract sufficiency
 Give the worker an isolated copy containing DESIGN.md, all three UI indexes, their
 linked contracts and the batch’s hidden contracts, required public rules/token definitions and the current design-system
 skill. Keep competing candidates present. Omit component implementations, private
-styles, tests, previews, consumer code and authoring history; source/evidence links
+styles, tests, previews, consumer code and authoring history; source/test/example links
 in the copied contracts are references, not additional permitted inputs. Keep expected
 answers outside the worker's inputs. Validate structure and source links on the
 author's full copy, not this reduced one.
@@ -107,7 +99,7 @@ Design: <DESIGN.md in copy>.
 Requests: <case ids and unnamed tasks>.
 Read only the supplied copy. Return the full discovery response in the conversation.
 For each case, connect request facts to the deciding contract or linked public rule.
-Use only read/search operations; the controller saves your response.
+Use only read/search operations; return results in this conversation.
 ```
 
 First check the cases against [scenario quality](#scenario-quality); a successful
@@ -123,8 +115,8 @@ A different valid candidate may expose bad expected evidence: inspect contracts
 before deciding whether the task, summary or contract needs correction. Do not alter
 other contracts just to force a target win. A missing request fact may legitimately
 require an answer; supply it in a new run instead of marking a conditional choice as
-verified. Save each case's clauses and actual result. After corrections, rerun affected
-cases in a fresh context against the final public inputs; retain earlier failures.
+verified. Report each case's deciding clauses and result. After corrections, rerun affected
+cases in a fresh context against the final public inputs; mention unresolved failures.
 
 ## Consumption/composition gate
 
@@ -161,4 +153,4 @@ Pass requires correct decisions, valid artifacts, no unresolved fact needed for 
 tasks, and passing applicable executable checks. Classify failures as contract,
 implementation, test expectation or decision; route contract changes to craft
 and component fixes to the project process, then rerun affected gates on final artifacts.
-An unavailable check is not run, not pass. Record each applicable gate with raw evidence.
+An unavailable check is not run, not pass. Report each applicable check and its result in the response.
