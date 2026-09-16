@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "design-system": {
+      "source": "ymandrikov/ai-design-system",
+      "sourceType": "github",
+      "skillPath": "skills/design-system/SKILL.md",
+      "computedHash": "ed21b9c27e6495449119971b0d95c0758cea7c46d6a567706f81ae9394825df8"
+    }
+  }
+}
