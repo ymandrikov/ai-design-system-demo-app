@@ -36,7 +36,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         </nav>
       </header>
       {services.length === 0 ? (
-        <section className="rounded-lg border bg-card px-6 py-16 text-center">
+        <section className="rounded-lg border bg-card px-6 py-16 text-center text-card-foreground">
           <h2 className="text-lg font-semibold">No services yet</h2>
           <p className="mt-2 text-sm text-muted-foreground">Services will appear here when they are added.</p>
         </section>
@@ -55,7 +55,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
               <td>{service.state ? stateLabels[service.state] : "Not configured"}</td>
               <td>{service.currentVersion ? <code className="rounded-md bg-muted px-2 py-1 text-xs">v{service.currentVersion}</code> : <span className="text-muted-foreground">No version</span>}</td>
               <td>{service.lastResult ? <span className={service.lastResult === "failed" ? "font-medium text-destructive" : "font-medium"}>{service.lastResult === "failed" ? "Failed" : "Succeeded"}</span> : <span className="text-muted-foreground">No deployments</span>}</td>
-              <td className="whitespace-nowrap text-muted-foreground">{service.lastCompletedAt ? <time dateTime={service.lastCompletedAt.toISOString()}>{dateFormat.format(service.lastCompletedAt)}</time> : "—"}</td>
+              <td><span className="whitespace-nowrap text-nowrap text-muted-foreground">{service.lastCompletedAt ? <time dateTime={service.lastCompletedAt.toISOString()}>{dateFormat.format(service.lastCompletedAt)}</time> : "—"}</span></td>
             </tr>
           ))}</tbody>
         </Table>
