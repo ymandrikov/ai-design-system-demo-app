@@ -1,10 +1,11 @@
 ---
-sourcesHash: 73288428161774241bddd584d4c4023ceb26f9d1d70a138232c0b74139e04ac1
+sourcesHash: e2191c83a18992ce03c585a858149970bc9c550f869ca34eb7e1039069727805
 id: tabs
 description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
 status: discoverable
 sources:
   - components/ui/tabs.tsx
+  - components/ui/tabs-styles.ts
 ---
 
 # Tabs
@@ -18,7 +19,7 @@ All criteria must hold:
 
 ## When not to use
 
-- Sections are destinations requiring links, browser history or reload persistence: use native links and page-owned navigation, as specified for environment switching in [DESIGN.md](../../DESIGN.md).
+- Sections are destinations requiring links, browser history or reload persistence: use [NavigationalTabs](navigational-tabs.md) for related destinations styled as tabs, or ordinary links. The page owns routing and data.
 - The selection represents a form value rather than the content currently displayed: use native radio buttons or a select.
 - Users need to read or compare sections simultaneously: use ordinary headings and sections; for records with shared fields, consider [Table](table.md).
 

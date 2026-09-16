@@ -1,8 +1,10 @@
 # Contract adoption
 
 Scope: the newly installed Tabs component and its constituent React exports.
-Table already has a contract. The Services page now uses Tabs through the page-local
-`app/environment-tabs.tsx` adapter; see the [URL-sync exception](gaps.md#environment-tabs-url-synchronisation).
+Table already has a contract. The Services page now uses
+[NavigationalTabs](components/navigational-tabs.md); the previous URL-sync exception
+is recorded in the [archive](gaps-archive.md#environment-tabs-url-synchronisation).
+Tabs has no current product consumers; its panel-focus defect remains open.
 
 | Component | Source | Contract | Progress |
 | --- | --- | --- | --- |

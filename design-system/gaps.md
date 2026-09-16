@@ -6,30 +6,6 @@ demonstrating the original expected result.
 
 ## Open gaps
 
-### Environment tabs URL synchronisation
-
-- Status: Open local exception; recorded 2026-09-16.
-- Source: `app/page.tsx` and `app/environment-tabs.tsx`.
-- Request and authority: after explicitly admitting Tabs, the owner requested using
-  that component for the existing environment tabs. This exception is limited to
-  that composition and preserves the existing URL-selected environment.
-- Affected rule: Tabs excludes URL navigation in its selection criteria. The page
-  uses controlled Tabs while its local adapter owns `router.push`; the server still
-  validates the environment and loads the matching data. Shared Tabs is unchanged.
-- Expected: production/staging selection uses the shared styling and keyboard model,
-  while direct URLs, reload and browser history continue to select the correct data.
-- Scope: no general route-navigation capability, style override or change to tab
-  semantics. The known panel-focus defect remains open independently.
-- Assessment: C — generalising URL-synchronised selection would require a shared
-  contract decision; the owner's specific use request authorises only this exception.
-- Verification: `pnpm lint`, `pnpm exec tsc --noEmit` and `pnpm build --webpack`
-  passed. In the built application, clicking staging changed the selected trigger,
-  panel label, URL and service versions together. Reload, Back and Forward preserved
-  matching selection/data. Left moved focus without navigating; Enter selected
-  production. At a measured 500px viewport, page width stayed 500px and the table
-  scrolled inside its region. The active panel has matching ARIA relationships.
-  The inherited panel-focus defect remains; this is not a full accessibility pass.
-
 ### Tabs panel focus is invisible
 
 - Status: Open; recorded 2026-09-16.

@@ -32,11 +32,11 @@ The root document layout is framework-owned. Table owns its shared styling and n
 scrollable structure; see its [contract](design-system/components/table.md).
 
 The Services page owns its width, spacing, header and empty state. Environment
-selection uses the shared Tabs composition and the page-local `app/environment-tabs.tsx`
-adapter to synchronise controlled selection with URL navigation. The server owns
-environment validation and data loading. This owner-requested composition is a
-[local exception](design-system/gaps.md#environment-tabs-url-synchronisation) to the
-Tabs contract's URL-navigation exclusion; it introduces no shared navigation variant.
+navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
+with canonical destination URLs derived by the server. The component renders
+Next.js links with `aria-current="page"`; the server validates the environment and
+loads its data. Tabs remains for local panel switching. Both components reuse
+`components/ui/tabs-styles.ts` as their single source of list and item styling.
 Components receive content through props and never access SQLite.
 
 ## Verification
