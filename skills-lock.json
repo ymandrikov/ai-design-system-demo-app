@@ -6,6 +6,12 @@
       "sourceType": "github",
       "skillPath": "skills/design-system/SKILL.md",
       "computedHash": "ed21b9c27e6495449119971b0d95c0758cea7c46d6a567706f81ae9394825df8"
+    },
+    "shadcn": {
+      "source": "shadcn/ui",
+      "sourceType": "github",
+      "skillPath": "skills/shadcn/SKILL.md",
+      "computedHash": "f615de216e085a84e31593ad0fa9062232adc40cd87b7c7ab2b8e49abf6500be"
     }
   }
 }
