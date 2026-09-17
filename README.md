@@ -58,12 +58,12 @@ on each request. Dates are shown in UTC.
 The seed demonstrates API remaining healthy on v1.0.0 after a failed production
 deployment, newer staging versions, successful history and an undeployed staging
 worker with no history. Re-running the seed preserves existing state and history.
-Only completed deployments are modelled at this stage; deployment simulation is not implemented.
+Deployments now include active progress and completed outcomes.
 
 Service names link to `/services/[slug]?environment=production` (or `staging`).
 The details screen keeps the selected environment when switching, reloading and
 returning to the list. It separates service health and current version from the
-latest deployment result, and lists completed history newest first, with UTC times.
+latest deployment result, and lists deployment history newest first, with UTC completion times.
 `worker` in staging demonstrates empty history; unknown slugs show a not-found page.
 
 Run `pnpm db:migrate` after updating: the additive migration introduces an optional
@@ -75,3 +75,32 @@ Other versions without commit metadata display “Not recorded”.
 Checks: `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm build`. If Turbopack cannot bind
 its internal ports in a restricted environment, `pnpm build --webpack` and
 `pnpm dev --webpack` use the supported alternative bundler.
+
+## Starting deployments
+
+On a service page, choose an environment and click **Deploy**. The form and Cancel
+preserve `?environment=production|staging`. Run `pnpm db:migrate` and `pnpm db:seed`
+after updating to add the simulation fields and predefined version descriptions.
+Versions 1.0.0 and 1.1.0 succeed; 1.2.0 deterministically fails its health check.
+Each stage (Queued, Build, Deploy, Health check) lasts five seconds. The history
+refreshes once per second while active, including after a reload, and stops at completion.
+
+`lib/deployments` provides `startDeployment`, `retryDeployment`,
+`rollbackDeployment`, `getDeploymentDetails` and `getDeploymentForm`. Details include
+server-calculated progress, stages, timestamped logs and available actions.
+Retry creates a new record for a failed deployment. Rollback is available only for
+the current latest successful deployment, with no active run, and targets the most
+recent successful **different** version. Both preserve history and record their source.
+Their UI and the deployment details screen are intentionally deferred.
+
+Reads and starts settle overdue work inside an immediate SQLite transaction.
+Successful completion and the environment version update commit together; failure
+keeps the working version. A partial unique index also prevents concurrent active
+runs for the same service/environment. Scenarios are copied into each deployment.
+Legacy completed records retain IDs, outcomes and completion times; the migration
+assigns their demo start time to 20 seconds before completion.
+
+Manual checks: deploy 1.1.0, reload while active, wait for success; deploy 1.2.0
+and verify Failed with the previous current version and Healthy state unchanged.
+Open two forms for the same pair before submitting: the second submission must
+report the active deployment. Once finished, confirm history stops refreshing.

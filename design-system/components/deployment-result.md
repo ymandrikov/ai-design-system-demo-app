@@ -39,8 +39,8 @@ Consumers select the record and render missing-data text themselves.
 There are no children, events, methods, forwarded native attributes or styling overrides.
 The component is server-compatible and does not load data.
 
-The owner's implementation request for [A-01](../analysis.md#a-01--отображение-результата-деплоя)
-preserves the existing inline treatment across the three consumers: medium weight,
+The shared [DeploymentResult implementation](../../components/deployments/deployment-result.tsx)
+uses one inline treatment: medium weight,
 Failed in the destructive semantic colour, Succeeded inheriting its surrounding
 foreground. This is the single treatment, not a configurable badge. Labels reuse
 the shared presentation module. [Global tokens](../../app/globals.css) supply both

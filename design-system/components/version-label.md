@@ -39,8 +39,8 @@ are preserved. Consumers select the record and handle missing data.
 There are no children, events, methods, native-attribute forwarding or styling overrides.
 The component is server-compatible and does not load data.
 
-The owner's implementation request for [A-02](../analysis.md#a-02--отображение-версии)
-preserves the existing native inline code, rounded corners, muted background,
+The shared [VersionLabel implementation](../../components/deployments/version-label.tsx)
+uses native inline code, rounded corners, muted background,
 horizontal and vertical padding and extra-small text. This is one shared treatment,
 with the surrounding foreground inherited; it has no badge variants.
 [Global CSS](../../app/globals.css) provides the mono font and theme tokens.

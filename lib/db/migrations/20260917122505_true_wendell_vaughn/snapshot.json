@@ -1,0 +1,490 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "id": "8516c302-e503-4999-92b4-9382f57b513f",
+  "prevIds": [
+    "1b54424b-0c54-429c-96ef-089c52a12a49"
+  ],
+  "ddl": [
+    {
+      "name": "deployments",
+      "entityType": "tables"
+    },
+    {
+      "name": "service_environments",
+      "entityType": "tables"
+    },
+    {
+      "name": "service_versions",
+      "entityType": "tables"
+    },
+    {
+      "name": "services",
+      "entityType": "tables"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "service_id",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "environment",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "version_id",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "'success'",
+      "generated": null,
+      "name": "scenario",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "(unixepoch())",
+      "generated": null,
+      "name": "started_at",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "result",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "completed_at",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "'deploy'",
+      "generated": null,
+      "name": "kind",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "source_deployment_id",
+      "entityType": "columns",
+      "table": "deployments"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "service_id",
+      "entityType": "columns",
+      "table": "service_environments"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "environment",
+      "entityType": "columns",
+      "table": "service_environments"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "state",
+      "entityType": "columns",
+      "table": "service_environments"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "current_version_id",
+      "entityType": "columns",
+      "table": "service_environments"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "service_versions"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "service_id",
+      "entityType": "columns",
+      "table": "service_versions"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "version",
+      "entityType": "columns",
+      "table": "service_versions"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "commit",
+      "entityType": "columns",
+      "table": "service_versions"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "'Predefined demo release.'",
+      "generated": null,
+      "name": "description",
+      "entityType": "columns",
+      "table": "service_versions"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "'success'",
+      "generated": null,
+      "name": "scenario",
+      "entityType": "columns",
+      "table": "service_versions"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "services"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "slug",
+      "entityType": "columns",
+      "table": "services"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "name",
+      "entityType": "columns",
+      "table": "services"
+    },
+    {
+      "columns": [
+        "service_id",
+        "environment"
+      ],
+      "tableTo": "service_environments",
+      "columnsTo": [
+        "service_id",
+        "environment"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "nameExplicit": false,
+      "name": "fk_deployments_service_id_environment_service_environments_service_id_environment_fk",
+      "entityType": "fks",
+      "table": "deployments"
+    },
+    {
+      "columns": [
+        "service_id",
+        "version_id"
+      ],
+      "tableTo": "service_versions",
+      "columnsTo": [
+        "service_id",
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "nameExplicit": false,
+      "name": "fk_deployments_service_id_version_id_service_versions_service_id_id_fk",
+      "entityType": "fks",
+      "table": "deployments"
+    },
+    {
+      "columns": [
+        "service_id"
+      ],
+      "tableTo": "services",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "nameExplicit": false,
+      "name": "fk_service_environments_service_id_services_id_fk",
+      "entityType": "fks",
+      "table": "service_environments"
+    },
+    {
+      "columns": [
+        "service_id",
+        "current_version_id"
+      ],
+      "tableTo": "service_versions",
+      "columnsTo": [
+        "service_id",
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "nameExplicit": false,
+      "name": "fk_service_environments_service_id_current_version_id_service_versions_service_id_id_fk",
+      "entityType": "fks",
+      "table": "service_environments"
+    },
+    {
+      "columns": [
+        "service_id"
+      ],
+      "tableTo": "services",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "nameExplicit": false,
+      "name": "fk_service_versions_service_id_services_id_fk",
+      "entityType": "fks",
+      "table": "service_versions"
+    },
+    {
+      "columns": [
+        "service_id",
+        "environment"
+      ],
+      "nameExplicit": false,
+      "name": "service_environments_pk",
+      "entityType": "pks",
+      "table": "service_environments"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "deployments_pk",
+      "table": "deployments",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "service_versions_pk",
+      "table": "service_versions",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "services_pk",
+      "table": "services",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        {
+          "value": "service_id",
+          "isExpression": false
+        },
+        {
+          "value": "environment",
+          "isExpression": false
+        }
+      ],
+      "isUnique": true,
+      "where": "\"deployments\".\"result\" is null",
+      "origin": "manual",
+      "name": "one_active_deployment",
+      "entityType": "indexes",
+      "table": "deployments"
+    },
+    {
+      "columns": [
+        {
+          "value": "service_id",
+          "isExpression": false
+        },
+        {
+          "value": "environment",
+          "isExpression": false
+        },
+        {
+          "value": "completed_at",
+          "isExpression": false
+        },
+        {
+          "value": "id",
+          "isExpression": false
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "origin": "manual",
+      "name": "deployment_history",
+      "entityType": "indexes",
+      "table": "deployments"
+    },
+    {
+      "columns": [
+        "service_id",
+        "version"
+      ],
+      "nameExplicit": false,
+      "name": "service_versions_service_id_version_unique",
+      "entityType": "uniques",
+      "table": "service_versions"
+    },
+    {
+      "columns": [
+        "service_id",
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "service_versions_service_id_id_unique",
+      "entityType": "uniques",
+      "table": "service_versions"
+    },
+    {
+      "columns": [
+        "slug"
+      ],
+      "nameExplicit": false,
+      "name": "services_slug_unique",
+      "entityType": "uniques",
+      "table": "services"
+    },
+    {
+      "value": "\"result\" in ('succeeded', 'failed')",
+      "name": "valid_deployment_result",
+      "entityType": "checks",
+      "table": "deployments"
+    },
+    {
+      "value": "\"scenario\" in ('success', 'health_check_failure')",
+      "name": "valid_deployment_scenario",
+      "entityType": "checks",
+      "table": "deployments"
+    },
+    {
+      "value": "\"kind\" in ('deploy', 'retry', 'rollback')",
+      "name": "valid_deployment_kind",
+      "entityType": "checks",
+      "table": "deployments"
+    },
+    {
+      "value": "(\"result\" is null and \"completed_at\" is null) or (\"result\" is not null and \"completed_at\" is not null and \"completed_at\" >= \"started_at\")",
+      "name": "valid_completion",
+      "entityType": "checks",
+      "table": "deployments"
+    },
+    {
+      "value": "\"environment\" in ('production', 'staging')",
+      "name": "valid_environment",
+      "entityType": "checks",
+      "table": "service_environments"
+    },
+    {
+      "value": "\"state\" in ('healthy', 'unavailable', 'not_deployed')",
+      "name": "valid_service_state",
+      "entityType": "checks",
+      "table": "service_environments"
+    },
+    {
+      "value": "\"scenario\" in ('success', 'health_check_failure')",
+      "name": "valid_version_scenario",
+      "entityType": "checks",
+      "table": "service_versions"
+    }
+  ],
+  "renames": []
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RefreshActiveDeployment } from "@/components/deployments/refresh-active-deployment";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
@@ -31,7 +32,10 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
       </nav>
       <div className="mb-8">
         <PageHeader title={service.name} description={`Service health and deployment history in ${environment}.`} controls={
-          <NavigationalTabs label="Environment" currentHref={`${pathname}?environment=${environment}`} items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: value }))} />
+          <div className="flex flex-wrap items-center gap-4">
+            <NavigationalTabs label="Environment" currentHref={`${pathname}?environment=${environment}`} items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: value }))} />
+            {service.state && <Link href={`${pathname}/deploy?environment=${environment}`} className="inline-flex min-h-12 items-center rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-4">Deploy</Link>}
+          </div>
         } />
       </div>
       <section aria-label="Service summary" className="mb-10 rounded-lg border bg-card p-6 text-card-foreground">
@@ -42,6 +46,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         </dl>
         <p className="mt-6 text-xs text-muted-foreground">A failed deployment can leave the previous working version healthy.</p>
       </section>
+      <RefreshActiveDeployment key={`${service.id}-${environment}`} active={service.history.some((deployment) => !deployment.result)} />
       <h2 className="mb-4 text-lg font-semibold">Deployment history</h2>
       {service.history.length === 0 ? (
         <section className="rounded-lg border bg-card px-6 py-16 text-center text-card-foreground">
@@ -58,8 +63,8 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
               <th scope="row">#{deployment.id}</th>
               <td><VersionLabel version={deployment.version} /></td>
               <td>{deployment.commit ? <code>{deployment.commit}</code> : <span className="text-muted-foreground">Not recorded</span>}</td>
-              <td><DeploymentResult result={deployment.result} /></td>
-              <td><time className="whitespace-nowrap text-muted-foreground" dateTime={deployment.completedAt.toISOString()}>{dateFormat.format(deployment.completedAt)}</time></td>
+              <td>{deployment.result ? <DeploymentResult result={deployment.result} /> : <span className="font-medium">{deployment.progress.stage} · {deployment.progress.percent}%</span>}</td>
+              <td>{deployment.completedAt ? <time className="whitespace-nowrap text-muted-foreground" dateTime={deployment.completedAt.toISOString()}>{dateFormat.format(deployment.completedAt)}</time> : <span className="text-muted-foreground">In progress</span>}</td>
             </tr>
           ))}</tbody>
         </Table>

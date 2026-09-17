@@ -55,3 +55,25 @@
   Preview files were removed; no automated tests were added.
 - Independent limitation: the existing Tabs panel-focus gap remains open for the
   separate panel component and no longer affects this navigation composition.
+
+### VersionLabel and DeploymentResult reference a missing design analysis
+
+- Status: Resolved; recorded 2026-09-17 while adding deployment launch.
+- Closed: 2026-09-17.
+- Source: [VersionLabel](components/version-label.md) and
+  [DeploymentResult](components/deployment-result.md), Public API sections.
+- Expected: linked design decisions resolve to their authoritative source.
+- Actual: both contracts link to `design-system/analysis.md`, which is absent.
+- Evidence: `check-contract.mjs` with all three indexes reports unresolved
+  `../analysis.md#a-02--отображение-версии` and
+  `../analysis.md#a-01--отображение-результата-деплоя`. The contracts and their
+  shared component sources were unchanged by this task.
+- Assessment: C — the authoritative replacement decision source is missing;
+  restoring it or identifying an equivalent source needs separate system work.
+- Next: restore the referenced decisions and rerun the two contract checks.
+- Resolution: preserved the full visual decisions in each authoritative contract,
+  removed the unavailable historical A-01/A-02 attribution, and linked the matching
+  component implementation. No API, design promise, eligibility or runtime changed.
+  The historical analysis was not reconstructed or claimed to be recovered.
+- Verified by: both component contract checks with all three indexes passed,
+  including link resolution and source hashes; generated-index freshness passed.
