@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
 import { PageHeader } from "@/components/ui/page-header";
 import { Table } from "@/components/ui/table";
 import { getServiceDetails } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
-import { dateFormat, resultLabels, stateLabels } from "@/lib/deployments/presentation";
+import { dateFormat, stateLabels } from "@/lib/deployments/presentation";
 
 export async function generateMetadata({ params }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -36,7 +37,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         <dl className="grid gap-6 sm:grid-cols-3">
           <div><dt className="text-sm text-muted-foreground">Service state</dt><dd className="mt-2 font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</dd></div>
           <div><dt className="text-sm text-muted-foreground">Current version</dt><dd className="mt-2">{service.currentVersion ? <code className="rounded-md bg-muted px-2 py-1 text-xs">v{service.currentVersion}</code> : <span className="text-muted-foreground">No version</span>}</dd></div>
-          <div><dt className="text-sm text-muted-foreground">Last deployment</dt><dd className="mt-2">{service.lastResult ? <span className={service.lastResult === "failed" ? "font-medium text-destructive" : "font-medium"}>{resultLabels[service.lastResult]}</span> : <span className="text-muted-foreground">No deployments</span>}</dd></div>
+          <div><dt className="text-sm text-muted-foreground">Last deployment</dt><dd className="mt-2">{service.lastResult ? <DeploymentResult result={service.lastResult} /> : <span className="text-muted-foreground">No deployments</span>}</dd></div>
         </dl>
         <p className="mt-6 text-xs text-muted-foreground">A failed deployment can leave the previous working version healthy.</p>
       </section>
@@ -56,7 +57,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
               <th scope="row">#{deployment.id}</th>
               <td><code className="rounded-md bg-muted px-2 py-1 text-xs">v{deployment.version}</code></td>
               <td>{deployment.commit ? <code>{deployment.commit}</code> : <span className="text-muted-foreground">Not recorded</span>}</td>
-              <td><span className={deployment.result === "failed" ? "font-medium text-destructive" : "font-medium"}>{resultLabels[deployment.result]}</span></td>
+              <td><DeploymentResult result={deployment.result} /></td>
               <td><time className="whitespace-nowrap text-muted-foreground" dateTime={deployment.completedAt.toISOString()}>{dateFormat.format(deployment.completedAt)}</time></td>
             </tr>
           ))}</tbody>
