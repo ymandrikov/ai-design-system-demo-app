@@ -7,7 +7,7 @@ import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
 import { buttonVariants } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
-import { Table } from "@/components/ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getServiceDetails } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
 import { dateFormat, stateLabels } from "@/lib/deployments/presentation";
@@ -55,19 +55,20 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
           <p className="mt-2 text-sm text-muted-foreground">There is no deployment history for {service.name} in {environment}.</p>
         </section>
       ) : (
-        <Table caption={`Deployment history for ${service.name} in ${environment}`}>
-          <thead><tr>
-            <th scope="col">Deployment</th><th scope="col">Version</th><th scope="col">Commit</th><th scope="col">Result</th><th scope="col">Completed at <span className="font-normal">(UTC)</span></th>
-          </tr></thead>
-          <tbody>{service.history.map((deployment) => (
-            <tr key={deployment.id}>
-              <th scope="row">#{deployment.id}</th>
-              <td><VersionLabel version={deployment.version} /></td>
-              <td>{deployment.commit ? <code>{deployment.commit}</code> : <span className="text-muted-foreground">Not recorded</span>}</td>
-              <td>{deployment.result ? <DeploymentResult result={deployment.result} /> : <span className="font-medium">{deployment.progress.stage} · {deployment.progress.percent}%</span>}</td>
-              <td>{deployment.completedAt ? <time className="whitespace-nowrap text-muted-foreground" dateTime={deployment.completedAt.toISOString()}>{dateFormat.format(deployment.completedAt)}</time> : <span className="text-muted-foreground">In progress</span>}</td>
-            </tr>
-          ))}</tbody>
+        <Table aria-label={`Deployment history for ${service.name} in ${environment}`}>
+          <TableCaption className="sr-only">{`Deployment history for ${service.name} in ${environment}`}</TableCaption>
+          <TableHeader><TableRow>
+            <TableHead scope="col">Deployment</TableHead><TableHead scope="col">Version</TableHead><TableHead scope="col">Commit</TableHead><TableHead scope="col">Result</TableHead><TableHead scope="col">Completed at <span className="font-normal">(UTC)</span></TableHead>
+          </TableRow></TableHeader>
+          <TableBody>{service.history.map((deployment) => (
+            <TableRow key={deployment.id}>
+              <TableHead scope="row">#{deployment.id}</TableHead>
+              <TableCell><VersionLabel version={deployment.version} /></TableCell>
+              <TableCell>{deployment.commit ? <code>{deployment.commit}</code> : <span className="text-muted-foreground">Not recorded</span>}</TableCell>
+              <TableCell>{deployment.result ? <DeploymentResult result={deployment.result} /> : <span className="font-medium">{deployment.progress.stage} · {deployment.progress.percent}%</span>}</TableCell>
+              <TableCell>{deployment.completedAt ? <time className="whitespace-nowrap text-muted-foreground" dateTime={deployment.completedAt.toISOString()}>{dateFormat.format(deployment.completedAt)}</time> : <span className="text-muted-foreground">In progress</span>}</TableCell>
+            </TableRow>
+          ))}</TableBody>
         </Table>
       )}
     </main>

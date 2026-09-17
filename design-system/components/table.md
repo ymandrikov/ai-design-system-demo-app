@@ -1,5 +1,5 @@
 ---
-sourcesHash: 7a5d47bc424aade8f8d5fb077523166ba164792e98fb017a70426b49d281eab0
+sourcesHash: 365379a352eaddbb529c678eaea14573a108bc8f7ee5fad9988fdec6f97e3e35
 id: table
 description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
 status: discoverable
@@ -26,29 +26,46 @@ All criteria must hold:
 
 ### React
 
-Import `Table` from `@/components/ui/table`.
+The local source is based on [shadcn Table (base-nova)](https://ui.shadcn.com/docs/components/base/table), with the existing named, keyboard-focusable scroll region and card surface retained. It has no client-only behaviour.
+
+Import the compound parts from `@/components/ui/table`.
 
 ```tsx
-<Table caption="Storage usage by volume">
-  <thead><tr><th scope="col">Volume</th><th scope="col">Used</th></tr></thead>
-  <tbody><tr><th scope="row">Assets</th><td>24 GB</td></tr></tbody>
+<Table aria-label="Storage usage by volume">
+  <TableCaption className="sr-only">Storage usage by volume</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead scope="col">Volume</TableHead>
+      <TableHead scope="col">Used</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableHead scope="row">Assets</TableHead>
+      <TableCell>24 GB</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 ```
 
-Required `caption` is a nonempty descriptive string naming the dataset and active filter, supplied by the consumer. It labels both the table and its scroll region; the caption is visually hidden. Required `children` contains native `thead` and `tbody` with valid rows and cells. Consumers supply headers, row identity, content, formatting and empty-state text. No additional caption is allowed.
+`Table` requires a nonempty `aria-label` naming the dataset and active filter; it labels both the table and its scroll region. Supply one matching `TableCaption` as the first child. Use `className="sr-only"` when the surrounding page already visibly identifies the dataset; otherwise the caption is visible below the table.
 
-No variants, events, methods, native-attribute forwarding or styling overrides are supported. The component owns cell padding, type size, surface, borders and scrolling using the existing card, muted, border and foreground tokens in [global CSS](../../app/globals.css). Consumers own surrounding spacing and inline content semantics; they must not override table geometry or cell styles.
+`TableHeader`, `TableBody` and optional `TableFooter` contain `TableRow` children. Use the footer for aggregate or summary rows. Rows contain `TableHead` (native th) or `TableCell` (native td). Use `TableHead scope="col"` for column headers and `TableHead scope="row"` for row identities, including in the body. Consumers own content, ordering, formatting and empty-state text.
+
+All parts forward native attributes, including refs and events, to their corresponding native element. There are no custom events, methods or variants. Native attributes supply semantics and content relationships; do not replace table roles or introduce row click/selection behaviour. `data-slot` identifies each part. The scroll section's focusability and label remain component-owned.
+
+The component owns shadcn cell spacing, typography, borders and hover treatment, using existing semantic tokens in [global CSS](../../app/globals.css). It retains the project's rounded card surface. Consumer `className` may set layout widths/alignment or hide the caption; do not override colours, typography or cell padding. Consumers own surrounding spacing and inline content semantics.
 
 ## Behaviour and states
 
-Static data is supplied by the consumer; no fetching, sorting or pagination is provided. At narrow widths the named region scrolls horizontally, keeping native table relationships. It is keyboard focusable with a visible outline. Long text wraps naturally; consumers may keep indivisible identifiers together. An empty dataset can be replaced by a page-level empty state or one body cell spanning all columns. No selection or click behaviour is implied by a row.
+Static data is supplied by the consumer; no fetching, sorting or pagination is provided. At narrow widths the named region scrolls horizontally, keeping native table relationships. It is keyboard focusable with a visible outline. Cells keep their content on one line and overflow within the scroll region. An empty dataset can be replaced by a page-level empty state or one body cell spanning all columns. No selection or click behaviour is implied by a row.
 
 ## Accessibility
 
 ### Provided by the component
 
-Native table semantics, a caption, a named keyboard-scrollable region and a visible focus outline. The component does not use colour to encode data meaning.
+Native table semantics, a caption component, a named keyboard-scrollable region and a visible focus outline. The component does not use colour to encode data meaning.
 
 ### Required of consumers
 
-Supply accurate text, column headers with `scope="col"` and row headers with `scope="row"` where rows have an identifying field. Keep cell order aligned with the headers. Express statuses in text, label any embedded controls, and supply correct `colSpan` for empty rows. Use the native structure shown above, not div-based rows or grid roles.
+Supply a descriptive aria-label and matching TableCaption, accurate text, column headers with `scope="col"` and row headers with `scope="row"` where rows have an identifying field. Keep cell order aligned with the headers. Express statuses in text, label any embedded controls, and supply correct `colSpan` for empty rows. Use the compound structure shown above, not div-based rows or grid roles.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
-import { Table } from "@/components/ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
 import { PageHeader } from "@/components/ui/page-header";
 import { listServices } from "@/lib/db/queries";
@@ -41,23 +41,24 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           <p className="mt-2 text-sm text-muted-foreground">Services will appear here when they are added.</p>
         </section>
       ) : (
-        <Table caption={`Services in ${environment}`}>
-          <thead><tr>
-            <th scope="col">Service</th>
-            <th scope="col">Service state</th>
-            <th scope="col">Current version</th>
-            <th scope="col">Last deployment</th>
-            <th scope="col">Completed at <span className="font-normal">(UTC)</span></th>
-          </tr></thead>
-          <tbody>{services.map((service) => (
-            <tr key={service.id}>
-              <th scope="row"><Link href={`/services/${encodeURIComponent(service.slug)}?environment=${environment}`} className="font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">{service.name}</Link></th>
-              <td>{service.state ? stateLabels[service.state] : "Not configured"}</td>
-              <td>{service.currentVersion ? <VersionLabel version={service.currentVersion} /> : <span className="text-muted-foreground">No version</span>}</td>
-              <td>{service.lastResult ? <DeploymentResult result={service.lastResult} /> : <span className="text-muted-foreground">No deployments</span>}</td>
-              <td><span className="whitespace-nowrap text-nowrap text-muted-foreground">{service.lastCompletedAt ? <time dateTime={service.lastCompletedAt.toISOString()}>{dateFormat.format(service.lastCompletedAt)}</time> : "—"}</span></td>
-            </tr>
-          ))}</tbody>
+        <Table aria-label={`Services in ${environment}`}>
+          <TableCaption className="sr-only">{`Services in ${environment}`}</TableCaption>
+          <TableHeader><TableRow>
+            <TableHead scope="col">Service</TableHead>
+            <TableHead scope="col">Service state</TableHead>
+            <TableHead scope="col">Current version</TableHead>
+            <TableHead scope="col">Last deployment</TableHead>
+            <TableHead scope="col">Completed at <span className="font-normal">(UTC)</span></TableHead>
+          </TableRow></TableHeader>
+          <TableBody>{services.map((service) => (
+            <TableRow key={service.id}>
+              <TableHead scope="row"><Link href={`/services/${encodeURIComponent(service.slug)}?environment=${environment}`} className="font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">{service.name}</Link></TableHead>
+              <TableCell>{service.state ? stateLabels[service.state] : "Not configured"}</TableCell>
+              <TableCell>{service.currentVersion ? <VersionLabel version={service.currentVersion} /> : <span className="text-muted-foreground">No version</span>}</TableCell>
+              <TableCell>{service.lastResult ? <DeploymentResult result={service.lastResult} /> : <span className="text-muted-foreground">No deployments</span>}</TableCell>
+              <TableCell><span className="whitespace-nowrap text-nowrap text-muted-foreground">{service.lastCompletedAt ? <time dateTime={service.lastCompletedAt.toISOString()}>{dateFormat.format(service.lastCompletedAt)}</time> : "—"}</span></TableCell>
+            </TableRow>
+          ))}</TableBody>
         </Table>
       )}
       <p className="mt-4 text-xs text-muted-foreground">A failed deployment can leave the previous working version healthy.</p>

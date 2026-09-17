@@ -1,14 +1,117 @@
-import type { ReactNode } from "react";
+import type * as React from "react"
+import { cn } from "cn"
 
-export function Table({ caption, children }: { caption: string; children: ReactNode }) {
+function Table({ className, ...props }: React.ComponentProps<"table"> & { "aria-label": string }) {
   return (
-    // A scroll region must be reachable to scroll overflowing columns by keyboard.
-    // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <section aria-label={caption} tabIndex={0} className="overflow-x-auto rounded-lg border bg-card text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground">
-      <table className="w-full text-left text-sm [&_th]:px-6 [&_th]:py-4 [&_th]:font-medium [&_td]:px-6 [&_td]:py-5 [&_td]:align-middle [&_thead]:border-b [&_thead]:bg-muted [&_thead]:text-muted-foreground [&_tbody_tr:not(:last-child)]:border-b">
-        <caption className="sr-only">{caption}</caption>
-        {children}
-      </table>
+    // Keep the horizontal scroll region reachable by keyboard.
+    <section
+      aria-label={props["aria-label"]}
+      // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+      tabIndex={0}
+      data-slot="table-container"
+      className="relative w-full overflow-x-auto rounded-lg border bg-card text-card-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+    >
+      <table
+        data-slot="table"
+        className={cn("w-full caption-bottom text-sm", className)}
+        {...props}
+      />
     </section>
-  );
+  )
+}
+
+function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+  return (
+    <thead
+      data-slot="table-header"
+      className={cn("[&_tr]:border-b", className)}
+      {...props}
+    />
+  )
+}
+
+function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+  return (
+    <tbody
+      data-slot="table-body"
+      className={cn("[&_tr:last-child]:border-0", className)}
+      {...props}
+    />
+  )
+}
+
+function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
+  return (
+    <tfoot
+      data-slot="table-footer"
+      className={cn(
+        "border-t bg-muted/50 font-medium [&>tr]:last:border-b-0",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
+  return (
+    <tr
+      data-slot="table-row"
+      className={cn(
+        "border-b transition-colors hover:bg-muted/50 has-aria-expanded:bg-muted/50 data-[state=selected]:bg-muted",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+  return (
+    <th
+      data-slot="table-head"
+      className={cn(
+        "h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+  return (
+    <td
+      data-slot="table-cell"
+      className={cn(
+        "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableCaption({
+  className,
+  ...props
+}: React.ComponentProps<"caption">) {
+  return (
+    <caption
+      data-slot="table-caption"
+      className={cn("mt-4 text-sm text-muted-foreground", className)}
+      {...props}
+    />
+  )
+}
+
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
 }
