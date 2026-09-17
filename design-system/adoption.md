@@ -4,16 +4,19 @@ Scope: the newly installed Tabs component and its constituent React exports.
 Table already has a contract. The Services page now uses
 [NavigationalTabs](components/navigational-tabs.md); the previous URL-sync exception
 is recorded in the [archive](gaps-archive.md#environment-tabs-url-synchronisation).
-Tabs has no current product consumers; its panel-focus defect remains open.
+Tabs has no current product consumers. The panel-focus CSS repair is implemented;
+its gap remains open until the rendered expectation is demonstrated.
 
 | Component | Source | Contract | Progress |
 | --- | --- | --- | --- |
-| Tabs | `components/ui/tabs.tsx` | [Tabs](components/tabs.md) | Discoverable by explicit owner instruction; panel-focus defect and remaining checks stay open. |
+| Tabs | `components/ui/tabs.tsx` | [Tabs](components/tabs.md) | Discoverable by explicit owner instruction; Panel-focus CSS repaired; browser confirmation and remaining checks stay open. |
 
 Verification: enabled by the owner on 2026-09-16. The owner subsequently explicitly
 requested discoverable status despite the reported panel-focus defect. This overrides
 the ordinary admission gate for Tabs only; it does not waive or pass remaining checks.
-Scope is documentation only; no API analysis or consumer migration is requested.
+The initial scope was documentation only. On 2026-09-17 the owner authorised the
+panel-focus CSS repair and design-documentation update; no interaction changes or
+consumer migration are included.
 
 Checks from the repository root:
 
@@ -46,13 +49,16 @@ Checks from the repository root:
   clientWidth=scrollWidth=256. Trigger focus had a visible outline and ring.
   No external visual baseline was supplied. Inherited shadcn colours are outside
   ordinary contrast scope.
-- Failed: active panel focus has no visible indicator; see
+- Original failure (before the 2026-09-17 CSS repair): active panel focus has no visible indicator; see
   [Tabs panel focus is invisible](gaps.md#tabs-panel-focus-is-invisible).
 - Remaining runtime evidence: controlled updates, automatic fallback on removal or
   disabling, activateOnFocus, loopFocus=false, Home/End, input state retention,
   full viewport/zoom adaptation and post-repair panel focus in both themes.
 
-Next: repair the recorded defect under authorised craft scope, finish remaining
+Repair (2026-09-17): replaced panel outline suppression with the existing Table
+focus treatment: two-pixel foreground outline, four-pixel offset, on focus-visible.
+
+Next: confirm the repaired panel focus in both themes and finish remaining
 runtime checks. Admission is already authorised by the owner; repair and verification
 remain unfinished. Do not interpret the source
 hash or independent selection result as an accessibility pass. The preview route

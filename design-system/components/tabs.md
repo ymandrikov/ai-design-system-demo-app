@@ -1,5 +1,5 @@
 ---
-sourcesHash: e2191c83a18992ce03c585a858149970bc9c550f869ca34eb7e1039069727805
+sourcesHash: b60f06961dec5c6a0fb5c29f4b7c7a5d1cb688e9b88099d725f47f29a4cdea87
 id: tabs
 description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
 status: discoverable
@@ -100,9 +100,11 @@ neither routing, fetching, loading indicators nor persistence.
 
 Lists do not supply automatic wrapping, overflow navigation or responsive orientation.
 Consumers must provide enough space for their labels and verify narrow layouts.
-The owner explicitly admitted Tabs on 2026-09-16 despite the known
-[invisible panel focus](../gaps.md#tabs-panel-focus-is-invisible) defect and incomplete
-runtime verification. Discoverability does not establish that these checks passed.
+The owner explicitly admitted Tabs on 2026-09-16 despite the recorded
+[panel-focus defect](../gaps.md#tabs-panel-focus-is-invisible) and incomplete runtime
+verification. The panel CSS repair was implemented on 2026-09-17; the gap remains
+open until its rendered keyboard-focus expectation is demonstrated.
+Discoverability does not establish that all runtime checks passed.
 See [adoption progress](../adoption.md) for verification results and remaining checks.
 
 ## Accessibility
@@ -112,10 +114,11 @@ See [adoption progress](../adoption.md) for verification results and remaining c
 Base UI supplies tablist, tab and tabpanel semantics, selection and panel relationships,
 roving keyboard focus, orientation and disabled behaviour. Triggers have visible
 focus styling. Keyboard focus must remain visible when moving into the active panel.
-The implementation currently violates this requirement: panels use `outline-none`
-without a replacement indicator. This [open defect](../gaps.md#tabs-panel-focus-is-invisible)
-remains open after owner-authorised admission; consumers must not compensate with
-ad hoc styling overrides.
+Panels use a two-pixel `focus-visible` outline with a four-pixel offset and the
+semantic foreground colour, following the existing Table focus treatment. This
+replaces the previous `outline-none` suppression without changing focus behaviour.
+See the [repair record](../gaps.md#tabs-panel-focus-is-invisible); consumers must not
+compensate with ad hoc styling overrides.
 
 ### Required of consumers
 

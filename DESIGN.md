@@ -3,8 +3,11 @@
 ## Intent and shared rules
 
 Deploy Board is a local deployment demo. The Services screen compares service health,
-current versions and the last completed deployment by environment. Health and deployment
-outcome are separate and must use explicit text labels. No real deployment is performed.
+current versions and the last completed deployment by environment. Service pages show
+the current version and active/completed deployment history. The Deploy form selects
+a predefined version, shows its commit and description, and warns for production.
+Health and deployment outcome are separate and must use explicit text labels.
+No real deployment is performed.
 
 Follow [AGENTS.md](AGENTS.md) and the [design-system skill](.agents/skills/design-system/SKILL.md).
 Product composition uses `use`; authorised reusable work uses `craft`, then checks,
@@ -31,7 +34,8 @@ Contracts belong in `design-system/components/`, `design-system/layouts/` and
 The root document layout is framework-owned. Table owns its shared styling and native
 scrollable structure; see its [contract](design-system/components/table.md).
 
-The Services page owns its width, outer spacing and empty state.
+Each page owns its width, outer spacing and empty state. Services and service details
+use the wide page composition; the Deploy form uses a narrower single-column composition.
 [PageHeader](design-system/components/page-header.md) owns the page heading,
 optional description and placement of page-level controls. Environment
 navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
@@ -51,6 +55,12 @@ From the repository root: `pnpm lint`, `pnpm build`, and `pnpm exec tsc --noEmit
 Preview with `pnpm dev`; database setup is in [README.md](README.md).
 No automated tests are added at this stage. Browser checks cover environment switching,
 reload persistence, text status distinctions, empty data and narrow-width scrolling.
+Deployment checks cover version selection and summary, the production warning,
+Cancel navigation, pending/validation feedback, and preservation of the environment
+in URLs. Verify successful and failed runs, the working version after a failure,
+reload during an active run, competing submissions from two tabs, and the history's
+one-second refresh stopping at completion. Check keyboard focus on actions and,
+when previewing Tabs, on both triggers and active panels in light and dark themes.
 
 ```sh
 node .agents/skills/design-system/scripts/generate-indexes.mjs .
@@ -63,10 +73,10 @@ Source hashes establish reviewed source snapshots, not runtime correctness.
 
 ## Gaps and decisions
 
-[Contract adoption progress](design-system/adoption.md) tracks the new Tabs contract.
+[Contract adoption progress](design-system/adoption.md) tracks Tabs and its remaining verification.
 
 [Open gaps](design-system/gaps.md); [archive](design-system/gaps-archive.md).
 The initial connection was documentation-only. Page width and outer spacing remain
 page-owned choices. There is no shared
-inner layout, theme control or automated visual/accessibility suite. No decisions
-are required for the current read-only screen.
+inner layout, theme control or automated visual/accessibility suite. Deployment
+details, retry and rollback have server support; their UI is deferred.
