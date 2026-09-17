@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Table } from "@/components/ui/table";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
+import { PageHeader } from "@/components/ui/page-header";
 import { listServices } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
 
@@ -22,17 +23,19 @@ export default async function Home({ searchParams }: PageProps<"/">) {
   return (
     <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-10 sm:py-16">
       <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
-      <header className="mb-8 flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Services</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Service health and the latest deployment in {environment}.</p>
-        </div>
-        <NavigationalTabs
-          label="Environment"
-          currentHref={`/?environment=${environment}`}
-          items={environments.map((value) => ({ href: `/?environment=${value}`, label: value }))}
+      <div className="mb-8">
+        <PageHeader
+          title="Services"
+          description={`Service health and the latest deployment in ${environment}.`}
+          controls={
+            <NavigationalTabs
+              label="Environment"
+              currentHref={`/?environment=${environment}`}
+              items={environments.map((value) => ({ href: `/?environment=${value}`, label: value }))}
+            />
+          }
         />
-      </header>
+      </div>
       {services.length === 0 ? (
         <section className="rounded-lg border bg-card px-6 py-16 text-center text-card-foreground">
           <h2 className="text-lg font-semibold">No services yet</h2>

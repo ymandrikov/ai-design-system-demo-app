@@ -31,7 +31,9 @@ Contracts belong in `design-system/components/`, `design-system/layouts/` and
 The root document layout is framework-owned. Table owns its shared styling and native
 scrollable structure; see its [contract](design-system/components/table.md).
 
-The Services page owns its width, spacing, header and empty state. Environment
+The Services page owns its width, outer spacing and empty state.
+[PageHeader](design-system/components/page-header.md) owns the page heading,
+optional description and placement of page-level controls. Environment
 navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
 with canonical destination URLs derived by the server. The component renders
 Next.js links with `aria-current="page"`; the server validates the environment and
@@ -60,7 +62,7 @@ Source hashes establish reviewed source snapshots, not runtime correctness.
 [Contract adoption progress](design-system/adoption.md) tracks the new Tabs contract.
 
 [Open gaps](design-system/gaps.md); [archive](design-system/gaps-archive.md).
-The initial connection was documentation-only. This screen adds the first shared
-component. Page width and spacing remain page-owned choices. There is no shared
+The initial connection was documentation-only. Page width and outer spacing remain
+page-owned choices. There is no shared
 inner layout, theme control or automated visual/accessibility suite. No decisions
 are required for the current read-only screen.

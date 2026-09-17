@@ -6,6 +6,10 @@
   - Description: Navigate between related page destinations through a horizontal group of links styled like Tabs, with a current-page marker and native link behaviour.
   - Contract: [contract](components/navigational-tabs.md)
 
+- **PageHeader**
+  - Description: Identify the current page with its primary heading, optional supporting description and optional page-level controls, grouped above the page content.
+  - Contract: [contract](components/page-header.md)
+
 - **Table**
   - Description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
   - Contract: [contract](components/table.md)
