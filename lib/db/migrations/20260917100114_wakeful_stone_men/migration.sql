@@ -1,0 +1,1 @@
+ALTER TABLE `service_versions` ADD `commit` text;

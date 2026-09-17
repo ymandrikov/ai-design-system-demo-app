@@ -14,6 +14,7 @@ export const serviceVersions = sqliteTable("service_versions", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   serviceId: integer("service_id").notNull().references(() => services.id),
   version: text("version").notNull(),
+  commit: text("commit"),
 }, (table) => [
   unique().on(table.serviceId, table.version),
   unique().on(table.serviceId, table.id),
@@ -31,7 +32,7 @@ export const serviceEnvironments = sqliteTable("service_environments", {
   check("valid_service_state", sql`${table.state} in ('healthy', 'unavailable', 'not_deployed')`),
 ]);
 
-// Only completed history is needed by the service list; simulation comes later.
+// Only completed history is modelled; simulation comes later.
 export const deployments = sqliteTable("deployments", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   serviceId: integer("service_id").notNull(),

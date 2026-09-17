@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { db } from "./index";
 import { deployments, environments, serviceEnvironments, services, serviceVersions } from "./schema";
 
@@ -7,8 +7,12 @@ db.transaction((tx) => {
   for (const slug of ["api", "web", "worker"]) {
     tx.insert(services).values({ slug, name: slug }).onConflictDoNothing().run();
     const service = tx.select().from(services).where(eq(services.slug, slug)).get()!;
-    for (const version of ["1.0.0", "1.1.0"]) {
-      tx.insert(serviceVersions).values({ serviceId: service.id, version }).onConflictDoNothing().run();
+    // Illustrative commits for the predefined demo versions, not a real repository.
+    for (const [version, commit] of [["1.0.0", "a1b2c3d"], ["1.1.0", "e4f5a6b"]]) {
+      tx.insert(serviceVersions).values({ serviceId: service.id, version, commit }).onConflictDoNothing().run();
+      tx.update(serviceVersions).set({ commit }).where(and(
+        eq(serviceVersions.serviceId, service.id), eq(serviceVersions.version, version), isNull(serviceVersions.commit),
+      )).run();
     }
     const versions = tx.select().from(serviceVersions).where(eq(serviceVersions.serviceId, service.id)).all();
     const oldVersion = versions.find((version) => version.version === "1.0.0")!.id;

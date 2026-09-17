@@ -60,6 +60,18 @@ deployment, newer staging versions, successful history and an undeployed staging
 worker with no history. Re-running the seed preserves existing state and history.
 Only completed deployments are modelled at this stage; deployment simulation is not implemented.
 
+Service names link to `/services/[slug]?environment=production` (or `staging`).
+The details screen keeps the selected environment when switching, reloading and
+returning to the list. It separates service health and current version from the
+latest deployment result, and lists completed history newest first, with UTC times.
+`worker` in staging demonstrates empty history; unknown slugs show a not-found page.
+
+Run `pnpm db:migrate` after updating: the additive migration introduces an optional
+version commit without changing existing records. `pnpm db:seed` fills missing
+commits for predefined demo versions with illustrative hashes, preserves recorded
+commits, and leaves existing environment state and deployment history intact.
+Other versions without commit metadata display “Not recorded”.
+
 Checks: `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm build`. If Turbopack cannot bind
 its internal ports in a restricted environment, `pnpm build --webpack` and
 `pnpm dev --webpack` use the supported alternative bundler.
