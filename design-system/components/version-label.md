@@ -1,5 +1,5 @@
 ---
-sourcesHash: 8f4d587ac0309a0a6b198fd79f6b0873219c95f4886309aa5c727197eb8b9cc3
+sourcesHash: eb2134eaaa3a111315787be5c580e1998b24a999ddb83aef9a50c4e73114e184
 id: version-label
 description: Show a recorded service version as non-interactive inline code with a v prefix, separately from commit identifiers and missing-version text.
 status: discoverable
@@ -40,9 +40,10 @@ There are no children, events, methods, native-attribute forwarding or styling o
 The component is server-compatible and does not load data.
 
 The shared [VersionLabel implementation](../../components/deployments/version-label.tsx)
-uses native inline code, rounded corners, muted background,
-horizontal and vertical padding and extra-small text. This is one shared treatment,
-with the surrounding foreground inherited; it has no badge variants.
+composes [Badge](badge.md) with `variant="secondary"` and `render={<code />}`.
+The requested Badge migration adopts its compact pill, secondary surface/foreground,
+padding and extra-small medium-weight text, retaining native code semantics.
+VersionLabel exposes no visual variants.
 [Global CSS](../../app/globals.css) provides the mono font and theme tokens.
 Consumers own surrounding spacing, surface, field labels and layout. Compose it
 inside a table cell, description-list value or other inline text context.
@@ -50,8 +51,8 @@ inside a table cell, description-list value or other inline text context.
 ## Behaviour and states
 
 The string `1.2.0` renders as `v1.2.0`; a changed prop updates that text.
-Long versions follow the surrounding layout and native code wrapping without
-truncation or a tooltip. There is no interaction, focus stop, loading state or
+Versions stay on one line under Badge's shared treatment; surrounding layouts must
+allow sufficient width or scrolling. There is no tooltip, interaction, focus stop, loading state or
 live announcement.
 
 ## Accessibility

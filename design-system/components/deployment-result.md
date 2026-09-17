@@ -1,5 +1,5 @@
 ---
-sourcesHash: 184be7c99804fb54a5c6904966d7affd450df82d10c211f53f5c2c49419b5d06
+sourcesHash: 8afea3388c3200b57a7ed874b8f01ac7513e486243ba049d0b004f9087726ee6
 id: deployment-result
 description: Show the succeeded or failed outcome of a completed deployment as inline text, separately from service health and missing deployment history.
 status: discoverable
@@ -40,18 +40,19 @@ There are no children, events, methods, forwarded native attributes or styling o
 The component is server-compatible and does not load data.
 
 The shared [DeploymentResult implementation](../../components/deployments/deployment-result.tsx)
-uses one inline treatment: medium weight,
-Failed in the destructive semantic colour, Succeeded inheriting its surrounding
-foreground. This is the single treatment, not a configurable badge. Labels reuse
-the shared presentation module. [Global tokens](../../app/globals.css) supply both
-themes; consumers retain surrounding surface, font size, spacing and field labels.
+composes [Badge](badge.md): `destructive` for Failed and `secondary` for Succeeded.
+The requested migration adopts Badge's compact pill and typography while preserving
+explicit labels and the destructive failure distinction. Labels reuse the shared
+presentation module. [Global tokens](../../app/globals.css) supply both themes;
+consumers retain surrounding surface, spacing and field labels.
 Use within a table cell, a description-list value or other inline text context.
 
 ## Behaviour and states
 
 `succeeded` renders “Succeeded”; `failed` renders “Failed”. Updating the prop updates
 the text and corresponding colour. It adds no interaction, focus stop, loading state
-or live announcement. Long surrounding content follows the consumer's layout.
+or live announcement. Outcome labels stay on one line; surrounding content follows
+the consumer's layout.
 
 ## Accessibility
 

@@ -47,6 +47,11 @@ Standalone screen actions use [Button](design-system/components/button.md):
 `Button` for form submission and `buttonVariants` on native/Next.js links for
 navigation. Deploy uses the default treatment; Cancel uses the link variant.
 Record links and back navigation remain ordinary links.
+Compact annotations use [Badge](design-system/components/badge.md).
+[VersionLabel](design-system/components/version-label.md) composes its secondary
+treatment with native code; [DeploymentResult](design-system/components/deployment-result.md)
+uses secondary for success and destructive for failure. Both retain their domain
+labels and public props across the services list, service history and deploy summary.
 Components receive content through props and never access SQLite.
 
 ## Verification
