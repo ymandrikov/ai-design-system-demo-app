@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { Table } from "@/components/ui/table";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
@@ -52,7 +53,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             <tr key={service.id}>
               <th scope="row"><Link href={`/services/${encodeURIComponent(service.slug)}?environment=${environment}`} className="font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">{service.name}</Link></th>
               <td>{service.state ? stateLabels[service.state] : "Not configured"}</td>
-              <td>{service.currentVersion ? <code className="rounded-md bg-muted px-2 py-1 text-xs">v{service.currentVersion}</code> : <span className="text-muted-foreground">No version</span>}</td>
+              <td>{service.currentVersion ? <VersionLabel version={service.currentVersion} /> : <span className="text-muted-foreground">No version</span>}</td>
               <td>{service.lastResult ? <DeploymentResult result={service.lastResult} /> : <span className="text-muted-foreground">No deployments</span>}</td>
               <td><span className="whitespace-nowrap text-nowrap text-muted-foreground">{service.lastCompletedAt ? <time dateTime={service.lastCompletedAt.toISOString()}>{dateFormat.format(service.lastCompletedAt)}</time> : "—"}</span></td>
             </tr>

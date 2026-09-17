@@ -21,3 +21,7 @@
 - **Tabs**
   - Description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
   - Contract: [contract](components/tabs.md)
+
+- **VersionLabel**
+  - Description: Show a recorded service version as non-interactive inline code with a v prefix, separately from commit identifiers and missing-version text.
+  - Contract: [contract](components/version-label.md)
