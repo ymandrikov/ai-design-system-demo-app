@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import Link from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { deploy } from "./actions";
 
@@ -45,8 +46,8 @@ export function DeployForm({ slug, environment, currentVersion, versions }: {
       </div>
       {!versions.length && <p>No versions are available for this service.</p>}
       <div className="flex flex-wrap items-center gap-4">
-        <button type="submit" disabled={pending || !versions.length} className="min-h-12 rounded-md bg-primary px-5 py-3 font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-4 disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Starting…" : "Deploy"}</button>
-        <Link href={`/services/${encodeURIComponent(slug)}?environment=${environment}`} className="inline-flex min-h-12 items-center text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">Cancel</Link>
+        <Button type="submit" disabled={pending || !versions.length}>{pending ? "Starting…" : "Deploy"}</Button>
+        <Link href={`/services/${encodeURIComponent(slug)}?environment=${environment}`} className={buttonVariants({ variant: "link" })}>Cancel</Link>
       </div>
     </form>
   );

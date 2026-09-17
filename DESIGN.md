@@ -39,6 +39,10 @@ with canonical destination URLs derived by the server. The component renders
 Next.js links with `aria-current="page"`; the server validates the environment and
 loads its data. Tabs remains for local panel switching. Both components reuse
 `components/ui/tabs-styles.ts` as their single source of list and item styling.
+Standalone screen actions use [Button](design-system/components/button.md):
+`Button` for form submission and `buttonVariants` on native/Next.js links for
+navigation. Deploy uses the default treatment; Cancel uses the link variant.
+Record links and back navigation remain ordinary links.
 Components receive content through props and never access SQLite.
 
 ## Verification

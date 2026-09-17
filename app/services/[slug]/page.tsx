@@ -5,6 +5,7 @@ import { RefreshActiveDeployment } from "@/components/deployments/refresh-active
 import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
+import { buttonVariants } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 import { Table } from "@/components/ui/table";
 import { getServiceDetails } from "@/lib/db/queries";
@@ -34,7 +35,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         <PageHeader title={service.name} description={`Service health and deployment history in ${environment}.`} controls={
           <div className="flex flex-wrap items-center gap-4">
             <NavigationalTabs label="Environment" currentHref={`${pathname}?environment=${environment}`} items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: value }))} />
-            {service.state && <Link href={`${pathname}/deploy?environment=${environment}`} className="inline-flex min-h-12 items-center rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-4">Deploy</Link>}
+            {service.state && <Link href={`${pathname}/deploy?environment=${environment}`} className={buttonVariants()}>Deploy</Link>}
           </div>
         } />
       </div>
