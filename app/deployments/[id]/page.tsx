@@ -1,3 +1,4 @@
+import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { textLinkClassName } from "@/components/ui/text-link-styles";
 import { DescriptionItem } from "@/components/ui/description-item";
@@ -49,7 +50,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
           ← {service.name} · {deployment.environment}
         </Link>
       </nav>
-      <div className="mb-8">
+      <PageContent>
         <PageHeader
           title={`Deployment #${deployment.id}`}
           description={`${service.name} · ${deployment.environment} · ${deployment.kind}`}
@@ -67,98 +68,116 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
             ) : undefined
           }
         />
-      </div>
-      <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
-      <section aria-label="Deployment summary" className="mb-10 rounded-lg border bg-card p-6 text-card-foreground">
-        <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <DescriptionItem label="Version">
-            <VersionLabel version={version.version} />
-          </DescriptionItem>
-          <DescriptionItem label="Commit">
-            <code className="break-all">{version.commit ?? "Not recorded"}</code>
-          </DescriptionItem>
-          <DescriptionItem label="Deployment status" aria-live="polite">
-            {deployment.result ? (
-              <DeploymentResult result={deployment.result} />
-            ) : (
-              <span className="font-medium">{stage}</span>
-            )}
-          </DescriptionItem>
-          <DescriptionItem label="Duration">
-            <span className="font-medium">
-              {elapsed}s{!deployment.result && " elapsed"}
-            </span>
-          </DescriptionItem>
-        </dl>
-        <p className="mt-6 text-sm">{version.description}</p>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Started{" "}
-          <time dateTime={deployment.startedAt.toISOString()}>{dateFormat.format(deployment.startedAt)} UTC</time>
-          {deployment.completedAt && (
-            <>
-              {" "}
-              · Completed{" "}
-              <time dateTime={deployment.completedAt.toISOString()}>
-                {dateFormat.format(deployment.completedAt)} UTC
-              </time>
-            </>
-          )}
-        </p>
-        {deployment.sourceDeploymentId && (
-          <p className="mt-2 text-sm">
-            Source:{" "}
-            <Link href={`/deployments/${deployment.sourceDeploymentId}`} className={textLinkClassName}>
-              Deployment #{deployment.sourceDeploymentId}
-            </Link>
-          </p>
-        )}
-        {deployment.result && (
-          <p className="mt-4 text-sm">
-            {deployment.result === "failed"
-              ? "Deployment failed. The previous working version was preserved."
-              : "Deployment succeeded. The environment version was updated when this run completed."}
-          </p>
-        )}
-      </section>
-      <section aria-labelledby="stages-heading" className="mb-10">
-        <h2 id="stages-heading" className="mb-4 text-lg font-semibold">
-          Deployment stages
-        </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
-          {percent}% processed{!deployment.result && " · Updates every second"}
-        </p>
-        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step) => (
-            <li
-              key={step.name}
-              aria-current={step.status === "active" ? "step" : undefined}
-              className="rounded-lg border bg-card p-4 text-card-foreground"
-            >
-              <h3 className="font-medium">{step.name}</h3>
-              <p className={`mt-2 text-sm ${step.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}>
-                {stepLabels[step.status]}
+        <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
+        <PageContent.Section aria-label="Deployment summary">
+          <PageContent.SectionContent>
+            <div className="rounded-lg border bg-card p-6 text-card-foreground">
+              <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <DescriptionItem label="Version">
+                  <VersionLabel version={version.version} />
+                </DescriptionItem>
+                <DescriptionItem label="Commit">
+                  <code className="break-all">{version.commit ?? "Not recorded"}</code>
+                </DescriptionItem>
+                <DescriptionItem label="Deployment status" aria-live="polite">
+                  {deployment.result ? (
+                    <DeploymentResult result={deployment.result} />
+                  ) : (
+                    <span className="font-medium">{stage}</span>
+                  )}
+                </DescriptionItem>
+                <DescriptionItem label="Duration">
+                  <span className="font-medium">
+                    {elapsed}s{!deployment.result && " elapsed"}
+                  </span>
+                </DescriptionItem>
+              </dl>
+              <p className="mt-6 text-sm">{version.description}</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Started{" "}
+                <time dateTime={deployment.startedAt.toISOString()}>{dateFormat.format(deployment.startedAt)} UTC</time>
+                {deployment.completedAt && (
+                  <>
+                    {" "}
+                    · Completed{" "}
+                    <time dateTime={deployment.completedAt.toISOString()}>
+                      {dateFormat.format(deployment.completedAt)} UTC
+                    </time>
+                  </>
+                )}
               </p>
-            </li>
-          ))}
-        </ol>
-      </section>
-      <section aria-labelledby="logs-heading" className="mb-10">
-        <h2 id="logs-heading" className="mb-4 text-lg font-semibold">
-          Logs <span className="text-sm font-normal text-muted-foreground">(UTC)</span>
-        </h2>
-        <ol className="space-y-2 rounded-lg border bg-card p-4 font-mono text-sm text-card-foreground">
-          {logs.map((log, index) => (
-            <li key={index} className="flex flex-wrap gap-x-4 gap-y-1">
-              <time dateTime={log.at.toISOString()} className="text-muted-foreground">
-                {log.at.toISOString().slice(11, 19)}
-              </time>
-              <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive" : ""}`}>
-                {log.level.toUpperCase()} · {log.message}
-              </span>
-            </li>
-          ))}
-        </ol>
-      </section>
+              {deployment.sourceDeploymentId && (
+                <p className="mt-2 text-sm">
+                  Source:{" "}
+                  <Link href={`/deployments/${deployment.sourceDeploymentId}`} className={textLinkClassName}>
+                    Deployment #{deployment.sourceDeploymentId}
+                  </Link>
+                </p>
+              )}
+              {deployment.result && (
+                <p className="mt-4 text-sm">
+                  {deployment.result === "failed"
+                    ? "Deployment failed. The previous working version was preserved."
+                    : "Deployment succeeded. The environment version was updated when this run completed."}
+                </p>
+              )}
+            </div>
+          </PageContent.SectionContent>
+        </PageContent.Section>
+        <PageContent.Section aria-labelledby="stages-heading">
+          <PageContent.SectionHeader
+            id="stages-heading"
+            title="Deployment stages"
+            description={
+              <>
+                {percent}% processed{!deployment.result && " · Updates every second"}
+              </>
+            }
+          />
+          <PageContent.SectionContent>
+            <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {steps.map((step) => (
+                <li
+                  key={step.name}
+                  aria-current={step.status === "active" ? "step" : undefined}
+                  className="rounded-lg border bg-card p-4 text-card-foreground"
+                >
+                  <h3 className="font-medium">{step.name}</h3>
+                  <p
+                    className={`mt-2 text-sm ${step.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}
+                  >
+                    {stepLabels[step.status]}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </PageContent.SectionContent>
+        </PageContent.Section>
+        <PageContent.Section aria-labelledby="logs-heading">
+          <PageContent.SectionHeader
+            id="logs-heading"
+            title={
+              <>
+                Logs <span className="text-sm font-normal text-muted-foreground">(UTC)</span>
+              </>
+            }
+          />
+          <PageContent.SectionContent>
+            <ol className="space-y-2 rounded-lg border bg-card p-4 font-mono text-sm text-card-foreground">
+              {logs.map((log, index) => (
+                <li key={index} className="flex flex-wrap gap-x-4 gap-y-1">
+                  <time dateTime={log.at.toISOString()} className="text-muted-foreground">
+                    {log.at.toISOString().slice(11, 19)}
+                  </time>
+                  <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive" : ""}`}>
+                    {log.level.toUpperCase()} · {log.message}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </PageContent.SectionContent>
+        </PageContent.Section>
+      </PageContent>
     </PageContainer>
   );
 }

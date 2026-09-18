@@ -2,7 +2,7 @@
 
 Date: 2026-09-18. Scope: all project-owned UI in `app/` and `components/`,
 compared with all three design-system indexes and relevant contracts.
-The analysis produced recommendations. The owner subsequently authorised REC-01 and REC-02, now implemented;
+The analysis produced recommendations. The owner subsequently authorised REC-01, REC-02 and REC-03, now implemented;
 other recurring-pattern candidates remain proposals.
 Prior META decisions and anchors are preserved below. Their original observations are
 historical; current source confirms DescriptionItem is used for all 11 pairs.
@@ -13,14 +13,14 @@ historical; current source confirms DescriptionItem is used for all 11 pairs.
 | --- | --- | --- | --- |
 | Done | REC-01 — ordinary text links | Shared styling helper implemented | Seven links repeat one underline/focus treatment across five files; centralise it without adding routing logic. |
 | Done | REC-02 — application identity | AppIdentity implemented | Four identical app-name/demo-label groups; one owner for this identity and its typography. |
-| 3 | REC-03 — browse records by environment | Document an existing composition recipe | Two real flows combine environment navigation, contextual headings and named data tables; preserve context through navigation and empty states. |
+| Done | REC-03 — browse records by environment | Document-only pattern added | Two real flows combine environment navigation, contextual headings and named data tables; preserve context through navigation and empty states. |
 | — | REC-04 — request feedback | Keep local for now | Similar markup, but form validation, retry feedback and modal feedback have different ownership. |
 | — | REC-05 — surfaces, summaries and route fallbacks | Reuse existing capabilities; keep local composition | Repeated classes alone do not justify a configurable page/card framework. |
 
 Order reflects concrete reach and bounded benefit, not measured implementation cost.
 No user task is proven blocked by these repetitions. REC-01/02 are independent;
 REC-03 can be documented using existing components without waiting for either.
-REC-01 and REC-02 are approved and implemented; REC-03–05 remain recommendations.
+REC-01–03 are approved and implemented; REC-04/05 remain recommendations.
 
 ### REC-01 — Ordinary text links
 
@@ -87,7 +87,13 @@ one styling owner without introducing an AppShell or coupling identity to page w
 
 ### REC-03 — Browse records by environment
 
-**Kind:** pattern. **Action:** document the existing recipe without new runtime code.
+**Kind:** pattern. **Action:** document the existing recipe without new runtime code. **Status:** implemented.
+
+The owner authorised the [Environment browsing pattern](patterns/environment-browsing.md).
+Its contract records context ownership and composition using the existing components;
+no runtime code changed. Static review covers both screens and the suitable, unsuitable,
+empty-history, mismatched-environment and identity-addressed link scenarios.
+The following preserves the original analysis rationale.
 
 Two current flows establish a common user task: choose an environment, inspect its
 records, and navigate to a selected record while retaining the relevant context:
@@ -116,9 +122,9 @@ Benefit: makes cross-component obligations discoverable without a generic data-t
 component or EnvironmentTabs wrapper. Risk: inventing one schema for services and
 history, or making all record links carry query parameters even when record identity
 already fixes the environment. Server validation and loading remain project-owned.
-Next step: craft a document-only pattern if that extra selection guidance is wanted.
-Its intended checks should cover both datasets, empty states, switching/reloading,
-and context-preserving navigation; runtime correctness was not verified in this analysis.
+The documented pattern now covers both datasets and defines checks for empty states,
+switching/reloading and context-preserving navigation. Browser behavior was not
+reverified during this documentation-only change.
 
 ### REC-04 — Request feedback
 
@@ -144,6 +150,12 @@ message association and announcements first. Current differences are not evidenc
 of a bug. No accessibility behavior was claimed equivalent by reading markup alone.
 
 ### REC-05 — Surfaces, summaries and route fallbacks
+
+**Subsequent owner decision:** PageContent is now implemented for all four main pages.
+Its [contract](layouts/page-content.md) owns heading/section spacing and section
+heading typography. It does not introduce a universal Card, summary grid or route
+fallback wrapper; those keep-local recommendations below remain applicable.
+
 
 **Kind:** layout/component candidates. **Action:** reuse existing / keep local.
 

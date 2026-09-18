@@ -59,8 +59,9 @@ server or client views.
   breakpoint. These are the preserved page dimensions, now shared design decisions.
 - Children remain in source order and normal block flow. The container adds no
   wrappers, gaps, clipping, scroll region, background or typography changes.
-- Routes own branding, back navigation, headings, spacing between content regions,
-  empty states and all data/actions. Forms, sections, navigation and shared UI are
+- Routes own branding, back navigation, empty states and all data/actions.
+  On the four main pages, [PageContent](page-content.md) owns spacing between the
+  page heading and top-level sections; routes retain other outer spacing. Forms, sections, navigation and shared UI are
   valid children; another main, html or body is not.
 - Render once per active route view beneath the document shell. Keep it in the
   page/loading/error/not-found file so route fallback boundaries remain unchanged.

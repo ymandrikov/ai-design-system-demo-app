@@ -1,3 +1,4 @@
+import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { textLinkClassName } from "@/components/ui/text-link-styles";
 import { PageContainer } from "@/components/layouts/page-container";
@@ -28,7 +29,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
       <div className="mb-12">
         <AppIdentity />
       </div>
-      <div className="mb-8">
+      <PageContent>
         <PageHeader
           title="Services"
           description={`Service health and the latest deployment in ${environment}.`}
@@ -40,72 +41,76 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             />
           }
         />
-      </div>
-      {services.length === 0 ? (
-        <DatasetEmptyState
-          headingLevel="h2"
-          title="No services yet"
-          description="Services will appear here when they are added."
-        />
-      ) : (
-        <Table aria-label={`Services in ${environment}`}>
-          <TableCaption className="sr-only">{`Services in ${environment}`}</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead scope="col">Service</TableHead>
-              <TableHead scope="col">Service state</TableHead>
-              <TableHead scope="col">Current version</TableHead>
-              <TableHead scope="col">Last deployment</TableHead>
-              <TableHead scope="col">
-                Completed at <span className="font-normal">(UTC)</span>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {services.map((service) => (
-              <TableRow key={service.id}>
-                <TableHead scope="row">
-                  <Link
-                    href={`/services/${encodeURIComponent(service.slug)}?environment=${environment}`}
-                    className={`font-semibold ${textLinkClassName}`}
-                  >
-                    {service.name}
-                  </Link>
-                </TableHead>
-                <TableCell>{service.state ? stateLabels[service.state] : "Not configured"}</TableCell>
-                <TableCell>
-                  {service.currentVersion ? (
-                    <VersionLabel version={service.currentVersion} />
-                  ) : (
-                    <span className="text-muted-foreground">No version</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {service.lastResult ? (
-                    <DeploymentResult result={service.lastResult} />
-                  ) : (
-                    <span className="text-muted-foreground">No deployments</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  <span className="whitespace-nowrap text-nowrap text-muted-foreground">
-                    {service.lastCompletedAt ? (
-                      <time dateTime={service.lastCompletedAt.toISOString()}>
-                        {dateFormat.format(service.lastCompletedAt)}
-                      </time>
-                    ) : (
-                      "—"
-                    )}
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
-      <p className="mt-4 text-xs text-muted-foreground">
-        A failed deployment can leave the previous working version healthy.
-      </p>
+        <PageContent.Section aria-label={`Services in ${environment}`}>
+          <PageContent.SectionContent>
+            {services.length === 0 ? (
+              <DatasetEmptyState
+                headingLevel="h2"
+                title="No services yet"
+                description="Services will appear here when they are added."
+              />
+            ) : (
+              <Table aria-label={`Services in ${environment}`}>
+                <TableCaption className="sr-only">{`Services in ${environment}`}</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead scope="col">Service</TableHead>
+                    <TableHead scope="col">Service state</TableHead>
+                    <TableHead scope="col">Current version</TableHead>
+                    <TableHead scope="col">Last deployment</TableHead>
+                    <TableHead scope="col">
+                      Completed at <span className="font-normal">(UTC)</span>
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {services.map((service) => (
+                    <TableRow key={service.id}>
+                      <TableHead scope="row">
+                        <Link
+                          href={`/services/${encodeURIComponent(service.slug)}?environment=${environment}`}
+                          className={`font-semibold ${textLinkClassName}`}
+                        >
+                          {service.name}
+                        </Link>
+                      </TableHead>
+                      <TableCell>{service.state ? stateLabels[service.state] : "Not configured"}</TableCell>
+                      <TableCell>
+                        {service.currentVersion ? (
+                          <VersionLabel version={service.currentVersion} />
+                        ) : (
+                          <span className="text-muted-foreground">No version</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {service.lastResult ? (
+                          <DeploymentResult result={service.lastResult} />
+                        ) : (
+                          <span className="text-muted-foreground">No deployments</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <span className="whitespace-nowrap text-nowrap text-muted-foreground">
+                          {service.lastCompletedAt ? (
+                            <time dateTime={service.lastCompletedAt.toISOString()}>
+                              {dateFormat.format(service.lastCompletedAt)}
+                            </time>
+                          ) : (
+                            "—"
+                          )}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+            <p className="mt-4 text-xs text-muted-foreground">
+              A failed deployment can leave the previous working version healthy.
+            </p>
+          </PageContent.SectionContent>
+        </PageContent.Section>
+      </PageContent>
     </PageContainer>
   );
 }

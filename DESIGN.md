@@ -39,7 +39,11 @@ centering, responsive page padding and width presets. Data overviews/details use
 the default wide width; focused single-column forms use `width="narrow"`. Fallbacks
 retain their route width; the shared service not-found view uses the service detail
 width. Pages own content order, placement of branding, spacing between regions and empty-data
-conditions. [AppIdentity](design-system/components/app-identity.md) owns the fixed
+conditions. [PageContent](design-system/layouts/page-content.md) owns the four main
+pages' heading/section composition: spacing-8 after PageHeader, spacing-10 between
+sections, spacing-4 from section heading to content and spacing-2 before descriptions.
+It adds no perimeter padding; cards, grids and form internals remain consumer-owned.
+[AppIdentity](design-system/components/app-identity.md) owns the fixed
 Deploy Board / Local demo text and its typography; the four main pages retain their
 outer mb-12 spacing. Route fallback views do not add this identity. [DatasetEmptyState](design-system/components/dataset-empty-state.md)
 owns the shared empty-table surface, typography and internal spacing; pages supply
@@ -55,7 +59,9 @@ Both rollback buttons use destructive styling. Environment
 navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
 with canonical destination URLs derived by the server. The component renders
 Next.js links with `aria-current="page"`; the server validates the environment and
-loads its data. Tabs remains for local panel switching. Both components reuse
+loads its data. Follow the [environment browsing pattern](design-system/patterns/environment-browsing.md)
+to keep navigation, record data, empty states and destination context consistent on
+the Services and Service details screens. Tabs remains for local panel switching. Both components reuse
 `components/ui/tabs-styles.ts` as their single source of list and item styling.
 Standalone screen actions use [Button](design-system/components/button.md):
 `Button` for form submission and `buttonVariants` on native/Next.js links for

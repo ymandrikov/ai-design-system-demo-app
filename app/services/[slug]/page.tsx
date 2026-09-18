@@ -1,3 +1,4 @@
+import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { textLinkClassName } from "@/components/ui/text-link-styles";
 import { DescriptionItem } from "@/components/ui/description-item";
@@ -40,7 +41,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
           ← Services
         </Link>
       </nav>
-      <div className="mb-8">
+      <PageContent>
         <PageHeader
           title={service.name}
           description={`Service health and deployment history in ${environment}.`}
@@ -59,100 +60,108 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
             </div>
           }
         />
-      </div>
-      <section aria-label="Service summary" className="mb-10 rounded-lg border bg-card p-6 text-card-foreground">
-        <dl className="grid gap-6 sm:grid-cols-3">
-          <DescriptionItem label="Service state">
-            <span className="font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</span>
-          </DescriptionItem>
-          <DescriptionItem label="Current version">
-            {service.currentVersion ? (
-              <VersionLabel version={service.currentVersion} />
-            ) : (
-              <span className="text-muted-foreground">No version</span>
-            )}
-          </DescriptionItem>
-          <DescriptionItem label="Last deployment">
-            {service.lastResult ? (
-              <DeploymentResult result={service.lastResult} />
-            ) : (
-              <span className="text-muted-foreground">No deployments</span>
-            )}
-          </DescriptionItem>
-        </dl>
-        <p className="mt-6 text-xs text-muted-foreground">
-          A failed deployment can leave the previous working version healthy.
-        </p>
-      </section>
-      <RefreshActiveDeployment
-        key={`${service.id}-${environment}`}
-        active={service.history.some((deployment) => !deployment.result)}
-      />
-      <h2 className="mb-4 text-lg font-semibold">Deployment history</h2>
-      {service.history.length === 0 ? (
-        <DatasetEmptyState
-          headingLevel="h3"
-          title="No deployments yet"
-          description={`There is no deployment history for ${service.name} in ${environment}.`}
+        <PageContent.Section aria-label="Service summary">
+          <PageContent.SectionContent>
+            <div className="rounded-lg border bg-card p-6 text-card-foreground">
+              <dl className="grid gap-6 sm:grid-cols-3">
+                <DescriptionItem label="Service state">
+                  <span className="font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</span>
+                </DescriptionItem>
+                <DescriptionItem label="Current version">
+                  {service.currentVersion ? (
+                    <VersionLabel version={service.currentVersion} />
+                  ) : (
+                    <span className="text-muted-foreground">No version</span>
+                  )}
+                </DescriptionItem>
+                <DescriptionItem label="Last deployment">
+                  {service.lastResult ? (
+                    <DeploymentResult result={service.lastResult} />
+                  ) : (
+                    <span className="text-muted-foreground">No deployments</span>
+                  )}
+                </DescriptionItem>
+              </dl>
+              <p className="mt-6 text-xs text-muted-foreground">
+                A failed deployment can leave the previous working version healthy.
+              </p>
+            </div>
+          </PageContent.SectionContent>
+        </PageContent.Section>
+        <RefreshActiveDeployment
+          key={`${service.id}-${environment}`}
+          active={service.history.some((deployment) => !deployment.result)}
         />
-      ) : (
-        <Table aria-label={`Deployment history for ${service.name} in ${environment}`}>
-          <TableCaption className="sr-only">{`Deployment history for ${service.name} in ${environment}`}</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead scope="col">Deployment</TableHead>
-              <TableHead scope="col">Version</TableHead>
-              <TableHead scope="col">Commit</TableHead>
-              <TableHead scope="col">Result</TableHead>
-              <TableHead scope="col">
-                Completed at <span className="font-normal">(UTC)</span>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {service.history.map((deployment) => (
-              <TableRow key={deployment.id}>
-                <TableHead scope="row">
-                  <Link href={`/deployments/${deployment.id}`} className={textLinkClassName}>
-                    #{deployment.id}
-                  </Link>
-                </TableHead>
-                <TableCell>
-                  <VersionLabel version={deployment.version} />
-                </TableCell>
-                <TableCell>
-                  {deployment.commit ? (
-                    <code>{deployment.commit}</code>
-                  ) : (
-                    <span className="text-muted-foreground">Not recorded</span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {deployment.result ? (
-                    <DeploymentResult result={deployment.result} />
-                  ) : (
-                    <span className="font-medium">
-                      {deployment.progress.stage} · {deployment.progress.percent}%
-                    </span>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {deployment.completedAt ? (
-                    <time
-                      className="whitespace-nowrap text-muted-foreground"
-                      dateTime={deployment.completedAt.toISOString()}
-                    >
-                      {dateFormat.format(deployment.completedAt)}
-                    </time>
-                  ) : (
-                    <span className="text-muted-foreground">In progress</span>
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      )}
+        <PageContent.Section aria-labelledby="history-heading">
+          <PageContent.SectionHeader id="history-heading" title="Deployment history" />
+          <PageContent.SectionContent>
+            {service.history.length === 0 ? (
+              <DatasetEmptyState
+                headingLevel="h3"
+                title="No deployments yet"
+                description={`There is no deployment history for ${service.name} in ${environment}.`}
+              />
+            ) : (
+              <Table aria-label={`Deployment history for ${service.name} in ${environment}`}>
+                <TableCaption className="sr-only">{`Deployment history for ${service.name} in ${environment}`}</TableCaption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead scope="col">Deployment</TableHead>
+                    <TableHead scope="col">Version</TableHead>
+                    <TableHead scope="col">Commit</TableHead>
+                    <TableHead scope="col">Result</TableHead>
+                    <TableHead scope="col">
+                      Completed at <span className="font-normal">(UTC)</span>
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {service.history.map((deployment) => (
+                    <TableRow key={deployment.id}>
+                      <TableHead scope="row">
+                        <Link href={`/deployments/${deployment.id}`} className={textLinkClassName}>
+                          #{deployment.id}
+                        </Link>
+                      </TableHead>
+                      <TableCell>
+                        <VersionLabel version={deployment.version} />
+                      </TableCell>
+                      <TableCell>
+                        {deployment.commit ? (
+                          <code>{deployment.commit}</code>
+                        ) : (
+                          <span className="text-muted-foreground">Not recorded</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {deployment.result ? (
+                          <DeploymentResult result={deployment.result} />
+                        ) : (
+                          <span className="font-medium">
+                            {deployment.progress.stage} · {deployment.progress.percent}%
+                          </span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {deployment.completedAt ? (
+                          <time
+                            className="whitespace-nowrap text-muted-foreground"
+                            dateTime={deployment.completedAt.toISOString()}
+                          >
+                            {dateFormat.format(deployment.completedAt)}
+                          </time>
+                        ) : (
+                          <span className="text-muted-foreground">In progress</span>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </PageContent.SectionContent>
+        </PageContent.Section>
+      </PageContent>
     </PageContainer>
   );
 }

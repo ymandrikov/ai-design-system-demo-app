@@ -1,3 +1,4 @@
+import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { PageContainer } from "@/components/layouts/page-container";
 import { notFound } from "next/navigation";
@@ -18,18 +19,22 @@ export default async function DeployPage({ params, searchParams }: PageProps<"/s
       <div className="mb-12">
         <AppIdentity />
       </div>
-      <div className="mb-8">
+      <PageContent>
         <PageHeader
           title={`Deploy ${data.service.name}`}
           description={`Service: ${data.service.name} · Environment: ${environment}`}
         />
-      </div>
-      <DeployForm
-        slug={data.service.slug}
-        environment={environment}
-        versions={data.versions}
-        currentVersion={data.currentVersion}
-      />
+        <PageContent.Section aria-label="Deployment form">
+          <PageContent.SectionContent>
+            <DeployForm
+              slug={data.service.slug}
+              environment={environment}
+              versions={data.versions}
+              currentVersion={data.currentVersion}
+            />
+          </PageContent.SectionContent>
+        </PageContent.Section>
+      </PageContent>
     </PageContainer>
   );
 }

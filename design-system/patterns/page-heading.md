@@ -37,7 +37,9 @@ for actions requiring confirmation. Context navigation uses
 
 PageHeader owns typography, internal spacing and responsive placement: text left,
 controls right, bottom aligned; controls wrap below text when space runs out.
-The page owns outer spacing and supplies action labels, availability and behaviour.
+On the four main pages, [PageContent](../layouts/page-content.md) owns spacing after
+the heading; other consumers own their outer spacing. The page supplies action labels,
+availability and behaviour.
 Keep one h1. Actions must apply to the page's subject and must not be duplicated in
 a separate action section below the content. Omit description or controls when absent.
 
