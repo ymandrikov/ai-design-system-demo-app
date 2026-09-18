@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Formatting
+
+Run `pnpm fmt` to format files or `pnpm fmt:check` to check formatting without changes.
+[Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) uses a 120-character print width from `.oxfmtrc.json`.
+Print width is a wrapping target; long strings and other unbreakable content can exceed it.
+
 ## Local database
 
 Deploy Board uses a local SQLite database at `data/deploy-board.sqlite`. Set
