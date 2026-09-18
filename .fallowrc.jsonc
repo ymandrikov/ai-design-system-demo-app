@@ -1,0 +1,19 @@
+{
+  // Tabs is a discoverable design-system API; utils is the shadcn generator alias in components.json.
+  "entry": ["components/ui/tabs.tsx", "lib/utils.ts"],
+  // These public exports are promised by their design-system contracts.
+  "ignoreExports": [
+    { "file": "components/ui/badge.tsx", "exports": ["badgeVariants"] },
+    { "file": "components/ui/table.tsx", "exports": ["TableFooter"] }
+  ],
+  "duplicates": {
+    // Different datasets and column labels; Table's contract leaves column composition with each page.
+    // The fingerprint becomes reportable again if the code or occurrence count changes.
+    "ignoredClones": ["dup:6f87acd9:2"]
+  },
+  "health": {
+    // AGENTS.md explicitly defers automated tests. Do not gate on graph-estimated test coverage.
+    // Keep the default cyclomatic, cognitive, and function-size checks.
+    "maxCrap": 0
+  }
+}
