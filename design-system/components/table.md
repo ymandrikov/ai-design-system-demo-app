@@ -1,5 +1,5 @@
 ---
-sourcesHash: 365379a352eaddbb529c678eaea14573a108bc8f7ee5fad9988fdec6f97e3e35
+sourcesHash: 222cf275c5f92cdad0d42160d2148908ec8692bbb0105b3f993720b576404988
 id: table
 description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
 status: discoverable
@@ -58,7 +58,7 @@ The component owns shadcn cell spacing, typography, borders and hover treatment,
 
 ## Behaviour and states
 
-Static data is supplied by the consumer; no fetching, sorting or pagination is provided. At narrow widths the named region scrolls horizontally, keeping native table relationships. It is keyboard focusable with a visible outline. Cells keep their content on one line and overflow within the scroll region. An empty dataset can be replaced by a page-level empty state or one body cell spanning all columns. No selection or click behaviour is implied by a row.
+Static data is supplied by the consumer; no fetching, sorting or pagination is provided. At narrow widths the named region scrolls horizontally, keeping native table relationships. It is keyboard focusable with a visible outline. The table uses fixed layout with equal-width columns by default and a minimum width of 56rem, keeping column widths independent of environment data. Consumers may set column widths on first-row headers when fields need different proportions; those widths must remain the same across environment filters. Long cell text wraps within its column. The minimum width preserves room for the application’s five columns; narrower viewports scroll inside the region. An empty dataset can be replaced by a page-level empty state or one body cell spanning all columns. No selection or click behaviour is implied by a row.
 
 ## Accessibility
 
