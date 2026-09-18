@@ -1,5 +1,5 @@
 ---
-sourcesHash: 9de7d36a36cd60baa73df988c59994ba3b2cc62c7b1ee241f409b3b9f402b228
+sourcesHash: 7f1bb1f73d6d34252c761c7aab89c52a0735dabc43fdf8a21577a683d20d1bf8
 id: root-layout
 description: >-
   Provide the application's shared HTML document shell around route content,
@@ -47,8 +47,11 @@ fallback content. Consumers create route files instead of importing and nesting
 `RootLayout` manually. Minimal route content, for example in `app/help/page.tsx`:
 
 ```tsx
+import { PageContainer } from "@/components/layouts/page-container";
+import { PageHeader } from "@/components/ui/page-header";
+
 export default function HelpPage() {
-  return <main><h1>Help</h1></main>;
+  return <PageContainer><PageHeader title="Help" /></PageContainer>;
 }
 ```
 

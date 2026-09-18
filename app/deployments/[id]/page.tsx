@@ -55,7 +55,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
       </section>
       <section aria-labelledby="logs-heading" className="mb-10">
         <h2 id="logs-heading" className="mb-4 text-lg font-semibold">Logs <span className="text-sm font-normal text-muted-foreground">(UTC)</span></h2>
-        <ol className="space-y-2 rounded-lg border bg-muted p-4 font-mono text-sm text-foreground">
+        <ol className="space-y-2 rounded-lg border bg-card p-4 font-mono text-sm text-card-foreground">
           {logs.map((log, index) => <li key={index} className="flex flex-wrap gap-x-4 gap-y-1">
             <time dateTime={log.at.toISOString()} className="text-muted-foreground">{log.at.toISOString().slice(11, 19)}</time>
             <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive" : ""}`}>{log.level.toUpperCase()} · {log.message}</span>

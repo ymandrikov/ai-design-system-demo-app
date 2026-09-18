@@ -101,11 +101,13 @@ neither routing, fetching, loading indicators nor persistence.
 Lists do not supply automatic wrapping, overflow navigation or responsive orientation.
 Consumers must provide enough space for their labels and verify narrow layouts.
 The owner explicitly admitted Tabs on 2026-09-16 despite the recorded
-[panel-focus defect](../gaps.md#tabs-panel-focus-is-invisible) and incomplete runtime
-verification. The panel CSS repair was implemented on 2026-09-17; the gap remains
-open until its rendered keyboard-focus expectation is demonstrated.
+[panel-focus defect](../gaps-archive.md#tabs-panel-focus-is-invisible) and incomplete runtime
+verification. The panel CSS repair was implemented on 2026-09-17 and its visible
+keyboard focus was confirmed in Chrome in both themes on 2026-09-18; that gap is closed.
 Discoverability does not establish that all runtime checks passed.
-See [adoption progress](../adoption.md) for verification results and remaining checks.
+Remaining runtime checks cover controlled updates, automatic fallback on removal or
+disabling, activateOnFocus, loopFocus=false, Home/End, input state retention, and
+full viewport/zoom adaptation.
 
 ## Accessibility
 
@@ -117,7 +119,7 @@ focus styling. Keyboard focus must remain visible when moving into the active pa
 Panels use a two-pixel `focus-visible` outline with a four-pixel offset and the
 semantic foreground colour, following the existing Table focus treatment. This
 replaces the previous `outline-none` suppression without changing focus behaviour.
-See the [repair record](../gaps.md#tabs-panel-focus-is-invisible); consumers must not
+See the [repair record](../gaps-archive.md#tabs-panel-focus-is-invisible); consumers must not
 compensate with ad hoc styling overrides.
 
 ### Required of consumers

@@ -34,7 +34,7 @@ export function DeployForm({ slug, environment, currentVersion, versions }: {
           <div><dt className="text-sm text-muted-foreground">Commit</dt><dd className="mt-1 break-all"><code>{selected.commit ?? "Not recorded"}</code></dd></div>
           <div><dt className="text-sm text-muted-foreground">Description</dt><dd className="mt-1">{selected.description}</dd></div>
         </dl>
-        <div className="rounded-md bg-muted p-4">
+        <div className="rounded-md bg-card p-4 text-card-foreground">
           <p className="mb-2 text-sm text-muted-foreground">Current version → Target version</p>
           <p>{currentVersion ? <VersionLabel version={currentVersion} /> : "No version"} <span aria-hidden="true"> → </span> <VersionLabel version={selected.version} /></p>
         </div>

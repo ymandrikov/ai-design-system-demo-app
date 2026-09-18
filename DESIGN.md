@@ -84,7 +84,7 @@ Source hashes establish reviewed source snapshots, not runtime correctness.
 
 ## Gaps and decisions
 
-[Contract adoption progress](design-system/adoption.md) tracks Tabs and its remaining verification.
+[Tabs](design-system/components/tabs.md) records its remaining verification.
 
 [Open gaps](design-system/gaps.md); [archive](design-system/gaps-archive.md).
 The initial connection was documentation-only. The owner authorized analysis A-01
