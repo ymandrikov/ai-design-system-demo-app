@@ -2,7 +2,7 @@
 
 Date: 2026-09-18. Scope: all project-owned UI in `app/` and `components/`,
 compared with all three design-system indexes and relevant contracts.
-The analysis produced recommendations. The owner subsequently authorised REC-01, now implemented;
+The analysis produced recommendations. The owner subsequently authorised REC-01 and REC-02, now implemented;
 other recurring-pattern candidates remain proposals.
 Prior META decisions and anchors are preserved below. Their original observations are
 historical; current source confirms DescriptionItem is used for all 11 pairs.
@@ -12,7 +12,7 @@ historical; current source confirms DescriptionItem is used for all 11 pairs.
 | Priority | Candidate | Action | Evidence / benefit |
 | --- | --- | --- | --- |
 | Done | REC-01 — ordinary text links | Shared styling helper implemented | Seven links repeat one underline/focus treatment across five files; centralise it without adding routing logic. |
-| 2 | REC-02 — application identity | Extract a small component | Four identical app-name/demo-label groups; one owner for this identity and its typography. |
+| Done | REC-02 — application identity | AppIdentity implemented | Four identical app-name/demo-label groups; one owner for this identity and its typography. |
 | 3 | REC-03 — browse records by environment | Document an existing composition recipe | Two real flows combine environment navigation, contextual headings and named data tables; preserve context through navigation and empty states. |
 | — | REC-04 — request feedback | Keep local for now | Similar markup, but form validation, retry feedback and modal feedback have different ownership. |
 | — | REC-05 — surfaces, summaries and route fallbacks | Reuse existing capabilities; keep local composition | Repeated classes alone do not justify a configurable page/card framework. |
@@ -20,7 +20,7 @@ historical; current source confirms DescriptionItem is used for all 11 pairs.
 Order reflects concrete reach and bounded benefit, not measured implementation cost.
 No user task is proven blocked by these repetitions. REC-01/02 are independent;
 REC-03 can be documented using existing components without waiting for either.
-REC-01 is approved and implemented; REC-02–05 remain recommendations.
+REC-01 and REC-02 are approved and implemented; REC-03–05 remain recommendations.
 
 ### REC-01 — Ordinary text links
 
@@ -65,28 +65,25 @@ in that task; observed classes alone are not a newly authorised system standard.
 
 ### REC-02 — Application identity
 
-**Kind:** component. **Action:** extract new.
+**Kind:** component. **Action:** extract new. **Status:** implemented.
 
-The same `Deploy Board / Local demo` paragraph appears in
+The owner approved a fixed AppIdentity without props, variants or interaction,
+with outer spacing owned by pages. [AppIdentity](../components/ui/app-identity.tsx)
+now owns the paragraph, app name, demo qualifier, typography and internal spacing;
+its [contract](components/app-identity.md) defines the public boundary.
+
+All four consumers use it inside an mb-12 wrapper:
 [Services](../app/page.tsx), [Service details](../app/services/[slug]/page.tsx),
 [Deployment details](../app/deployments/[id]/page.tsx) and
 [Deploy page](../app/services/[slug]/deploy/page.tsx).
+The original text, typography, placement and outer spacing are retained.
+Loading, error and not-found views remain unchanged.
 
-Recommend a small AppIdentity component owning the name, demo qualifier, typography
-and spacing between those two texts. No props, variants, new header landmark or
-navigation are justified by current uses. Pages retain placement and the outer mb-12.
-Do not add it automatically to loading/error/not-found views, where it is currently absent.
-
-[PageHeader](components/page-header.md) explicitly excludes application identity;
-[PageContainer](layouts/page-container.md) leaves branding to the page. The
-[root layout](layouts/root-layout.md) owns the HTML shell. Moving identity there would
-change fallback coverage and placement, so extracting the repeated paragraph is the
-narrower option. This is a component responsibility, not a new end-user task pattern.
-
-Benefit: change the app identity once instead of four times. Risk: coupling it to page
-width, heading actions or fallback behavior. Compatibility target: preserve all four
-placements and current visual treatment. Next step: bounded craft plus migration of
-these four consumers; no general AppShell component needed.
+[PageHeader](components/page-header.md) still owns the page heading;
+[PageContainer](layouts/page-container.md) owns page dimensions and the
+[root layout](layouts/root-layout.md) owns the document. AppIdentity adds neither
+navigation nor a new landmark. This keeps the four repeated identity blocks under
+one styling owner without introducing an AppShell or coupling identity to page width.
 
 ### REC-03 — Browse records by environment
 

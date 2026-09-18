@@ -1,3 +1,4 @@
+import { AppIdentity } from "@/components/ui/app-identity";
 import { textLinkClassName } from "@/components/ui/text-link-styles";
 import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
@@ -24,9 +25,9 @@ export default async function Home({ searchParams }: PageProps<"/">) {
 
   return (
     <PageContainer>
-      <p className="mb-12 text-sm font-semibold tracking-tight">
-        Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
-      </p>
+      <div className="mb-12">
+        <AppIdentity />
+      </div>
       <div className="mb-8">
         <PageHeader
           title="Services"

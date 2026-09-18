@@ -38,8 +38,10 @@ scrollable structure; see its [contract](design-system/components/table.md).
 centering, responsive page padding and width presets. Data overviews/details use
 the default wide width; focused single-column forms use `width="narrow"`. Fallbacks
 retain their route width; the shared service not-found view uses the service detail
-width. Pages own content order, branding, spacing between regions and empty-data
-conditions. [DatasetEmptyState](design-system/components/dataset-empty-state.md)
+width. Pages own content order, placement of branding, spacing between regions and empty-data
+conditions. [AppIdentity](design-system/components/app-identity.md) owns the fixed
+Deploy Board / Local demo text and its typography; the four main pages retain their
+outer mb-12 spacing. Route fallback views do not add this identity. [DatasetEmptyState](design-system/components/dataset-empty-state.md)
 owns the shared empty-table surface, typography and internal spacing; pages supply
 contextual copy and the appropriate h2 or h3 heading level.
 [PageHeader](design-system/components/page-header.md) owns the page heading,

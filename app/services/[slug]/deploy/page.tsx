@@ -1,3 +1,4 @@
+import { AppIdentity } from "@/components/ui/app-identity";
 import { PageContainer } from "@/components/layouts/page-container";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/ui/page-header";
@@ -14,9 +15,9 @@ export default async function DeployPage({ params, searchParams }: PageProps<"/s
   if (!data || !data.configured) notFound();
   return (
     <PageContainer width="narrow">
-      <p className="mb-12 text-sm font-semibold tracking-tight">
-        Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
-      </p>
+      <div className="mb-12">
+        <AppIdentity />
+      </div>
       <div className="mb-8">
         <PageHeader
           title={`Deploy ${data.service.name}`}

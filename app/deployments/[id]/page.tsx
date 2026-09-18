@@ -1,3 +1,4 @@
+import { AppIdentity } from "@/components/ui/app-identity";
 import { textLinkClassName } from "@/components/ui/text-link-styles";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
@@ -40,9 +41,9 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
 
   return (
     <PageContainer>
-      <p className="mb-12 text-sm font-semibold tracking-tight">
-        Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
-      </p>
+      <div className="mb-12">
+        <AppIdentity />
+      </div>
       <nav aria-label="Back to service" className="mb-6 text-sm">
         <Link href={serviceHref} className={textLinkClassName}>
           ← {service.name} · {deployment.environment}
