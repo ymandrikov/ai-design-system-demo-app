@@ -58,12 +58,17 @@ loads its data. Tabs remains for local panel switching. Both components reuse
 Standalone screen actions use [Button](design-system/components/button.md):
 `Button` for form submission and `buttonVariants` on native/Next.js links for
 navigation. Deploy uses the default treatment; Cancel uses the link variant.
-Record links and back navigation remain ordinary links.
+Record links and back navigation use the [text-link styling helper](design-system/components/text-link.md)
+on ordinary links, preserving native navigation and page-owned destinations.
 Compact annotations use [Badge](design-system/components/badge.md).
 [VersionLabel](design-system/components/version-label.md) composes its secondary
 treatment with native code; [DeploymentResult](design-system/components/deployment-result.md)
 uses secondary for success and destructive for failure. Both retain their domain
 labels and public props across the services list, service history and deploy summary.
+[DescriptionItem](design-system/components/description-item.md) owns each read-only
+name/value pair inside a native description list: small muted label and spacing-2
+before its value. Consumers own the dl, grid, field order and value formatting;
+only the deployment status forwards a polite live region.
 Components receive content through props and never access SQLite.
 
 ## Verification

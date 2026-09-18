@@ -1,5 +1,6 @@
 "use client";
 
+import { textLinkClassName } from "@/components/ui/text-link-styles";
 import { PageContainer } from "@/components/layouts/page-container";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -11,10 +12,7 @@ function BackToServices() {
   const values = params.getAll("environment");
   const environment = values.length === 1 && values[0] === "staging" ? "staging" : "production";
   return (
-    <Link
-      href={`/?environment=${environment}`}
-      className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
-    >
+    <Link href={`/?environment=${environment}`} className={textLinkClassName}>
       ← Services
     </Link>
   );

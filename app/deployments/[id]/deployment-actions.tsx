@@ -1,5 +1,6 @@
 "use client";
 
+import { DescriptionItem } from "@/components/ui/description-item";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -73,18 +74,12 @@ export function DeploymentActions({
             error={error}
           >
             <dl className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <dt className="mb-2 text-sm text-muted-foreground">Current version</dt>
-                <dd>
-                  <VersionLabel version={currentVersion} />
-                </dd>
-              </div>
-              <div>
-                <dt className="mb-2 text-sm text-muted-foreground">Target version</dt>
-                <dd>
-                  <VersionLabel version={rollbackVersion} />
-                </dd>
-              </div>
+              <DescriptionItem label="Current version">
+                <VersionLabel version={currentVersion} />
+              </DescriptionItem>
+              <DescriptionItem label="Target version">
+                <VersionLabel version={rollbackVersion} />
+              </DescriptionItem>
             </dl>
           </ConfirmationDialog>
         )}

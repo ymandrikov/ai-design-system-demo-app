@@ -1,3 +1,4 @@
+import { textLinkClassName } from "@/components/ui/text-link-styles";
 import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -65,7 +66,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                 <TableHead scope="row">
                   <Link
                     href={`/services/${encodeURIComponent(service.slug)}?environment=${environment}`}
-                    className="font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+                    className={`font-semibold ${textLinkClassName}`}
                   >
                     {service.name}
                   </Link>

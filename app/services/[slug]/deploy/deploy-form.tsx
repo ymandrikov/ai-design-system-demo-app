@@ -1,5 +1,6 @@
 "use client";
 
+import { DescriptionItem } from "@/components/ui/description-item";
 import { useActionState, useState } from "react";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -49,16 +50,10 @@ export function DeployForm({
       {selected && (
         <>
           <dl className="space-y-4">
-            <div>
-              <dt className="text-sm text-muted-foreground">Commit</dt>
-              <dd className="mt-1 break-all">
-                <code>{selected.commit ?? "Not recorded"}</code>
-              </dd>
-            </div>
-            <div>
-              <dt className="text-sm text-muted-foreground">Description</dt>
-              <dd className="mt-1">{selected.description}</dd>
-            </div>
+            <DescriptionItem label="Commit">
+              <code className="break-all">{selected.commit ?? "Not recorded"}</code>
+            </DescriptionItem>
+            <DescriptionItem label="Description">{selected.description}</DescriptionItem>
           </dl>
           <div className="rounded-md bg-card p-4 text-card-foreground">
             <p className="mb-2 text-sm text-muted-foreground">Current version → Target version</p>

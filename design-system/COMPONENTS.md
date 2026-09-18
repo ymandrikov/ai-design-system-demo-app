@@ -22,6 +22,10 @@
   - Description: Show the succeeded or failed outcome of a completed deployment as inline text, separately from service health and missing deployment history.
   - Contract: [contract](components/deployment-result.md)
 
+- **DescriptionItem**
+  - Description: Present one named read-only property and its value within a description list, with consistent label styling and spacing.
+  - Contract: [contract](components/description-item.md)
+
 - **NavigationalTabs**
   - Description: Navigate between related page destinations through a horizontal group of links styled like Tabs, with a current-page marker and native link behaviour.
   - Contract: [contract](components/navigational-tabs.md)
@@ -37,6 +41,10 @@
 - **Tabs**
   - Description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
   - Contract: [contract](components/tabs.md)
+
+- **Text link**
+  - Description: Identify an ordinary record reference or return-navigation link with shared underline and keyboard-focus styling while preserving native link semantics.
+  - Contract: [contract](components/text-link.md)
 
 - **VersionLabel**
   - Description: Show a recorded service version as non-interactive inline code with a v prefix, separately from commit identifiers and missing-version text.

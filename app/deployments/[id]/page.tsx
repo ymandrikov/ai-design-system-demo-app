@@ -1,3 +1,5 @@
+import { textLinkClassName } from "@/components/ui/text-link-styles";
+import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -42,10 +44,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
       </p>
       <nav aria-label="Back to service" className="mb-6 text-sm">
-        <Link
-          href={serviceHref}
-          className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
-        >
+        <Link href={serviceHref} className={textLinkClassName}>
           ← {service.name} · {deployment.environment}
         </Link>
       </nav>
@@ -71,34 +70,24 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
       <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
       <section aria-label="Deployment summary" className="mb-10 rounded-lg border bg-card p-6 text-card-foreground">
         <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <dt className="text-sm text-muted-foreground">Version</dt>
-            <dd className="mt-2">
-              <VersionLabel version={version.version} />
-            </dd>
-          </div>
-          <div>
-            <dt className="text-sm text-muted-foreground">Commit</dt>
-            <dd className="mt-2 break-all">
-              <code>{version.commit ?? "Not recorded"}</code>
-            </dd>
-          </div>
-          <div>
-            <dt className="text-sm text-muted-foreground">Deployment status</dt>
-            <dd className="mt-2" aria-live="polite">
-              {deployment.result ? (
-                <DeploymentResult result={deployment.result} />
-              ) : (
-                <span className="font-medium">{stage}</span>
-              )}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-sm text-muted-foreground">Duration</dt>
-            <dd className="mt-2 font-medium">
+          <DescriptionItem label="Version">
+            <VersionLabel version={version.version} />
+          </DescriptionItem>
+          <DescriptionItem label="Commit">
+            <code className="break-all">{version.commit ?? "Not recorded"}</code>
+          </DescriptionItem>
+          <DescriptionItem label="Deployment status" aria-live="polite">
+            {deployment.result ? (
+              <DeploymentResult result={deployment.result} />
+            ) : (
+              <span className="font-medium">{stage}</span>
+            )}
+          </DescriptionItem>
+          <DescriptionItem label="Duration">
+            <span className="font-medium">
               {elapsed}s{!deployment.result && " elapsed"}
-            </dd>
-          </div>
+            </span>
+          </DescriptionItem>
         </dl>
         <p className="mt-6 text-sm">{version.description}</p>
         <p className="mt-2 text-xs text-muted-foreground">
@@ -117,10 +106,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         {deployment.sourceDeploymentId && (
           <p className="mt-2 text-sm">
             Source:{" "}
-            <Link
-              href={`/deployments/${deployment.sourceDeploymentId}`}
-              className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
-            >
+            <Link href={`/deployments/${deployment.sourceDeploymentId}`} className={textLinkClassName}>
               Deployment #{deployment.sourceDeploymentId}
             </Link>
           </p>

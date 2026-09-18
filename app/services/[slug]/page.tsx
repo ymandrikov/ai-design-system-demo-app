@@ -1,3 +1,5 @@
+import { textLinkClassName } from "@/components/ui/text-link-styles";
+import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -33,10 +35,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
       </p>
       <nav aria-label="Back to services" className="mb-6 text-sm">
-        <Link
-          href={`/?environment=${environment}`}
-          className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
-        >
+        <Link href={`/?environment=${environment}`} className={textLinkClassName}>
           ← Services
         </Link>
       </nav>
@@ -62,30 +61,23 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
       </div>
       <section aria-label="Service summary" className="mb-10 rounded-lg border bg-card p-6 text-card-foreground">
         <dl className="grid gap-6 sm:grid-cols-3">
-          <div>
-            <dt className="text-sm text-muted-foreground">Service state</dt>
-            <dd className="mt-2 font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</dd>
-          </div>
-          <div>
-            <dt className="text-sm text-muted-foreground">Current version</dt>
-            <dd className="mt-2">
-              {service.currentVersion ? (
-                <VersionLabel version={service.currentVersion} />
-              ) : (
-                <span className="text-muted-foreground">No version</span>
-              )}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-sm text-muted-foreground">Last deployment</dt>
-            <dd className="mt-2">
-              {service.lastResult ? (
-                <DeploymentResult result={service.lastResult} />
-              ) : (
-                <span className="text-muted-foreground">No deployments</span>
-              )}
-            </dd>
-          </div>
+          <DescriptionItem label="Service state">
+            <span className="font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</span>
+          </DescriptionItem>
+          <DescriptionItem label="Current version">
+            {service.currentVersion ? (
+              <VersionLabel version={service.currentVersion} />
+            ) : (
+              <span className="text-muted-foreground">No version</span>
+            )}
+          </DescriptionItem>
+          <DescriptionItem label="Last deployment">
+            {service.lastResult ? (
+              <DeploymentResult result={service.lastResult} />
+            ) : (
+              <span className="text-muted-foreground">No deployments</span>
+            )}
+          </DescriptionItem>
         </dl>
         <p className="mt-6 text-xs text-muted-foreground">
           A failed deployment can leave the previous working version healthy.
@@ -120,10 +112,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
             {service.history.map((deployment) => (
               <TableRow key={deployment.id}>
                 <TableHead scope="row">
-                  <Link
-                    href={`/deployments/${deployment.id}`}
-                    className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
-                  >
+                  <Link href={`/deployments/${deployment.id}`} className={textLinkClassName}>
                     #{deployment.id}
                   </Link>
                 </TableHead>
