@@ -91,7 +91,11 @@ server-calculated progress, stages, timestamped logs and available actions.
 Retry creates a new record for a failed deployment. Rollback is available only for
 the current latest successful deployment, with no active run, and targets the most
 recent successful **different** version. Both preserve history and record their source.
-Their UI and the deployment details screen are intentionally deferred.
+After starting, retrying or rolling back, the UI opens `/deployments/[id]`.
+History entries link to the same screen. It shows stages, duration and logs, refreshes
+once per second while active, and retains the environment in the return-to-service
+link. Rollback requires inline confirmation of the environment and both versions.
+Loading, missing records, data errors and action errors have explicit feedback.
 
 Reads and starts settle overdue work inside an immediate SQLite transaction.
 Successful completion and the environment version update commit together; failure

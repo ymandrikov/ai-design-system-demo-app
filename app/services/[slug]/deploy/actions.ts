@@ -11,8 +11,9 @@ export async function deploy(_previous: { error: string }, formData: FormData) {
   if (typeof slug !== "string" || !slug || (environment !== "production" && environment !== "staging") || typeof version !== "string" || !/^[1-9]\d*$/.test(version)) {
     return { error: "Choose a valid service, environment and version." };
   }
+  let deployment;
   try {
-    startDeployment({ slug, environment, versionId: Number(version) });
+    deployment = startDeployment({ slug, environment, versionId: Number(version) });
   } catch (error) {
     if (error instanceof DeploymentError) return { error: error.message };
     console.error("Deployment start failed", error);
@@ -20,5 +21,5 @@ export async function deploy(_previous: { error: string }, formData: FormData) {
   }
   revalidatePath("/");
   revalidatePath(`/services/${encodeURIComponent(slug)}`);
-  redirect(`/services/${encodeURIComponent(slug)}?environment=${environment}`);
+  redirect(`/deployments/${deployment.id}`);
 }

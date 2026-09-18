@@ -62,7 +62,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
           </TableRow></TableHeader>
           <TableBody>{service.history.map((deployment) => (
             <TableRow key={deployment.id}>
-              <TableHead scope="row">#{deployment.id}</TableHead>
+              <TableHead scope="row"><Link href={`/deployments/${deployment.id}`} className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">#{deployment.id}</Link></TableHead>
               <TableCell><VersionLabel version={deployment.version} /></TableCell>
               <TableCell>{deployment.commit ? <code>{deployment.commit}</code> : <span className="text-muted-foreground">Not recorded</span>}</TableCell>
               <TableCell>{deployment.result ? <DeploymentResult result={deployment.result} /> : <span className="font-medium">{deployment.progress.stage} · {deployment.progress.percent}%</span>}</TableCell>

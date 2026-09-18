@@ -84,4 +84,5 @@ Source hashes establish reviewed source snapshots, not runtime correctness.
 The initial connection was documentation-only. Page width and outer spacing remain
 page-owned choices. There is no shared
 inner layout, theme control or automated visual/accessibility suite. Deployment
-details, retry and rollback have server support; their UI is deferred.
+details compose the existing header, version, outcome and action components with page-local stage cards, timestamped logs and inline rollback
+confirmation. Server-provided permissions control retry and rollback availability.
