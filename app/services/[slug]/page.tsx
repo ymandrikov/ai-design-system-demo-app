@@ -8,6 +8,7 @@ import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
 import { buttonVariants } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
+import { DatasetEmptyState } from "@/components/ui/dataset-empty-state";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getServiceDetails } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
@@ -51,10 +52,11 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
       <RefreshActiveDeployment key={`${service.id}-${environment}`} active={service.history.some((deployment) => !deployment.result)} />
       <h2 className="mb-4 text-lg font-semibold">Deployment history</h2>
       {service.history.length === 0 ? (
-        <section className="rounded-lg border bg-card px-6 py-16 text-center text-card-foreground">
-          <h3 className="text-lg font-semibold">No deployments yet</h3>
-          <p className="mt-2 text-sm text-muted-foreground">There is no deployment history for {service.name} in {environment}.</p>
-        </section>
+        <DatasetEmptyState
+          headingLevel="h3"
+          title="No deployments yet"
+          description={`There is no deployment history for ${service.name} in ${environment}.`}
+        />
       ) : (
         <Table aria-label={`Deployment history for ${service.name} in ${environment}`}>
           <TableCaption className="sr-only">{`Deployment history for ${service.name} in ${environment}`}</TableCaption>

@@ -10,6 +10,10 @@
   - Description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
   - Contract: [contract](components/button.md)
 
+- **DatasetEmptyState**
+  - Description: Explain an empty dataset in place of its table with a heading and contextual description.
+  - Contract: [contract](components/dataset-empty-state.md)
+
 - **DeploymentResult**
   - Description: Show the succeeded or failed outcome of a completed deployment as inline text, separately from service health and missing deployment history.
   - Contract: [contract](components/deployment-result.md)

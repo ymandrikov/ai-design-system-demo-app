@@ -2,13 +2,13 @@
 
 Date: 2026-09-18. Scope: all project-owned UI. Source inspection complete.
 Initial survey was recommendations only. A-01 was subsequently authorized and
-implemented on 2026-09-18; other findings retain their original scope.
+implemented on 2026-09-18. A-02 was also authorized and implemented on that date;
+other findings retain their original scope.
 
 ## Prioritized recommendations
 
-A-01 is implemented across eight consumers. A-02 remains an optional extraction;
-keep its two small fragments local unless the owner wants their presentation
-governed centrally. Most useful boundaries already exist.
+A-01 is implemented across eight consumers. A-02 now shares the empty-dataset
+treatment across Services and service history. Most useful boundaries already exist.
 
 ### A-01 — Page container
 
@@ -48,31 +48,30 @@ consumer migration. Next: use the shared layout for matching routes.
 
 ### A-02 — Dataset empty state
 
-**Kind / action:** component; extract new if the two existing presentations should
-share a maintained treatment.
+**Kind / action:** component; extracted and migrated under the owner's A-02 request
+on 2026-09-18.
 
-[Services](../app/page.tsx) and
-[service history](../app/services/[slug]/page.tsx) replace an empty table with the
-same bordered card, centered heading and muted explanatory paragraph.
+[DatasetEmptyState](components/dataset-empty-state.md), implemented in
+[dataset-empty-state.tsx](../components/ui/dataset-empty-state.tsx), owns the shared
+bordered card, centered heading, muted paragraph and internal spacing.
+[Services](../app/page.tsx) supplies h2;
+[service history](../app/services/[slug]/page.tsx) supplies h3 beneath its existing h2.
+Both retain their empty-data conditions, contextual copy and placement.
 
-- Common responsibility: explain why a dataset region has no records. A small
-  component could own the surface, text grouping and internal spacing. Consumers
-  retain the empty-data condition, contextual copy, placement and heading level.
-- Differences: Services needs an h2; history already follows an h2 and needs an h3.
-  Neither has an action, icon, loading state or retry behavior. Do not invent those
-  features or merge these with route errors, not-found pages or missing field text.
-- Alternatives: [Table](components/table.md) expressly permits consumer-owned empty
-  states; [PageHeader](components/page-header.md) always renders h1 and is unsuitable
-  here. Badge cannot explain an empty dataset. No managed empty-state component exists.
-- Benefit: unify two identical treatments without coupling their datasets.
-  Risk: a fixed heading level or data-fetching API would erase valid differences;
-  a broad slot API would cost more than the duplication saves.
-- Decision prerequisite: empty states are explicitly page-owned in DESIGN.md.
-  Agree to share this treatment before making current classes a normative rule.
-  Keeping these two small fragments local is a valid lower-cost outcome.
-- Evidence: both conditional branches and Table's empty-data contract inspected.
-  Next: optional craft for this bounded component, followed by use in both pages;
-  verify both heading contexts and rendered empty data during that task.
+Required title, description and headingLevel props cover both uses without actions,
+icons, loading, retry, data access or generic slots. Route fallbacks and missing
+field text remain separate. DESIGN.md now records this shared ownership.
+
+Alternatives considered: Table permits consumer-owned empty content; PageHeader
+always renders h1 and introduces a page rather than an empty dataset. Neither owns
+this bounded responsibility. The owner's request settles the earlier proposal to
+leave the two fragments local.
+
+Ordinary selection/composition audit: an empty filtered records table can use the
+component with contextual copy; an empty cell in a retained table uses TableCell;
+an empty nested dataset selects h3 beneath its parent h2. Neither heading choice
+changes the visual treatment. Both consumer migrations preserve the original card
+classes, heading semantics and copy.
 
 ## Existing reuse to retain
 
@@ -156,10 +155,18 @@ A-01 implementation checks on 2026-09-18:
 - Contract check: page-container and root-layout valid; all eight compositions
   satisfy the width, landmark and content-ownership rules. No new gap found.
 
+A-02 implementation checks on 2026-09-18:
+
+- Lint, TypeScript, webpack production build, DatasetEmptyState contract validation,
+  index freshness and diff whitespace checks passed.
+- Server-rendered component markup for h2 and h3 matches the original section,
+  heading and paragraph structure and classes.
+- Both consumer calls preserve their empty-data condition, heading context and copy;
+  no automated tests were added.
+
 ## Outstanding decisions and existing gap
 
-A-01 is implemented under the owner's explicit request. A-02 remains a proposal;
-existing page-owned empty-state composition remains valid.
+A-01 and A-02 are implemented under the owner's explicit requests.
 No new systemic shortfall was established, so no gap entry was added.
 
 The existing [Tabs panel-focus gap](gaps.md#tabs-panel-focus-is-invisible) remains

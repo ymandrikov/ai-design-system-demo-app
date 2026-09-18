@@ -6,6 +6,7 @@ import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
 import { PageHeader } from "@/components/ui/page-header";
+import { DatasetEmptyState } from "@/components/ui/dataset-empty-state";
 import { listServices } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
 import { dateFormat, stateLabels } from "@/lib/deployments/presentation";
@@ -37,10 +38,11 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         />
       </div>
       {services.length === 0 ? (
-        <section className="rounded-lg border bg-card px-6 py-16 text-center text-card-foreground">
-          <h2 className="text-lg font-semibold">No services yet</h2>
-          <p className="mt-2 text-sm text-muted-foreground">Services will appear here when they are added.</p>
-        </section>
+        <DatasetEmptyState
+          headingLevel="h2"
+          title="No services yet"
+          description="Services will appear here when they are added."
+        />
       ) : (
         <Table aria-label={`Services in ${environment}`}>
           <TableCaption className="sr-only">{`Services in ${environment}`}</TableCaption>

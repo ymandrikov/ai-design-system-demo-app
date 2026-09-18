@@ -38,7 +38,10 @@ scrollable structure; see its [contract](design-system/components/table.md).
 centering, responsive page padding and width presets. Data overviews/details use
 the default wide width; focused single-column forms use `width="narrow"`. Fallbacks
 retain their route width; the shared service not-found view uses the service detail
-width. Pages own content order, branding, spacing between regions and empty states.
+width. Pages own content order, branding, spacing between regions and empty-data
+conditions. [DatasetEmptyState](design-system/components/dataset-empty-state.md)
+owns the shared empty-table surface, typography and internal spacing; pages supply
+contextual copy and the appropriate h2 or h3 heading level.
 [PageHeader](design-system/components/page-header.md) owns the page heading,
 optional description and placement of page-level controls. Environment
 navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
