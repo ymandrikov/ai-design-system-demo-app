@@ -14,9 +14,21 @@ export default async function DeployPage({ params, searchParams }: PageProps<"/s
   if (!data || !data.configured) notFound();
   return (
     <PageContainer width="narrow">
-      <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
-      <div className="mb-8"><PageHeader title={`Deploy ${data.service.name}`} description={`Service: ${data.service.name} · Environment: ${environment}`} /></div>
-      <DeployForm slug={data.service.slug} environment={environment} versions={data.versions} currentVersion={data.currentVersion} />
+      <p className="mb-12 text-sm font-semibold tracking-tight">
+        Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
+      </p>
+      <div className="mb-8">
+        <PageHeader
+          title={`Deploy ${data.service.name}`}
+          description={`Service: ${data.service.name} · Environment: ${environment}`}
+        />
+      </div>
+      <DeployForm
+        slug={data.service.slug}
+        environment={environment}
+        versions={data.versions}
+        currentVersion={data.currentVersion}
+      />
     </PageContainer>
   );
 }

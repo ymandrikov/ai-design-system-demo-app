@@ -1,5 +1,5 @@
 ---
-sourcesHash: 49cfafd9b2cd66856fd22567c3879b953a690cb830b5d37fe9f3fb0683e54d4b
+sourcesHash: 069fbbdb10d86aec9fdca691270e47b2766cee930bc4596a90df96dec18cc6d2
 id: page-container
 description: Center a route's main content with shared responsive page padding and a width suited to data views or a focused single-column form, including route fallback states.
 status: discoverable

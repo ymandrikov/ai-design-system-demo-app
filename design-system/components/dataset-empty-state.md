@@ -1,5 +1,5 @@
 ---
-sourcesHash: e4e7263ef99cb166e7cad8c3f8f4c87c017aae6b6f42d1cc909b647eaf8187b2
+sourcesHash: 16a693eba018ef7539ec6952c16b9bfb83f245a43e8455e4d7661908faa34455
 id: dataset-empty-state
 description: Explain an empty dataset in place of its table with a heading and contextual description.
 status: discoverable

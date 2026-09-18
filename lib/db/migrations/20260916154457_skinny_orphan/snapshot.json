@@ -2,9 +2,7 @@
   "version": "7",
   "dialect": "sqlite",
   "id": "eaae6d34-c500-4a99-b519-d292fbfd91cb",
-  "prevIds": [
-    "97fd09d9-3511-4449-a966-20d2daf87942"
-  ],
+  "prevIds": ["97fd09d9-3511-4449-a966-20d2daf87942"],
   "ddl": [
     {
       "name": "deployments",
@@ -183,15 +181,9 @@
       "table": "services"
     },
     {
-      "columns": [
-        "service_id",
-        "environment"
-      ],
+      "columns": ["service_id", "environment"],
       "tableTo": "service_environments",
-      "columnsTo": [
-        "service_id",
-        "environment"
-      ],
+      "columnsTo": ["service_id", "environment"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "nameExplicit": false,
@@ -200,15 +192,9 @@
       "table": "deployments"
     },
     {
-      "columns": [
-        "service_id",
-        "version_id"
-      ],
+      "columns": ["service_id", "version_id"],
       "tableTo": "service_versions",
-      "columnsTo": [
-        "service_id",
-        "id"
-      ],
+      "columnsTo": ["service_id", "id"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "nameExplicit": false,
@@ -217,13 +203,9 @@
       "table": "deployments"
     },
     {
-      "columns": [
-        "service_id"
-      ],
+      "columns": ["service_id"],
       "tableTo": "services",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "nameExplicit": false,
@@ -232,15 +214,9 @@
       "table": "service_environments"
     },
     {
-      "columns": [
-        "service_id",
-        "current_version_id"
-      ],
+      "columns": ["service_id", "current_version_id"],
       "tableTo": "service_versions",
-      "columnsTo": [
-        "service_id",
-        "id"
-      ],
+      "columnsTo": ["service_id", "id"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "nameExplicit": false,
@@ -249,13 +225,9 @@
       "table": "service_environments"
     },
     {
-      "columns": [
-        "service_id"
-      ],
+      "columns": ["service_id"],
       "tableTo": "services",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
       "nameExplicit": false,
@@ -264,37 +236,28 @@
       "table": "service_versions"
     },
     {
-      "columns": [
-        "service_id",
-        "environment"
-      ],
+      "columns": ["service_id", "environment"],
       "nameExplicit": false,
       "name": "service_environments_pk",
       "entityType": "pks",
       "table": "service_environments"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "deployments_pk",
       "table": "deployments",
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "service_versions_pk",
       "table": "service_versions",
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "services_pk",
       "table": "services",
@@ -327,29 +290,21 @@
       "table": "deployments"
     },
     {
-      "columns": [
-        "service_id",
-        "version"
-      ],
+      "columns": ["service_id", "version"],
       "nameExplicit": false,
       "name": "service_versions_service_id_version_unique",
       "entityType": "uniques",
       "table": "service_versions"
     },
     {
-      "columns": [
-        "service_id",
-        "id"
-      ],
+      "columns": ["service_id", "id"],
       "nameExplicit": false,
       "name": "service_versions_service_id_id_unique",
       "entityType": "uniques",
       "table": "service_versions"
     },
     {
-      "columns": [
-        "slug"
-      ],
+      "columns": ["slug"],
       "nameExplicit": false,
       "name": "services_slug_unique",
       "entityType": "uniques",

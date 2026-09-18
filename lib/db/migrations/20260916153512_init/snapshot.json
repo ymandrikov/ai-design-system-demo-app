@@ -2,9 +2,7 @@
   "version": "7",
   "dialect": "sqlite",
   "id": "97fd09d9-3511-4449-a966-20d2daf87942",
-  "prevIds": [
-    "00000000-0000-0000-0000-000000000000"
-  ],
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
       "name": "services",
@@ -41,18 +39,14 @@
       "table": "services"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "services_pk",
       "table": "services",
       "entityType": "pks"
     },
     {
-      "columns": [
-        "slug"
-      ],
+      "columns": ["slug"],
       "nameExplicit": false,
       "name": "services_slug_unique",
       "entityType": "uniques",

@@ -10,15 +10,37 @@ export function getProgress(deployment: Deployment, now: Date) {
     const startedAt = new Date(deployment.startedAt.getTime() + index * 5_000);
     const completedAt = new Date(startedAt.getTime() + 5_000);
     const finished = elapsed >= (index + 1) * 5_000;
-    const status = finished ? (index === 3 && deployment.scenario === "health_check_failure" ? "failed" : "succeeded") : elapsed >= index * 5_000 ? "active" : "pending";
-    return { name, status, startedAt: status === "pending" ? null : startedAt, completedAt: finished ? completedAt : null };
+    const status = finished
+      ? index === 3 && deployment.scenario === "health_check_failure"
+        ? "failed"
+        : "succeeded"
+      : elapsed >= index * 5_000
+        ? "active"
+        : "pending";
+    return {
+      name,
+      status,
+      startedAt: status === "pending" ? null : startedAt,
+      completedAt: finished ? completedAt : null,
+    };
   });
   const logs = steps.flatMap((step) => [
     ...(step.startedAt ? [{ at: step.startedAt, level: "info", message: `${step.name} started.` }] : []),
-    ...(step.completedAt ? [{ at: step.completedAt, level: step.status === "failed" ? "error" : "info", message: step.status === "failed" ? "Health check failed: simulated unhealthy response. Previous working version preserved." : `${step.name} completed.` }] : []),
+    ...(step.completedAt
+      ? [
+          {
+            at: step.completedAt,
+            level: step.status === "failed" ? "error" : "info",
+            message:
+              step.status === "failed"
+                ? "Health check failed: simulated unhealthy response. Previous working version preserved."
+                : `${step.name} completed.`,
+          },
+        ]
+      : []),
   ]);
   return {
-    percent: Math.min(100, Math.floor(elapsed / durationMs * 100)),
+    percent: Math.min(100, Math.floor((elapsed / durationMs) * 100)),
     stage: steps.find((step) => step.status === "active")?.name ?? "Health check",
     steps,
     logs,

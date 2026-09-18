@@ -1,5 +1,5 @@
 ---
-sourcesHash: 222cf275c5f92cdad0d42160d2148908ec8692bbb0105b3f993720b576404988
+sourcesHash: 314fc856d796974ff5dac769e61cf8f3a5b7e0f9740c78efd1fa935b9c77efbc
 id: table
 description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
 status: discoverable

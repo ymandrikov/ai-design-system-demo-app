@@ -19,50 +19,156 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
   if (!data) notFound();
   const { deployment, service, version, actions, steps, logs, stage, percent } = data;
   const serviceHref = `/services/${encodeURIComponent(service.slug)}?environment=${deployment.environment}`;
-  const rollbackVersion = actions.rollbackVersionId === null ? null : getDeploymentForm(service.slug, deployment.environment)?.versions.find((item) => item.id === actions.rollbackVersionId)?.version ?? null;
-  const elapsed = Math.max(0, Math.floor(((deployment.completedAt ?? new Date()).getTime() - deployment.startedAt.getTime()) / 1000));
-  const stepLabels: Record<string, string> = { pending: "Waiting", active: "In progress", succeeded: "Succeeded", failed: "Failed" };
+  const rollbackVersion =
+    actions.rollbackVersionId === null
+      ? null
+      : (getDeploymentForm(service.slug, deployment.environment)?.versions.find(
+          (item) => item.id === actions.rollbackVersionId,
+        )?.version ?? null);
+  const elapsed = Math.max(
+    0,
+    Math.floor(((deployment.completedAt ?? new Date()).getTime() - deployment.startedAt.getTime()) / 1000),
+  );
+  const stepLabels: Record<string, string> = {
+    pending: "Waiting",
+    active: "In progress",
+    succeeded: "Succeeded",
+    failed: "Failed",
+  };
 
   return (
     <PageContainer>
-      <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
+      <p className="mb-12 text-sm font-semibold tracking-tight">
+        Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
+      </p>
       <nav aria-label="Back to service" className="mb-6 text-sm">
-        <Link href={serviceHref} className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">← {service.name} · {deployment.environment}</Link>
+        <Link
+          href={serviceHref}
+          className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+        >
+          ← {service.name} · {deployment.environment}
+        </Link>
       </nav>
-      <div className="mb-8"><PageHeader title={`Deployment #${deployment.id}`} description={`${service.name} · ${deployment.environment} · ${deployment.kind}`} /></div>
+      <div className="mb-8">
+        <PageHeader
+          title={`Deployment #${deployment.id}`}
+          description={`${service.name} · ${deployment.environment} · ${deployment.kind}`}
+        />
+      </div>
       <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
       <section aria-label="Deployment summary" className="mb-10 rounded-lg border bg-card p-6 text-card-foreground">
         <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div><dt className="text-sm text-muted-foreground">Version</dt><dd className="mt-2"><VersionLabel version={version.version} /></dd></div>
-          <div><dt className="text-sm text-muted-foreground">Commit</dt><dd className="mt-2 break-all"><code>{version.commit ?? "Not recorded"}</code></dd></div>
-          <div><dt className="text-sm text-muted-foreground">Deployment status</dt><dd className="mt-2" aria-live="polite">{deployment.result ? <DeploymentResult result={deployment.result} /> : <span className="font-medium">{stage}</span>}</dd></div>
-          <div><dt className="text-sm text-muted-foreground">Duration</dt><dd className="mt-2 font-medium">{elapsed}s{!deployment.result && " elapsed"}</dd></div>
+          <div>
+            <dt className="text-sm text-muted-foreground">Version</dt>
+            <dd className="mt-2">
+              <VersionLabel version={version.version} />
+            </dd>
+          </div>
+          <div>
+            <dt className="text-sm text-muted-foreground">Commit</dt>
+            <dd className="mt-2 break-all">
+              <code>{version.commit ?? "Not recorded"}</code>
+            </dd>
+          </div>
+          <div>
+            <dt className="text-sm text-muted-foreground">Deployment status</dt>
+            <dd className="mt-2" aria-live="polite">
+              {deployment.result ? (
+                <DeploymentResult result={deployment.result} />
+              ) : (
+                <span className="font-medium">{stage}</span>
+              )}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-sm text-muted-foreground">Duration</dt>
+            <dd className="mt-2 font-medium">
+              {elapsed}s{!deployment.result && " elapsed"}
+            </dd>
+          </div>
         </dl>
         <p className="mt-6 text-sm">{version.description}</p>
-        <p className="mt-2 text-xs text-muted-foreground">Started <time dateTime={deployment.startedAt.toISOString()}>{dateFormat.format(deployment.startedAt)} UTC</time>{deployment.completedAt && <> · Completed <time dateTime={deployment.completedAt.toISOString()}>{dateFormat.format(deployment.completedAt)} UTC</time></>}</p>
-        {deployment.sourceDeploymentId && <p className="mt-2 text-sm">Source: <Link href={`/deployments/${deployment.sourceDeploymentId}`} className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">Deployment #{deployment.sourceDeploymentId}</Link></p>}
-        {deployment.result && <p className="mt-4 text-sm">{deployment.result === "failed" ? "Deployment failed. The previous working version was preserved." : "Deployment succeeded. The environment version was updated when this run completed."}</p>}
+        <p className="mt-2 text-xs text-muted-foreground">
+          Started{" "}
+          <time dateTime={deployment.startedAt.toISOString()}>{dateFormat.format(deployment.startedAt)} UTC</time>
+          {deployment.completedAt && (
+            <>
+              {" "}
+              · Completed{" "}
+              <time dateTime={deployment.completedAt.toISOString()}>
+                {dateFormat.format(deployment.completedAt)} UTC
+              </time>
+            </>
+          )}
+        </p>
+        {deployment.sourceDeploymentId && (
+          <p className="mt-2 text-sm">
+            Source:{" "}
+            <Link
+              href={`/deployments/${deployment.sourceDeploymentId}`}
+              className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+            >
+              Deployment #{deployment.sourceDeploymentId}
+            </Link>
+          </p>
+        )}
+        {deployment.result && (
+          <p className="mt-4 text-sm">
+            {deployment.result === "failed"
+              ? "Deployment failed. The previous working version was preserved."
+              : "Deployment succeeded. The environment version was updated when this run completed."}
+          </p>
+        )}
       </section>
       <section aria-labelledby="stages-heading" className="mb-10">
-        <h2 id="stages-heading" className="mb-4 text-lg font-semibold">Deployment stages</h2>
-        <p className="mb-4 text-sm text-muted-foreground">{percent}% processed{!deployment.result && " · Updates every second"}</p>
+        <h2 id="stages-heading" className="mb-4 text-lg font-semibold">
+          Deployment stages
+        </h2>
+        <p className="mb-4 text-sm text-muted-foreground">
+          {percent}% processed{!deployment.result && " · Updates every second"}
+        </p>
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step) => <li key={step.name} aria-current={step.status === "active" ? "step" : undefined} className="rounded-lg border bg-card p-4 text-card-foreground">
-            <h3 className="font-medium">{step.name}</h3>
-            <p className={`mt-2 text-sm ${step.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}>{stepLabels[step.status]}</p>
-          </li>)}
+          {steps.map((step) => (
+            <li
+              key={step.name}
+              aria-current={step.status === "active" ? "step" : undefined}
+              className="rounded-lg border bg-card p-4 text-card-foreground"
+            >
+              <h3 className="font-medium">{step.name}</h3>
+              <p className={`mt-2 text-sm ${step.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}>
+                {stepLabels[step.status]}
+              </p>
+            </li>
+          ))}
         </ol>
       </section>
       <section aria-labelledby="logs-heading" className="mb-10">
-        <h2 id="logs-heading" className="mb-4 text-lg font-semibold">Logs <span className="text-sm font-normal text-muted-foreground">(UTC)</span></h2>
+        <h2 id="logs-heading" className="mb-4 text-lg font-semibold">
+          Logs <span className="text-sm font-normal text-muted-foreground">(UTC)</span>
+        </h2>
         <ol className="space-y-2 rounded-lg border bg-card p-4 font-mono text-sm text-card-foreground">
-          {logs.map((log, index) => <li key={index} className="flex flex-wrap gap-x-4 gap-y-1">
-            <time dateTime={log.at.toISOString()} className="text-muted-foreground">{log.at.toISOString().slice(11, 19)}</time>
-            <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive" : ""}`}>{log.level.toUpperCase()} · {log.message}</span>
-          </li>)}
+          {logs.map((log, index) => (
+            <li key={index} className="flex flex-wrap gap-x-4 gap-y-1">
+              <time dateTime={log.at.toISOString()} className="text-muted-foreground">
+                {log.at.toISOString().slice(11, 19)}
+              </time>
+              <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive" : ""}`}>
+                {log.level.toUpperCase()} · {log.message}
+              </span>
+            </li>
+          ))}
         </ol>
       </section>
-      <DeploymentActions key={`actions-${deployment.id}`} id={deployment.id} environment={deployment.environment} currentVersion={version.version} canRetry={actions.canRetry} rollbackVersion={rollbackVersion} serviceHref={serviceHref} active={!deployment.result} />
+      <DeploymentActions
+        key={`actions-${deployment.id}`}
+        id={deployment.id}
+        environment={deployment.environment}
+        currentVersion={version.version}
+        canRetry={actions.canRetry}
+        rollbackVersion={rollbackVersion}
+        serviceHref={serviceHref}
+        active={!deployment.result}
+      />
     </PageContainer>
   );
 }

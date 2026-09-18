@@ -8,7 +8,13 @@ export async function deploy(_previous: { error: string }, formData: FormData) {
   const slug = formData.get("slug");
   const environment = formData.get("environment");
   const version = formData.get("versionId");
-  if (typeof slug !== "string" || !slug || (environment !== "production" && environment !== "staging") || typeof version !== "string" || !/^[1-9]\d*$/.test(version)) {
+  if (
+    typeof slug !== "string" ||
+    !slug ||
+    (environment !== "production" && environment !== "staging") ||
+    typeof version !== "string" ||
+    !/^[1-9]\d*$/.test(version)
+  ) {
     return { error: "Choose a valid service, environment and version." };
   }
   let deployment;

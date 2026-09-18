@@ -29,27 +29,72 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
 
   return (
     <PageContainer>
-      <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
+      <p className="mb-12 text-sm font-semibold tracking-tight">
+        Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span>
+      </p>
       <nav aria-label="Back to services" className="mb-6 text-sm">
-        <Link href={`/?environment=${environment}`} className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">← Services</Link>
+        <Link
+          href={`/?environment=${environment}`}
+          className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+        >
+          ← Services
+        </Link>
       </nav>
       <div className="mb-8">
-        <PageHeader title={service.name} description={`Service health and deployment history in ${environment}.`} controls={
-          <div className="flex flex-wrap items-center gap-4">
-            <NavigationalTabs label="Environment" currentHref={`${pathname}?environment=${environment}`} items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: value }))} />
-            {service.state && <Link href={`${pathname}/deploy?environment=${environment}`} className={buttonVariants()}>Deploy</Link>}
-          </div>
-        } />
+        <PageHeader
+          title={service.name}
+          description={`Service health and deployment history in ${environment}.`}
+          controls={
+            <div className="flex flex-wrap items-center gap-4">
+              <NavigationalTabs
+                label="Environment"
+                currentHref={`${pathname}?environment=${environment}`}
+                items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: value }))}
+              />
+              {service.state && (
+                <Link href={`${pathname}/deploy?environment=${environment}`} className={buttonVariants()}>
+                  Deploy
+                </Link>
+              )}
+            </div>
+          }
+        />
       </div>
       <section aria-label="Service summary" className="mb-10 rounded-lg border bg-card p-6 text-card-foreground">
         <dl className="grid gap-6 sm:grid-cols-3">
-          <div><dt className="text-sm text-muted-foreground">Service state</dt><dd className="mt-2 font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</dd></div>
-          <div><dt className="text-sm text-muted-foreground">Current version</dt><dd className="mt-2">{service.currentVersion ? <VersionLabel version={service.currentVersion} /> : <span className="text-muted-foreground">No version</span>}</dd></div>
-          <div><dt className="text-sm text-muted-foreground">Last deployment</dt><dd className="mt-2">{service.lastResult ? <DeploymentResult result={service.lastResult} /> : <span className="text-muted-foreground">No deployments</span>}</dd></div>
+          <div>
+            <dt className="text-sm text-muted-foreground">Service state</dt>
+            <dd className="mt-2 font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</dd>
+          </div>
+          <div>
+            <dt className="text-sm text-muted-foreground">Current version</dt>
+            <dd className="mt-2">
+              {service.currentVersion ? (
+                <VersionLabel version={service.currentVersion} />
+              ) : (
+                <span className="text-muted-foreground">No version</span>
+              )}
+            </dd>
+          </div>
+          <div>
+            <dt className="text-sm text-muted-foreground">Last deployment</dt>
+            <dd className="mt-2">
+              {service.lastResult ? (
+                <DeploymentResult result={service.lastResult} />
+              ) : (
+                <span className="text-muted-foreground">No deployments</span>
+              )}
+            </dd>
+          </div>
         </dl>
-        <p className="mt-6 text-xs text-muted-foreground">A failed deployment can leave the previous working version healthy.</p>
+        <p className="mt-6 text-xs text-muted-foreground">
+          A failed deployment can leave the previous working version healthy.
+        </p>
       </section>
-      <RefreshActiveDeployment key={`${service.id}-${environment}`} active={service.history.some((deployment) => !deployment.result)} />
+      <RefreshActiveDeployment
+        key={`${service.id}-${environment}`}
+        active={service.history.some((deployment) => !deployment.result)}
+      />
       <h2 className="mb-4 text-lg font-semibold">Deployment history</h2>
       {service.history.length === 0 ? (
         <DatasetEmptyState
@@ -60,18 +105,62 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
       ) : (
         <Table aria-label={`Deployment history for ${service.name} in ${environment}`}>
           <TableCaption className="sr-only">{`Deployment history for ${service.name} in ${environment}`}</TableCaption>
-          <TableHeader><TableRow>
-            <TableHead scope="col">Deployment</TableHead><TableHead scope="col">Version</TableHead><TableHead scope="col">Commit</TableHead><TableHead scope="col">Result</TableHead><TableHead scope="col">Completed at <span className="font-normal">(UTC)</span></TableHead>
-          </TableRow></TableHeader>
-          <TableBody>{service.history.map((deployment) => (
-            <TableRow key={deployment.id}>
-              <TableHead scope="row"><Link href={`/deployments/${deployment.id}`} className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">#{deployment.id}</Link></TableHead>
-              <TableCell><VersionLabel version={deployment.version} /></TableCell>
-              <TableCell>{deployment.commit ? <code>{deployment.commit}</code> : <span className="text-muted-foreground">Not recorded</span>}</TableCell>
-              <TableCell>{deployment.result ? <DeploymentResult result={deployment.result} /> : <span className="font-medium">{deployment.progress.stage} · {deployment.progress.percent}%</span>}</TableCell>
-              <TableCell>{deployment.completedAt ? <time className="whitespace-nowrap text-muted-foreground" dateTime={deployment.completedAt.toISOString()}>{dateFormat.format(deployment.completedAt)}</time> : <span className="text-muted-foreground">In progress</span>}</TableCell>
+          <TableHeader>
+            <TableRow>
+              <TableHead scope="col">Deployment</TableHead>
+              <TableHead scope="col">Version</TableHead>
+              <TableHead scope="col">Commit</TableHead>
+              <TableHead scope="col">Result</TableHead>
+              <TableHead scope="col">
+                Completed at <span className="font-normal">(UTC)</span>
+              </TableHead>
             </TableRow>
-          ))}</TableBody>
+          </TableHeader>
+          <TableBody>
+            {service.history.map((deployment) => (
+              <TableRow key={deployment.id}>
+                <TableHead scope="row">
+                  <Link
+                    href={`/deployments/${deployment.id}`}
+                    className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"
+                  >
+                    #{deployment.id}
+                  </Link>
+                </TableHead>
+                <TableCell>
+                  <VersionLabel version={deployment.version} />
+                </TableCell>
+                <TableCell>
+                  {deployment.commit ? (
+                    <code>{deployment.commit}</code>
+                  ) : (
+                    <span className="text-muted-foreground">Not recorded</span>
+                  )}
+                </TableCell>
+                <TableCell>
+                  {deployment.result ? (
+                    <DeploymentResult result={deployment.result} />
+                  ) : (
+                    <span className="font-medium">
+                      {deployment.progress.stage} · {deployment.progress.percent}%
+                    </span>
+                  )}
+                </TableCell>
+                <TableCell>
+                  {deployment.completedAt ? (
+                    <time
+                      className="whitespace-nowrap text-muted-foreground"
+                      dateTime={deployment.completedAt.toISOString()}
+                    >
+                      {dateFormat.format(deployment.completedAt)}
+                    </time>
+                  ) : (
+                    <span className="text-muted-foreground">In progress</span>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       )}
     </PageContainer>

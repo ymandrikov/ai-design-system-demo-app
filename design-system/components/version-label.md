@@ -1,5 +1,5 @@
 ---
-sourcesHash: eb2134eaaa3a111315787be5c580e1998b24a999ddb83aef9a50c4e73114e184
+sourcesHash: 84ccde1c62bf44b7a5a327619cdcd0ce2b3d700d30ecd6ba76b4eae8f3ce62ea
 id: version-label
 description: Show a recorded service version as non-interactive inline code with a v prefix, separately from commit identifiers and missing-version text.
 status: discoverable

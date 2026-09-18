@@ -3,25 +3,41 @@ import { withDeploymentState } from "../deployments";
 import { getProgress } from "../deployments/simulation";
 import { deployments, serviceEnvironments, services, serviceVersions, type Environment } from "./schema";
 
-function selectServices(db: Parameters<Parameters<typeof withDeploymentState>[0]>[0], environment: Environment, slug?: string) {
-  return db.select({
-    id: services.id,
-    name: services.name,
-    slug: services.slug,
-    state: serviceEnvironments.state,
-    currentVersion: serviceVersions.version,
-    lastResult: deployments.result,
-    lastCompletedAt: deployments.completedAt,
-  }).from(services)
-    .leftJoin(serviceEnvironments, and(eq(serviceEnvironments.serviceId, services.id), eq(serviceEnvironments.environment, environment)))
+function selectServices(
+  db: Parameters<Parameters<typeof withDeploymentState>[0]>[0],
+  environment: Environment,
+  slug?: string,
+) {
+  return db
+    .select({
+      id: services.id,
+      name: services.name,
+      slug: services.slug,
+      state: serviceEnvironments.state,
+      currentVersion: serviceVersions.version,
+      lastResult: deployments.result,
+      lastCompletedAt: deployments.completedAt,
+    })
+    .from(services)
+    .leftJoin(
+      serviceEnvironments,
+      and(eq(serviceEnvironments.serviceId, services.id), eq(serviceEnvironments.environment, environment)),
+    )
     .leftJoin(serviceVersions, eq(serviceVersions.id, serviceEnvironments.currentVersionId))
-    .leftJoin(deployments, eq(deployments.id, sql`(
+    .leftJoin(
+      deployments,
+      eq(
+        deployments.id,
+        sql`(
       select id from deployments
       where service_id = ${services.id} and environment = ${environment} and result is not null
       order by completed_at desc, id desc limit 1
-    )`))
+    )`,
+      ),
+    )
     .where(slug === undefined ? undefined : eq(services.slug, slug))
-    .orderBy(asc(services.slug)).all();
+    .orderBy(asc(services.slug))
+    .all();
 }
 
 export function listServices(environment: Environment) {
@@ -33,15 +49,21 @@ export function getServiceDetails(slug: string, environment: Environment) {
     const service = selectServices(db, environment, slug)[0];
     if (!service) return undefined;
 
-    const history = db.select({
-      ...getColumns(deployments),
-      version: serviceVersions.version,
-      commit: serviceVersions.commit,
-    }).from(deployments)
+    const history = db
+      .select({
+        ...getColumns(deployments),
+        version: serviceVersions.version,
+        commit: serviceVersions.commit,
+      })
+      .from(deployments)
       .innerJoin(serviceVersions, eq(serviceVersions.id, deployments.versionId))
       .where(and(eq(deployments.serviceId, service.id), eq(deployments.environment, environment)))
-      .orderBy(desc(deployments.startedAt), desc(deployments.id)).all();
+      .orderBy(desc(deployments.startedAt), desc(deployments.id))
+      .all();
 
-    return { ...service, history: history.map((deployment) => ({ ...deployment, progress: getProgress(deployment, now) })) };
+    return {
+      ...service,
+      history: history.map((deployment) => ({ ...deployment, progress: getProgress(deployment, now) })),
+    };
   });
 }

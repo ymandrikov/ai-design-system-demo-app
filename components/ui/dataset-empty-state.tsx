@@ -1,4 +1,8 @@
-export function DatasetEmptyState({ title, description, headingLevel: Heading }: {
+export function DatasetEmptyState({
+  title,
+  description,
+  headingLevel: Heading,
+}: {
   title: string;
   description: string;
   headingLevel: "h2" | "h3";

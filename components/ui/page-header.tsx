@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 
-export function PageHeader({ title, description, controls }: {
+export function PageHeader({
+  title,
+  description,
+  controls,
+}: {
   title: string;
   description?: string;
   controls?: ReactNode;

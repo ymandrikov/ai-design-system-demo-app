@@ -1,5 +1,5 @@
 ---
-sourcesHash: 7f1bb1f73d6d34252c761c7aab89c52a0735dabc43fdf8a21577a683d20d1bf8
+sourcesHash: 3ef5cf4309ef045fa8326127c19dcdc53d7ab6753157defaa0113e0ebfcf4d68
 id: root-layout
 description: >-
   Provide the application's shared HTML document shell around route content,
@@ -51,7 +51,11 @@ import { PageContainer } from "@/components/layouts/page-container";
 import { PageHeader } from "@/components/ui/page-header";
 
 export default function HelpPage() {
-  return <PageContainer><PageHeader title="Help" /></PageContainer>;
+  return (
+    <PageContainer>
+      <PageHeader title="Help" />
+    </PageContainer>
+  );
 }
 ```
 

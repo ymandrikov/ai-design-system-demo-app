@@ -1,6 +1,10 @@
 import type { AriaAttributes, ReactNode } from "react";
 
-export function PageContainer({ children, width = "wide", "aria-busy": busy }: {
+export function PageContainer({
+  children,
+  width = "wide",
+  "aria-busy": busy,
+}: {
   children: ReactNode;
   width?: "wide" | "narrow";
   "aria-busy"?: AriaAttributes["aria-busy"];

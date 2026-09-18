@@ -5,8 +5,17 @@ import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/ui/page-header";
 
 export default function ErrorPage({ retry }: { retry: () => void }) {
-  return <PageContainer>
-    <PageHeader title="Could not load deployment" description="Deployment state is stored on the server. Try loading it again." />
-    <div className="mt-6"><Button type="button" onClick={() => retry()}>Try again</Button></div>
-  </PageContainer>;
+  return (
+    <PageContainer>
+      <PageHeader
+        title="Could not load deployment"
+        description="Deployment state is stored on the server. Try loading it again."
+      />
+      <div className="mt-6">
+        <Button type="button" onClick={() => retry()}>
+          Try again
+        </Button>
+      </div>
+    </PageContainer>
+  );
 }

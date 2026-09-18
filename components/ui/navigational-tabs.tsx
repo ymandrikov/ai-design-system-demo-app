@@ -2,7 +2,11 @@ import Link from "next/link";
 import { cn } from "cn";
 import { tabsListVariants, tabsTriggerClassName } from "./tabs-styles";
 
-export function NavigationalTabs({ label, items, currentHref }: {
+export function NavigationalTabs({
+  label,
+  items,
+  currentHref,
+}: {
   label: string;
   items: readonly { href: string; label: string }[];
   currentHref: string;
