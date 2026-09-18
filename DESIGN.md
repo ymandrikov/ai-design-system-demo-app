@@ -43,7 +43,13 @@ conditions. [DatasetEmptyState](design-system/components/dataset-empty-state.md)
 owns the shared empty-table surface, typography and internal spacing; pages supply
 contextual copy and the appropriate h2 or h3 heading level.
 [PageHeader](design-system/components/page-header.md) owns the page heading,
-optional description and placement of page-level controls. Environment
+optional description and placement of page-level controls. Follow the
+[page heading pattern](design-system/patterns/page-heading.md) for that composition.
+[ConfirmationDialog](design-system/components/confirmation-dialog.md) implements the
+[modal confirmation pattern](design-system/patterns/modal-confirmation.md): destructive
+main actions before Cancel, ordinary confirmations after Cancel; the button group
+is always right-aligned, preserving order when stacked.
+Both rollback buttons use destructive styling. Environment
 navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
 with canonical destination URLs derived by the server. The component renders
 Next.js links with `aria-current="page"`; the server validates the environment and
@@ -90,5 +96,5 @@ Source hashes establish reviewed source snapshots, not runtime correctness.
 The initial connection was documentation-only. The owner authorized analysis A-01
 on 2026-09-18: PageContainer now centralizes the existing page dimensions across
 eight route views. There is no theme control or automated visual/accessibility suite. Deployment
-details compose the existing header, version, outcome and action components with page-local stage cards, timestamped logs and inline rollback
-confirmation. Server-provided permissions control retry and rollback availability.
+details compose the existing header, version, outcome and action components with page-local stage cards, timestamped logs and modal rollback
+confirmation. Retry and rollback actions live in the page header. Server-provided permissions control retry and rollback availability.

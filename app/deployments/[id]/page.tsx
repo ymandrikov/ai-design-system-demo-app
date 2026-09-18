@@ -53,6 +53,19 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         <PageHeader
           title={`Deployment #${deployment.id}`}
           description={`${service.name} · ${deployment.environment} · ${deployment.kind}`}
+          controls={
+            actions.canRetry || rollbackVersion ? (
+              <DeploymentActions
+                key={`actions-${deployment.id}`}
+                id={deployment.id}
+                environment={deployment.environment}
+                currentVersion={version.version}
+                canRetry={actions.canRetry}
+                rollbackVersion={rollbackVersion}
+                serviceName={service.name}
+              />
+            ) : undefined
+          }
         />
       </div>
       <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
@@ -159,16 +172,6 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
           ))}
         </ol>
       </section>
-      <DeploymentActions
-        key={`actions-${deployment.id}`}
-        id={deployment.id}
-        environment={deployment.environment}
-        currentVersion={version.version}
-        canRetry={actions.canRetry}
-        rollbackVersion={rollbackVersion}
-        serviceHref={serviceHref}
-        active={!deployment.result}
-      />
     </PageContainer>
   );
 }

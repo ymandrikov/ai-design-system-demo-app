@@ -10,6 +10,10 @@
   - Description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
   - Contract: [contract](components/button.md)
 
+- **ConfirmationDialog**
+  - Description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
+  - Contract: [contract](components/confirmation-dialog.md)
+
 - **DatasetEmptyState**
   - Description: Explain an empty dataset in place of its table with a heading and contextual description.
   - Contract: [contract](components/dataset-empty-state.md)
