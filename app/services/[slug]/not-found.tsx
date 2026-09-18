@@ -1,5 +1,6 @@
 "use client";
 
+import { PageContainer } from "@/components/layouts/page-container";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -14,9 +15,9 @@ function BackToServices() {
 
 export default function ServiceNotFound() {
   return (
-    <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-10 sm:py-16">
+    <PageContainer>
       <PageHeader title="Service not found" description="This service does not exist in Deploy Board." />
       <nav aria-label="Back to services" className="mt-6 text-sm"><Suspense><BackToServices /></Suspense></nav>
-    </main>
+    </PageContainer>
   );
 }

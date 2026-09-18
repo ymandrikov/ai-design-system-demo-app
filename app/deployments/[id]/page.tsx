@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components/layouts/page-container";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RefreshActiveDeployment } from "@/components/deployments/refresh-active-deployment";
@@ -23,7 +24,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
   const stepLabels: Record<string, string> = { pending: "Waiting", active: "In progress", succeeded: "Succeeded", failed: "Failed" };
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-10 sm:py-16">
+    <PageContainer>
       <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
       <nav aria-label="Back to service" className="mb-6 text-sm">
         <Link href={serviceHref} className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">← {service.name} · {deployment.environment}</Link>
@@ -62,6 +63,6 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         </ol>
       </section>
       <DeploymentActions key={`actions-${deployment.id}`} id={deployment.id} environment={deployment.environment} currentVersion={version.version} canRetry={actions.canRetry} rollbackVersion={rollbackVersion} serviceHref={serviceHref} active={!deployment.result} />
-    </main>
+    </PageContainer>
   );
 }

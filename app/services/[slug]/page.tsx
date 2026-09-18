@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -26,7 +27,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
   const pathname = `/services/${encodeURIComponent(service.slug)}`;
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-10 sm:py-16">
+    <PageContainer>
       <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
       <nav aria-label="Back to services" className="mb-6 text-sm">
         <Link href={`/?environment=${environment}`} className="text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">← Services</Link>
@@ -71,6 +72,6 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
           ))}</TableBody>
         </Table>
       )}
-    </main>
+    </PageContainer>
   );
 }

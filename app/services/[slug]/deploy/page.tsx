@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components/layouts/page-container";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/ui/page-header";
 import { getDeploymentForm } from "@/lib/deployments";
@@ -12,10 +13,10 @@ export default async function DeployPage({ params, searchParams }: PageProps<"/s
   const data = getDeploymentForm(slug, environment);
   if (!data || !data.configured) notFound();
   return (
-    <main className="mx-auto w-full max-w-2xl px-5 py-10 sm:px-10 sm:py-16">
+    <PageContainer width="narrow">
       <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
       <div className="mb-8"><PageHeader title={`Deploy ${data.service.name}`} description={`Service: ${data.service.name} · Environment: ${environment}`} /></div>
       <DeployForm slug={data.service.slug} environment={environment} versions={data.versions} currentVersion={data.currentVersion} />
-    </main>
+    </PageContainer>
   );
 }

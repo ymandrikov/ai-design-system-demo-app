@@ -23,7 +23,7 @@ All criteria must hold:
 - The content is a route under this application's `app/` tree that needs the shared
   outer document shell; Next.js supplies this layout automatically for that route.
 - The requested responsibility is the outer document, not arrangement of a region
-  inside an already rendered page. The latter belongs to page or nested-layout markup.
+  inside an already rendered page. Use [PageContainer](page-container.md) for the route main; local markup arranges its sections.
 
 This is the existing application shell, not an optional card or page-width preset.
 For example, a new help route inherits it by adding its page under `app/`.
@@ -70,7 +70,8 @@ The sans alias resolves to Geist Sans and is selected on HTML; the mono alias re
   inside `children`; it must not introduce another document shell.
 - The shell owns full-height HTML and a minimum-full-height flex-column body.
   Direct children retain source order. It does not supply page padding, content
-  width, gaps, centering or breakpoints; those belong to the consuming route.
+  width, gaps, centering or breakpoints. Routes compose [PageContainer](page-container.md)
+  for page dimensions and own the gaps between their content regions.
 - Consumers own their content grouping, semantic regions and responsive arrangement.
   There is no required UI component child. Empty route content adds no fallback.
 - The shell supplies global theme and font definitions; a page's local presentation

@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { VersionLabel } from "@/components/deployments/version-label";
@@ -20,7 +21,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
   const services = listServices(environment);
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-10 sm:py-16">
+    <PageContainer>
       <p className="mb-12 text-sm font-semibold tracking-tight">Deploy Board <span className="ml-2 font-normal text-muted-foreground">/ Local demo</span></p>
       <div className="mb-8">
         <PageHeader
@@ -62,6 +63,6 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         </Table>
       )}
       <p className="mt-4 text-xs text-muted-foreground">A failed deployment can leave the previous working version healthy.</p>
-    </main>
+    </PageContainer>
   );
 }

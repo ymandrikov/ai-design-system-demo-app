@@ -34,8 +34,11 @@ Contracts belong in `design-system/components/`, `design-system/layouts/` and
 The root document layout is framework-owned. Table owns its shared styling and native
 scrollable structure; see its [contract](design-system/components/table.md).
 
-Each page owns its width, outer spacing and empty state. Services and service details
-use the wide page composition; the Deploy form uses a narrower single-column composition.
+[PageContainer](design-system/layouts/page-container.md) owns the main landmark,
+centering, responsive page padding and width presets. Data overviews/details use
+the default wide width; focused single-column forms use `width="narrow"`. Fallbacks
+retain their route width; the shared service not-found view uses the service detail
+width. Pages own content order, branding, spacing between regions and empty states.
 [PageHeader](design-system/components/page-header.md) owns the page heading,
 optional description and placement of page-level controls. Environment
 navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
@@ -81,8 +84,8 @@ Source hashes establish reviewed source snapshots, not runtime correctness.
 [Contract adoption progress](design-system/adoption.md) tracks Tabs and its remaining verification.
 
 [Open gaps](design-system/gaps.md); [archive](design-system/gaps-archive.md).
-The initial connection was documentation-only. Page width and outer spacing remain
-page-owned choices. There is no shared
-inner layout, theme control or automated visual/accessibility suite. Deployment
+The initial connection was documentation-only. The owner authorized analysis A-01
+on 2026-09-18: PageContainer now centralizes the existing page dimensions across
+eight route views. There is no theme control or automated visual/accessibility suite. Deployment
 details compose the existing header, version, outcome and action components with page-local stage cards, timestamped logs and inline rollback
 confirmation. Server-provided permissions control retry and rollback availability.
