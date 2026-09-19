@@ -16,6 +16,7 @@ function selectServices(
       state: serviceEnvironments.state,
       currentVersion: serviceVersions.version,
       lastResult: deployments.result,
+      lastDeploymentId: deployments.id,
       lastCompletedAt: deployments.completedAt,
     })
     .from(services)

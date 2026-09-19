@@ -109,6 +109,14 @@ before its value. Consumers own the dl, grid, field order and value formatting;
 only the deployment status forwards a polite live region.
 Components receive content through props and never access SQLite.
 
+Service and deployment detail summaries follow the
+[status summary pattern](design-system/patterns/status-summary.md): primary status
+and version above supporting metadata, with neutral surfaces and precise consequence
+text. [StatusSummaryLayout](design-system/layouts/status-summary-layout.md) owns the
+shared surface, wrapping primary description list and separated supporting region.
+Pages supply the fields and retain spacing and arrangement within supporting content. Service summaries distinguish the current service from its last completed
+deployment; active progress stays in history.
+
 ## Verification
 
 From the repository root: `pnpm lint`, `pnpm build`, and `pnpm exec tsc --noEmit`.

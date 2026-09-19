@@ -1,3 +1,4 @@
+import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout";
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { TextLink } from "@/components/ui/text-link";
@@ -48,7 +49,10 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
               <NavigationalTabs
                 label="Environment"
                 currentHref={`${pathname}?environment=${environment}`}
-                items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: environmentLabels[value] }))}
+                items={environments.map((value) => ({
+                  href: `${pathname}?environment=${value}`,
+                  label: environmentLabels[value],
+                }))}
               />
               {service.state && (
                 <Link href={`${pathname}/deploy?environment=${environment}`} className={buttonVariants()}>
@@ -60,30 +64,54 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         />
         <PageContent.Section aria-label="Service summary">
           <PageContent.SectionContent>
-            <div className="rounded-lg border bg-card p-6 text-card-foreground">
-              <dl className="grid gap-6 sm:grid-cols-3">
-                <DescriptionItem label="Service state">
-                  <span className="font-medium">{service.state ? stateLabels[service.state] : "Not configured"}</span>
-                </DescriptionItem>
-                <DescriptionItem label="Current version">
-                  {service.currentVersion ? (
-                    <VersionLabel version={service.currentVersion} />
-                  ) : (
-                    <span className="text-muted-foreground">No version</span>
-                  )}
-                </DescriptionItem>
-                <DescriptionItem label="Last deployment">
-                  {service.lastResult ? (
-                    <DeploymentResult result={service.lastResult} />
-                  ) : (
-                    <span className="text-muted-foreground">No deployments</span>
-                  )}
-                </DescriptionItem>
-              </dl>
-              <p className="mt-6 text-xs text-muted-foreground">
-                A failed deployment can leave the previous working version healthy.
-              </p>
-            </div>
+            <StatusSummaryLayout
+              primary={
+                <>
+                  <DescriptionItem label="Service state">
+                    <span className="text-lg font-semibold">
+                      {service.state ? stateLabels[service.state] : "Not configured"}
+                    </span>
+                  </DescriptionItem>
+                  <DescriptionItem label="Current version">
+                    {service.currentVersion ? (
+                      <VersionLabel version={service.currentVersion} />
+                    ) : (
+                      <span className="text-muted-foreground">No version</span>
+                    )}
+                  </DescriptionItem>
+                </>
+              }
+            >
+              <div className="space-y-2">
+                <dl className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <dt className="text-muted-foreground">Last completed deployment</dt>
+                  <dd className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    {service.lastResult ? (
+                      <>
+                        <DeploymentResult result={service.lastResult} />
+                        {service.lastCompletedAt && (
+                          <time className="text-muted-foreground" dateTime={service.lastCompletedAt.toISOString()}>
+                            {dateFormat.format(service.lastCompletedAt)} UTC
+                          </time>
+                        )}
+                        <TextLink href={`/deployments/${service.lastDeploymentId}`}>
+                          View deployment #{service.lastDeploymentId}
+                        </TextLink>
+                      </>
+                    ) : (
+                      <span>No completed deployments</span>
+                    )}
+                  </dd>
+                </dl>
+                {service.lastResult === "failed" && (
+                  <p className="text-muted-foreground">
+                    {service.currentVersion
+                      ? "Deployment failed. Current version unchanged."
+                      : "Deployment failed. No version is deployed."}
+                  </p>
+                )}
+              </div>
+            </StatusSummaryLayout>
           </PageContent.SectionContent>
         </PageContent.Section>
         <RefreshActiveDeployment

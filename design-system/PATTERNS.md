@@ -17,3 +17,7 @@
 - **Page heading**
   - Description: Orient the user on a page with its title, optional description and available page-level actions above the main content.
   - Contract: [contract](patterns/page-heading.md)
+
+- **Status summary**
+  - Description: Understand a service's current condition or a deployment's recorded status before inspecting its supporting metadata and consequences.
+  - Contract: [contract](patterns/status-summary.md)

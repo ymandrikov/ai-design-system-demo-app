@@ -1,3 +1,4 @@
+import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout";
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { TextLink } from "@/components/ui/text-link";
@@ -70,57 +71,61 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
         <PageContent.Section aria-label="Deployment summary">
           <PageContent.SectionContent>
-            <div className="rounded-lg border bg-card p-6 text-card-foreground">
-              <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <DescriptionItem label="Version">
-                  <VersionLabel version={version.version} />
-                </DescriptionItem>
-                <DescriptionItem label="Commit">
-                  <code className="break-all">{version.commit ?? "Not recorded"}</code>
-                </DescriptionItem>
-                <DescriptionItem label="Deployment status" aria-live="polite">
-                  {deployment.result ? (
-                    <DeploymentResult result={deployment.result} />
-                  ) : (
-                    <span className="font-medium">{stage}</span>
-                  )}
-                </DescriptionItem>
-                <DescriptionItem label="Duration">
-                  <span className="font-medium">
+            <StatusSummaryLayout
+              primary={
+                <>
+                  <DescriptionItem label="Deployment status" aria-live="polite">
+                    {deployment.result ? (
+                      <DeploymentResult result={deployment.result} />
+                    ) : (
+                      <span className="text-lg font-semibold">{stage}</span>
+                    )}
+                  </DescriptionItem>
+                  <DescriptionItem label="Version">
+                    <VersionLabel version={version.version} />
+                  </DescriptionItem>
+                </>
+              }
+            >
+              <div className="space-y-4">
+                <dl className="flex flex-wrap gap-x-8 gap-y-4">
+                  <DescriptionItem label="Commit">
+                    <code className="break-all">{version.commit ?? "Not recorded"}</code>
+                  </DescriptionItem>
+                  <DescriptionItem label="Duration">
                     {elapsed}s{!deployment.result && " elapsed"}
-                  </span>
-                </DescriptionItem>
-              </dl>
-              <p className="mt-6 text-sm">{version.description}</p>
-              <p className="mt-2 text-xs text-muted-foreground">
-                Started{" "}
-                <time dateTime={deployment.startedAt.toISOString()}>{dateFormat.format(deployment.startedAt)} UTC</time>
-                {deployment.completedAt && (
-                  <>
-                    {" "}
-                    · Completed{" "}
-                    <time dateTime={deployment.completedAt.toISOString()}>
-                      {dateFormat.format(deployment.completedAt)} UTC
+                  </DescriptionItem>
+                  <DescriptionItem label="Started">
+                    <time dateTime={deployment.startedAt.toISOString()} className="text-muted-foreground">
+                      {dateFormat.format(deployment.startedAt)} UTC
                     </time>
-                  </>
+                  </DescriptionItem>
+                  {deployment.completedAt && (
+                    <DescriptionItem label="Completed">
+                      <time dateTime={deployment.completedAt.toISOString()} className="text-muted-foreground">
+                        {dateFormat.format(deployment.completedAt)} UTC
+                      </time>
+                    </DescriptionItem>
+                  )}
+                </dl>
+                <p>{version.description}</p>
+                {deployment.sourceDeploymentId && (
+                  <p>
+                    Source:{" "}
+                    <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
+                      Deployment #{deployment.sourceDeploymentId}
+                    </TextLink>
+                  </p>
                 )}
-              </p>
-              {deployment.sourceDeploymentId && (
-                <p className="mt-2 text-sm">
-                  Source:{" "}
-                  <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
-                    Deployment #{deployment.sourceDeploymentId}
-                  </TextLink>
-                </p>
-              )}
-              {deployment.result && (
-                <p className="mt-4 text-sm">
-                  {deployment.result === "failed"
-                    ? "Deployment failed. The previous working version was preserved."
-                    : "Deployment succeeded. The environment version was updated when this run completed."}
-                </p>
-              )}
-            </div>
+                {deployment.result && (
+                  <p className="text-muted-foreground">
+                    {deployment.result === "failed"
+                      ? "Deployment failed. This attempt did not change the environment's current version."
+                      : "Deployment succeeded. The environment version was updated when this run completed."}
+                  </p>
+                )}
+              </div>
+            </StatusSummaryLayout>
           </PageContent.SectionContent>
         </PageContent.Section>
         <PageContent.Section aria-labelledby="stages-heading">
