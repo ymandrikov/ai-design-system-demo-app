@@ -1,9 +1,8 @@
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
-import { textLinkClassName } from "@/components/ui/text-link-styles";
+import { TextLink } from "@/components/ui/text-link";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RefreshActiveDeployment } from "@/components/deployments/refresh-active-deployment";
 import { VersionLabel } from "@/components/deployments/version-label";
@@ -46,9 +45,9 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         <AppIdentity />
       </div>
       <nav aria-label="Back to service" className="mb-6 text-sm">
-        <Link href={serviceHref} className={textLinkClassName}>
+        <TextLink href={serviceHref}>
           ← {service.name} · {deployment.environment}
-        </Link>
+        </TextLink>
       </nav>
       <PageContent>
         <PageHeader
@@ -109,9 +108,9 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
               {deployment.sourceDeploymentId && (
                 <p className="mt-2 text-sm">
                   Source:{" "}
-                  <Link href={`/deployments/${deployment.sourceDeploymentId}`} className={textLinkClassName}>
+                  <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
                     Deployment #{deployment.sourceDeploymentId}
-                  </Link>
+                  </TextLink>
                 </p>
               )}
               {deployment.result && (

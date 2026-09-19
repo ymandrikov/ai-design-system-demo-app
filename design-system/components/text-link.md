@@ -1,10 +1,11 @@
 ---
-sourcesHash: cdc13600f62c19f42f6f0bbc119db7d9f70483dfcd4b96cad1c307237f3d142e
+sourcesHash: 27201d4f3839499d86fe8bb090ec913bc326b897282939ef43489be8b970ba33
 id: text-link
-description: Identify an ordinary record reference or return-navigation link with shared underline and keyboard-focus styling while preserving native link semantics.
+description: Style title links to object details and ordinary text navigation with distinct hover treatments and visible keyboard focus, preserving native link semantics.
 status: discoverable
 sources:
-  - components/ui/text-link-styles.ts
+  - components/ui/text-link.tsx
+  - lib/with-design-system-exception.tsx
 ---
 
 # Text link
@@ -13,60 +14,96 @@ sources:
 
 All criteria must hold:
 
-- The user follows an individual record reference or return-navigation destination.
-- The link belongs in prose, a table identity, or ordinary back navigation rather than a standalone action or peer-destination strip.
+- The control navigates to a destination using a native text link.
+- The link is an object title, contextual reference, return navigation or form Cancel navigation.
 
 ## When not to use
 
-- Navigation is a standalone action such as Deploy or form Cancel: use [Button's styling helper](button.md).
+- Navigation needs button treatment, such as Deploy: use [Button's styling helper](button.md).
 - Links switch between peer page contexts: use [NavigationalTabs](navigational-tabs.md).
-- The control performs an action without navigating: use [Button](button.md).
+- The control performs an action without navigating, including dismissing a dialog: use [Button](button.md).
 
 ## Public API
 
 ### React
 
-Import `textLinkClassName` from `@/components/ui/text-link-styles` and apply it to
-an existing Next.js Link or native anchor. This export is a class string, not a
-component or function; it has no inputs, defaults, events, methods or attribute forwarding.
+Import `TextLink` from `@/components/ui/text-link`.
+It wraps Next.js `Link` and accepts its props except top-level `className` and
+`style`, including required `href`,
+`children`, anchor attributes, `ref`, routing options and event handlers.
+These are forwarded unchanged; native and Next.js defaults remain in force.
+Handlers require a client consumer. There are no additional events or methods.
+
+`variant` selects the text-link role:
+
+- `"default"` (also used when omitted): ordinary text navigation, including back
+  links, contextual references to another deployment and form Cancel. Referencing
+  an object alone does not make a link a title link.
+- `"title"`: a **title link** (ссылка-заголовок) names an object and serves as its
+  main entry to details within a list, table or card. Use it for service names and
+  deployment numbers in tables. Multiple title links may coexist on a page;
+  the term does not require a heading element.
 
 ```tsx
-<Link href="/services/api?environment=staging" className={textLinkClassName}>
+<TextLink href="/services/api?environment=staging" variant="title">
   API service
-</Link>
+</TextLink>
+<TextLink href="/?environment=staging">← Services</TextLink>
 ```
 
-The owner approved REC-01: preserve the seven existing ordinary links' primary text,
-underline with offset-4, and focus-visible outline-2 with offset-4. These classes
-own the shared visual treatment, using [global tokens](../../app/globals.css).
-There are no variants or client-only dependencies.
+The component owns the anchor and its colour, decoration and keyboard-focus
+styling, using [global tokens](../../app/globals.css). Title links also own
+semibold weight; ordinary links inherit surrounding weight and colour.
+Consumers own the destination, meaningful label/content, routing options,
+query parameters, navigation landmarks and surrounding layout. Put external
+spacing on a parent container. Do not replace link semantics through `role` or
+nest interactive content inside the link.
 
-Consumers own the native element, destination, visible label, routing behavior,
-query parameters, navigation landmarks and surrounding typography/layout.
-Additional classes may control outer spacing/display and inherited-context text size.
-Retain font-semibold for the service identity in the Services table; other current
-links inherit their context's weight. This preserves the approved existing emphasis,
-not a new rule that every record link must be bold. Do not override shared colour,
-underline or focus treatment. Concatenate permitted classes with the string when needed.
+For an authorised local styling deviation, pass `designSystemException` with
+required `reason: string` and optional `className: string` and `style: CSSProperties`.
+Omitting it preserves standard styling. Exception classes are merged after base
+and variant classes, so conflicting Tailwind utilities override those defaults;
+state-specific utilities such as `hover:*` must be overridden explicitly.
+Inline styles are forwarded to the anchor with normal CSS precedence.
+The escape hatch cannot supply navigation props or handlers.
+
+The shared [withDesignSystemException helper](../../lib/with-design-system-exception.tsx)
+removes ordinary styling props from the public TypeScript API and forwards only
+the exception's styling to the private component. `reason` is required only by
+TypeScript; there is no runtime validation or CSS analysis, and the exception
+object and reason are not forwarded to the DOM. Each actual use needs an
+explanation and an entry in the [exception journal](../gaps.md), linked by an
+adjacent source comment naming the entry. No current consumer needs an exception.
+
+The former class-string helpers are removed; all text-link consumers use `TextLink`.
 
 ## Behaviour and states
 
-The helper only supplies styles. The host link retains its native navigation,
-keyboard activation and browser operations. It adds no click handler, role, disabled
-state, loading state, prefetch setting or focus management. Underlines remain visible;
-keyboard-visible focus uses the shared outline. Text wrapping follows the host context.
+Without a design-system exception, neither kind is underlined at rest. Title links use `foreground` and semibold
+weight; on hover their colour becomes `primary` without an underline.
+Ordinary links inherit colour and weight; hover adds an underline with offset-4
+without changing colour. Visited links retain the same treatment.
+Keyboard-visible focus adds a current-colour outline-2 with offset-4 for both kinds.
+These rules apply in light and dark themes and replace the previous always-underlined,
+primary-coloured treatment. Button treatments and navigation tabs are outside this rule.
+
+The component preserves Next.js Link navigation, keyboard activation and browser
+operations. It adds no click handler, role, disabled state, loading state or focus
+management, and does not override prefetch defaults. Wrapping follows the host context.
 
 ## Accessibility
 
 ### Provided by the component
 
-The styling capability provides a visible underline and focus-visible outline without
-changing the host's semantics or creating extra tab stops.
+Visible keyboard-focus outlines without changed semantics or extra tab stops.
+Title links have typographic emphasis; ordinary links gain an underline on hover.
 
 ### Required of consumers
 
-Apply it to a real anchor or Next.js Link with a meaningful destination and label.
-Keep navigation as links rather than clickable spans or button roles. Preserve
-context in URLs where the route requires it and retain appropriate nav landmarks.
-Ensure surrounding containers do not clip focus indicators; verify rendered links
-in their actual contexts when changing layout or appearance.
+Provide a meaningful destination and label. Keep navigation as links rather
+than clickable spans or button roles.
+Preserve context in URLs and appropriate navigation landmarks. Since ordinary
+links inherit text styling, make their purpose apparent through wording and
+placement, including on touch devices; do not rely on hover to explain the action.
+Ensure containers do not clip focus indicators and inherited colours remain
+legible against their surfaces. Verify links in their actual contexts.

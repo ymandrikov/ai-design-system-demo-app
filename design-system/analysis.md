@@ -26,11 +26,12 @@ REC-01–03 are approved and implemented; REC-04/05 remain recommendations.
 
 **Kind:** shared styling capability for a component responsibility. **Action:** extract new. **Status:** implemented.
 
-The approved extraction is `textLinkClassName` in
-[the shared source](../components/ui/text-link-styles.ts), with its
-[public contract](components/text-link.md). All seven links below now use it;
-existing destinations, labels, emphasis and layout classes are preserved.
-The following rationale records the original analysis.
+The original class-string extraction has been replaced by
+[TextLink](../components/ui/text-link.tsx), with its
+[public contract](components/text-link.md). The later title/ordinary link rules
+supersede the extracted visual treatment: title links use `variant="title"`,
+ordinary links use the default variant, including form Cancel.
+The following rationale records the original analysis, not the current styling rules.
 
 Seven actual links share `text-primary underline underline-offset-4
 focus-visible:outline-2 focus-visible:outline-offset-4`:

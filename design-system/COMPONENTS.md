@@ -47,7 +47,7 @@
   - Contract: [contract](components/tabs.md)
 
 - **Text link**
-  - Description: Identify an ordinary record reference or return-navigation link with shared underline and keyboard-focus styling while preserving native link semantics.
+  - Description: Style title links to object details and ordinary text navigation with distinct hover treatments and visible keyboard focus, preserving native link semantics.
   - Contract: [contract](components/text-link.md)
 
 - **VersionLabel**

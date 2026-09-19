@@ -65,9 +65,34 @@ the Services and Service details screens. Tabs remains for local panel switching
 `components/ui/tabs-styles.ts` as their single source of list and item styling.
 Standalone screen actions use [Button](design-system/components/button.md):
 `Button` for form submission and `buttonVariants` on native/Next.js links for
-navigation. Deploy uses the default treatment; Cancel uses the link variant.
-Record links and back navigation use the [text-link styling helper](design-system/components/text-link.md)
-on ordinary links, preserving native navigation and page-owned destinations.
+navigation. Deploy uses the default treatment.
+Text navigation uses [TextLink](design-system/components/text-link.md),
+preserving native navigation and page-owned destinations. These rules are required:
+
+- **Title links (ссылки-заголовки)** name an object and provide its main entry to
+  details in a list, table or card. Service names and deployment numbers in tables
+  use `variant="title"`: `foreground` and semibold weight; hover changes colour to `primary`.
+- **Ordinary links** include back navigation, contextual deployment references
+  and form Cancel. Omit `variant` or use `variant="default"`. They inherit surrounding
+  colour and weight; hover adds an
+  underline without changing colour.
+- Neither kind is underlined at rest; title links also stay ununderlined on hover.
+  Both retain visible keyboard-focus outlines and have no distinct visited colour.
+  These rules apply in both themes; navigation tabs and button treatments keep
+  their own contracts.
+
+`TextLink` exposes styling overrides only through `designSystemException`:
+required `reason: string`, optional `className` and `style`. Ordinary styling props
+are excluded from its TypeScript API; parents own external spacing. The shared
+[withDesignSystemException](lib/with-design-system-exception.tsx) helper wraps a
+component that accepts optional styling props. Wrapped implementations must merge
+incoming classes after their defaults (using `cn`) and apply incoming inline styles
+after any default styles. The helper forwards other props, including refs, unchanged;
+it adds no DOM wrapper, runtime validation or CSS inspection. Apply it only to
+components explicitly adopting this contract; currently that is `TextLink`.
+Each actual exception requires a reason and an entry in the
+[journal](design-system/gaps.md), linked from an adjacent source comment.
+
 Compact annotations use [Badge](design-system/components/badge.md).
 [VersionLabel](design-system/components/version-label.md) composes its secondary
 treatment with native code; [DeploymentResult](design-system/components/deployment-result.md)

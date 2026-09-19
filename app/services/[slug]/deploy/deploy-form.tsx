@@ -2,8 +2,8 @@
 
 import { DescriptionItem } from "@/components/ui/description-item";
 import { useActionState, useState } from "react";
-import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { TextLink } from "@/components/ui/text-link";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { deploy } from "./actions";
 
@@ -83,12 +83,7 @@ export function DeployForm({
         <Button type="submit" disabled={pending || !versions.length}>
           {pending ? "Starting…" : "Deploy"}
         </Button>
-        <Link
-          href={`/services/${encodeURIComponent(slug)}?environment=${environment}`}
-          className={buttonVariants({ variant: "link" })}
-        >
-          Cancel
-        </Link>
+        <TextLink href={`/services/${encodeURIComponent(slug)}?environment=${environment}`}>Cancel</TextLink>
       </div>
     </form>
   );

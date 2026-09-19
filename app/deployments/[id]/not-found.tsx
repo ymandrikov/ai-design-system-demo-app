@@ -1,6 +1,5 @@
-import { textLinkClassName } from "@/components/ui/text-link-styles";
+import { TextLink } from "@/components/ui/text-link";
 import { PageContainer } from "@/components/layouts/page-container";
-import Link from "next/link";
 import { PageHeader } from "@/components/ui/page-header";
 
 export default function NotFound() {
@@ -10,9 +9,9 @@ export default function NotFound() {
         title="Deployment not found"
         description="This deployment does not exist. Open a deployment from service history."
       />
-      <Link href="/" className={`mt-6 inline-block ${textLinkClassName}`}>
-        Services
-      </Link>
+      <div className="mt-6">
+        <TextLink href="/">Services</TextLink>
+      </div>
     </PageContainer>
   );
 }

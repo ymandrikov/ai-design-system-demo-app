@@ -1,6 +1,6 @@
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
-import { textLinkClassName } from "@/components/ui/text-link-styles";
+import { TextLink } from "@/components/ui/text-link";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
@@ -37,9 +37,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         <AppIdentity />
       </div>
       <nav aria-label="Back to services" className="mb-6 text-sm">
-        <Link href={`/?environment=${environment}`} className={textLinkClassName}>
-          ← Services
-        </Link>
+        <TextLink href={`/?environment=${environment}`}>← Services</TextLink>
       </nav>
       <PageContent>
         <PageHeader
@@ -119,9 +117,9 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                   {service.history.map((deployment) => (
                     <TableRow key={deployment.id}>
                       <TableHead scope="row">
-                        <Link href={`/deployments/${deployment.id}`} className={textLinkClassName}>
+                        <TextLink href={`/deployments/${deployment.id}`} variant="title">
                           #{deployment.id}
-                        </Link>
+                        </TextLink>
                       </TableHead>
                       <TableCell>
                         <VersionLabel version={deployment.version} />

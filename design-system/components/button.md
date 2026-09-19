@@ -18,7 +18,7 @@ All criteria must hold:
 
 ## When not to use
 
-- A link names a record in prose or a table: keep an ordinary link.
+- Navigation is an object title, contextual reference, back link or form Cancel: use [Text link](text-link.md).
 - Links switch between peer page contexts: use [NavigationalTabs](navigational-tabs.md).
 - A control selects a saved value or switches local panels: use a native form control or [Tabs](tabs.md), respectively.
 - Content only reports an outcome: use [DeploymentResult](deployment-result.md).
@@ -40,9 +40,6 @@ See [shadcn Button](https://ui.shadcn.com/docs/components/base/button).
 <Link href="/services/api/deploy?environment=staging" className={buttonVariants()}>
   Deploy
 </Link>
-<Link href="/services/api?environment=staging" className={buttonVariants({ variant: "link" })}>
-  Cancel
-</Link>
 ```
 
 `Button` accepts Base UI button props, including native `type`, `disabled`, `onClick`,
@@ -55,9 +52,9 @@ For navigation, use `buttonVariants` on Next.js `Link` or a native anchor with a
 The helper supplies styles only, without events, roles, routing or disabled behaviour.
 
 Both exports accept `variant` and `size`; omitted values select `default`.
-For the current screen migration, use the defaults for Deploy and `variant="link"`
-for Cancel, preserving its lower-emphasis navigation role. These choices use the
-requested upstream treatment; they do not require preserving the previous custom dimensions.
+Use the defaults for Deploy. Form Cancel uses [Text link](text-link.md), not
+`buttonVariants({ variant: "link" })`; modal Cancel remains a button. The retained
+upstream `link` variant is a button treatment, not the ordinary text-link style.
 Other available upstream variants are `outline`, `secondary`, `ghost`, and `destructive`.
 They are available for explicitly requested treatments; this adoption does not establish
 additional application-wide rules choosing between outline, secondary and ghost.

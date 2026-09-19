@@ -1,9 +1,8 @@
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
-import { textLinkClassName } from "@/components/ui/text-link-styles";
+import { TextLink } from "@/components/ui/text-link";
 import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -67,12 +66,12 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                   {services.map((service) => (
                     <TableRow key={service.id}>
                       <TableHead scope="row">
-                        <Link
+                        <TextLink
                           href={`/services/${encodeURIComponent(service.slug)}?environment=${environment}`}
-                          className={`font-semibold ${textLinkClassName}`}
+                          variant="title"
                         >
                           {service.name}
-                        </Link>
+                        </TextLink>
                       </TableHead>
                       <TableCell>{service.state ? stateLabels[service.state] : "Not configured"}</TableCell>
                       <TableCell>
