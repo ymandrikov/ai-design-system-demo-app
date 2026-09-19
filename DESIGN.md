@@ -9,6 +9,11 @@ a predefined version, shows its commit and description, and warns for production
 Health and deployment outcome are separate and must use explicit text labels.
 No real deployment is performed.
 
+All interface labels must use sentence case, including tabs, badges, buttons,
+navigation, field labels and table headings. Follow the
+[label formatting pattern](design-system/patterns/label-formatting.md) for casing,
+technical values and consumer responsibilities.
+
 Follow [AGENTS.md](AGENTS.md) and the [design-system skill](.agents/skills/design-system/SKILL.md).
 Product composition uses `use`; authorised reusable work uses `craft`, then checks,
 then `use` and its checks. Page-specific compositions do not require pattern extraction.

@@ -11,7 +11,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { DatasetEmptyState } from "@/components/ui/dataset-empty-state";
 import { listServices } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
-import { dateFormat, stateLabels } from "@/lib/deployments/presentation";
+import { dateFormat, environmentLabels, stateLabels } from "@/lib/deployments/presentation";
 
 export const metadata: Metadata = {
   title: "Services | Deploy Board",
@@ -36,7 +36,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             <NavigationalTabs
               label="Environment"
               currentHref={`/?environment=${environment}`}
-              items={environments.map((value) => ({ href: `/?environment=${value}`, label: value }))}
+              items={environments.map((value) => ({ href: `/?environment=${value}`, label: environmentLabels[value] }))}
             />
           }
         />

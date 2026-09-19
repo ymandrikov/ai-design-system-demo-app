@@ -16,7 +16,7 @@ import { DatasetEmptyState } from "@/components/ui/dataset-empty-state";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getServiceDetails } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
-import { dateFormat, stateLabels } from "@/lib/deployments/presentation";
+import { dateFormat, environmentLabels, stateLabels } from "@/lib/deployments/presentation";
 
 export async function generateMetadata({ params }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -48,7 +48,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
               <NavigationalTabs
                 label="Environment"
                 currentHref={`${pathname}?environment=${environment}`}
-                items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: value }))}
+                items={environments.map((value) => ({ href: `${pathname}?environment=${value}`, label: environmentLabels[value] }))}
               />
               {service.state && (
                 <Link href={`${pathname}/deploy?environment=${environment}`} className={buttonVariants()}>

@@ -9,7 +9,7 @@ import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { PageHeader } from "@/components/ui/page-header";
 import { getDeploymentDetails, getDeploymentForm } from "@/lib/deployments";
-import { dateFormat } from "@/lib/deployments/presentation";
+import { dateFormat, deploymentKindLabels, environmentLabels } from "@/lib/deployments/presentation";
 import { DeploymentActions } from "./deployment-actions";
 
 export const dynamic = "force-dynamic";
@@ -46,13 +46,13 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
       </div>
       <nav aria-label="Back to service" className="mb-6 text-sm">
         <TextLink href={serviceHref}>
-          ← {service.name} · {deployment.environment}
+          ← {service.name} · {environmentLabels[deployment.environment]}
         </TextLink>
       </nav>
       <PageContent>
         <PageHeader
           title={`Deployment #${deployment.id}`}
-          description={`${service.name} · ${deployment.environment} · ${deployment.kind}`}
+          description={`${service.name} · ${environmentLabels[deployment.environment]} · ${deploymentKindLabels[deployment.kind]}`}
           controls={
             actions.canRetry || rollbackVersion ? (
               <DeploymentActions

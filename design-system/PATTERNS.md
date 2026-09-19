@@ -6,6 +6,10 @@
   - Description: Choose a URL-addressable environment, browse its record data or empty state, and follow record or action links while preserving the relevant environment context.
   - Contract: [contract](patterns/environment-browsing.md)
 
+- **Label formatting**
+  - Description: Help users identify destinations, actions, fields and statuses through consistent sentence-case labels while preserving names and technical values.
+  - Contract: [contract](patterns/label-formatting.md)
+
 - **Modal confirmation**
   - Description: Confirm a consequential action with its context and consequences, right-aligning the action group and ordering destructive actions before Cancel and ordinary confirmations after Cancel.
   - Contract: [contract](patterns/modal-confirmation.md)

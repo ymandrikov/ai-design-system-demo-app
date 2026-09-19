@@ -4,6 +4,7 @@ import { PageContainer } from "@/components/layouts/page-container";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/ui/page-header";
 import { getDeploymentForm } from "@/lib/deployments";
+import { environmentLabels } from "@/lib/deployments/presentation";
 import { DeployForm } from "./deploy-form";
 
 export const metadata = { title: "Deploy | Deploy Board" };
@@ -22,7 +23,7 @@ export default async function DeployPage({ params, searchParams }: PageProps<"/s
       <PageContent>
         <PageHeader
           title={`Deploy ${data.service.name}`}
-          description={`Service: ${data.service.name} · Environment: ${environment}`}
+          description={`Service: ${data.service.name} · Environment: ${environmentLabels[environment]}`}
         />
         <PageContent.Section aria-label="Deployment form">
           <PageContent.SectionContent>
