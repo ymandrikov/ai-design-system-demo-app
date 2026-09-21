@@ -13,6 +13,7 @@ import { DatasetEmptyState } from "@/components/ui/dataset-empty-state";
 import { listServices } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
 import { environmentLabels, stateLabels } from "@/lib/deployments/presentation";
+import { AddServiceDialog } from "./add-service-dialog";
 
 export const metadata: Metadata = {
   title: "Services | Deploy Board",
@@ -34,11 +35,17 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           title="Services"
           description={`Service health and the latest deployment in ${environment}.`}
           controls={
-            <NavigationalTabs
-              label="Environment"
-              currentHref={`/?environment=${environment}`}
-              items={environments.map((value) => ({ href: `/?environment=${value}`, label: environmentLabels[value] }))}
-            />
+            <div className="flex flex-wrap items-center gap-l">
+              <NavigationalTabs
+                label="Environment"
+                currentHref={`/?environment=${environment}`}
+                items={environments.map((value) => ({
+                  href: `/?environment=${value}`,
+                  label: environmentLabels[value],
+                }))}
+              />
+              <AddServiceDialog environment={environment} />
+            </div>
           }
         />
         <PageContent.Section aria-label={`Services in ${environment}`}>

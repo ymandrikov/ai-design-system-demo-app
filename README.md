@@ -98,6 +98,24 @@ Checks: `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm build`. If Turbopack cannot
 its internal ports in a restricted environment, `pnpm build --webpack` and
 `pnpm dev --webpack` use the supported alternative bundler.
 
+## Adding services
+
+On the Services screen, **Add service** opens a dialog with a required name
+(1–64 Latin letters, digits or hyphens). The URL uses the lowercase name;
+names are unique without regard to case. Creation saves the service, both
+environments and the three demo versions together. Both environments start as
+**Not deployed**, with no current version or history.
+
+After creation, the service page opens in the selected environment. Cancel,
+Escape and clicking outside close and reset the form. Saving prevents dismissal
+and repeat submission; errors preserve the name.
+
+Manual check: open the dialog in staging, cancel and reopen; create a service,
+reload its page, and check both environments. Try the same name with different
+casing and verify the inline error. Deploy 1.1.0, then 1.2.0: the failure must
+preserve 1.1.0. Check keyboard focus and dismissal in light/dark themes and on a
+narrow viewport.
+
 ## Starting deployments
 
 On a service page, choose an environment and click **Deploy**. The form and Cancel

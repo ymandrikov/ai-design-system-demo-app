@@ -1,21 +1,12 @@
 import { and, eq, isNull } from "drizzle-orm";
 import { db } from "./index";
+import { demoVersions } from "./demo-versions";
 import { deployments, environments, serviceEnvironments, services, serviceVersions } from "./schema";
 
 type Transaction = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
 function seedVersions(tx: Transaction, serviceId: number) {
-  // Illustrative commits for the predefined demo versions, not a real repository.
-  for (const [version, commit, description, scenario] of [
-    ["1.0.0", "a1b2c3d", "Initial stable release.", "success"],
-    ["1.1.0", "e4f5a6b", "Performance improvements.", "success"],
-    [
-      "1.2.0",
-      "b7c8d9e",
-      "Demo failure: health check will fail; the working version is preserved.",
-      "health_check_failure",
-    ],
-  ] as const) {
+  for (const { version, commit, description, scenario } of demoVersions) {
     tx.insert(serviceVersions)
       .values({ serviceId, version, commit, description, scenario })
       .onConflictDoNothing()
