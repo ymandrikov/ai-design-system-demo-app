@@ -1,247 +1,237 @@
 # Deploy Board
 
-A local deployment simulation accompanying **Design system guardrails for AI-built
-interfaces**. The demo shows how an AI agent selects components, follows their
-contracts, and records exceptions. It does not perform real deployments.
+Deploy Board is a local deployment simulator for exploring how to organise a design
+system for AI agents. You can follow component selection rules, shared implementations
+and recorded exceptions in a working app. It accompanies _Design system guardrails
+for AI-built interfaces_.
 
-## Reading the demo
+- **Contracts.** Components, layouts and patterns document when to use them and which
+  decisions they own.
+- **Agent workflow.** The design-system skill separates selecting existing components
+  with `use` from maintaining the shared system with `craft`.
+- **Exceptions.** Local overrides carry a reason and a journal entry. Two deliberate
+  rule violations show how unresolved gaps are recorded.
 
-Follow these three paths from an article idea to its implementation and use:
+For example, a section in the deployment summary requests smaller supporting text
+through an explicit exception:
 
-1. **Select by intent and contract.** Start at [DESIGN.md](DESIGN.md), then the
-   [component inventory](design-system/COMPONENTS.md) and the
-   [ConfirmationDialog contract](design-system/components/confirmation-dialog.md).
-   Its selection rules distinguish confirming an action from filling in a form.
-   Compare [DeleteServiceDialog](app/delete-service-dialog.tsx), which uses it,
-   with [AddServiceDialog](app/add-service-dialog.tsx), which composes the shared
-   [Dialog](components/ui/dialog.tsx) around an editable form.
-   The agent's entry point is the [design-system skill](.agents/skills/design-system/SKILL.md):
-   `use` selects and composes capabilities; `craft` maintains the shared system.
-2. **Put rules inside components.** Read
-   [ConfirmationDialog](components/ui/confirmation-dialog.tsx), then its consumers:
-   [service deletion](app/delete-service-dialog.tsx) and
-   [deployment actions](app/deployments/[id]/deployment-actions.tsx).
-   Consumers provide intent, consequences and request state. ConfirmationDialog
-   composes [AlertDialog](components/ui/alert-dialog.tsx) and owns button order,
-   intent styling, initial focus and pending feedback. Both consumers select
-   destructive intent; the component also defines ordinary confirmation order.
-3. **Make exceptions inspectable.** Read the
-   [BorderedCard contract](design-system/components/bordered-card.md), its
-   [implementation](components/ui/bordered-card.tsx) and the
-   [exception helper](lib/with-design-system-exception.tsx). Then find
-   `DeploymentSummary` in the [deployment page](app/deployments/[id]/page.tsx): its
-   supporting section supplies `designSystemException` with a reason and `text-sm`.
-   The adjacent comment leads to [E-01 in the journal](design-system/gaps.md#e-01-deployment-supporting-typography).
+```tsx
+<BorderedCard.Section
+  designSystemException={{
+    reason: "Keep deployment metadata and explanations at 14px without a typography-only wrapper.",
+    className: "text-sm",
+  }}
+>
+  {/* Deployment metadata renders at 14px; the section keeps its padding and gap. */}
+</BorderedCard.Section>
+```
 
-### Screens and data flow
+See the [consumer](app/deployments/[id]/page.tsx) and its
+[journal entry](design-system/gaps.md#e-01-deployment-supporting-typography).
 
-Pages load data and arrange the screen's sections. Named screen parts are local
-functions below the page in the same file; they receive data through props and do
-not query the database. Shared design-system components own their styling.
+> This repository demonstrates an approach to organising design systems for AI agents.
+> It is not a guide to developing Next.js applications. Development was deliberately
+> carried out exclusively through AI agents. The app does not perform real deployments.
 
-| Screen     | Start reading                                                              | Main content                                              |
-| ---------- | -------------------------------------------------------------------------- | --------------------------------------------------------- |
-| Services   | [app/page.tsx](app/page.tsx)                                               | Environment navigation, service table, add/delete actions |
-| Service    | [app/services/[slug]/page.tsx](app/services/[slug]/page.tsx)               | `ServiceSummary`, `DeploymentHistory`                     |
-| Deploy     | [app/services/[slug]/deploy/page.tsx](app/services/[slug]/deploy/page.tsx) | Client-side `DeployForm`                                  |
-| Deployment | [app/deployments/[id]/page.tsx](app/deployments/[id]/page.tsx)             | `DeploymentSummary`, `DeploymentStages`, `DeploymentLogs` |
+## Contents
 
-For the simulation, follow a form or action to its adjacent `actions.ts`, then to
-[lib/deployments/index.ts](lib/deployments/index.ts). Service reads enter through
-[lib/db/queries.ts](lib/db/queries.ts). Both use `withDeploymentState`: before
-reading or starting work, it completes overdue deployments and saves their results
-in the same transaction. Reading current state can therefore write to the database.
-[simulation.ts](lib/deployments/simulation.ts) calculates progress from server time;
-[RefreshActiveDeployment](components/deployments/refresh-active-deployment.tsx)
-refreshes the route while a deployment is active. There is no background worker.
+- [Run locally](#run-locally)
+- [Try the demo](#try-the-demo)
+- [Read the design system](#read-the-design-system)
+- [Code map](#code-map)
+- [Development](#development)
+- [License](#license)
 
-### Intentional demonstration cases
+## Run locally
 
-[G-01 and G-02](design-system/gaps.md) deliberately remain open: a raw colour in
-`DeploymentSummary` and a Badge background override in
-[VersionLabel](components/deployments/version-label.tsx). Their local lint
-suppressions and journal entries demonstrate visible deviations awaiting a system
-decision. They are not approved patterns to copy. E-01 is a separate, authorised
-local typography exception.
+Install Node.js 24+, then choose pnpm or npm.
 
-### Article examples and the demo API
+### With pnpm
 
-The draft article includes illustrative snippets. Use the linked contracts for
-runnable examples of this repository's APIs:
+Use pnpm 12.4.2:
 
-- Exceptions use `designSystemException.className` or `.style` directly, with a
-  required `.reason`; there is no nested `attributes` object. Only components
-  explicitly adopting the helper expose it. Badge currently does not.
-- ConfirmationDialog requires `open`, `onOpenChange`, `triggerLabel` and
-  `description` alongside the action props. Its optional children supply additional
-  read-only context.
-- This repository runs design-lint through `pnpm lint` with Oxlint and provides a
-  [contract checker](.agents/skills/design-system/scripts/check-contract.mjs).
-  The article's enforced pre-commit/CI workflow is not configured in this repository;
-  `pnpm build` does not run these checks automatically.
-
-## Formatting
-
-Run `pnpm fmt` to format files or `pnpm fmt:check` to check formatting without changes.
-[Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) uses a 120-character print width from `.oxfmtrc.json`.
-Print width is a wrapping target; long strings and other unbreakable content can exceed it.
-
-## Linting
-
-Run `pnpm lint` for Oxlint and
-[@evilmartians/design-lint](https://github.com/evilmartians/design-lint).
-The command explicitly loads `oxlint.config.mjs`, preserving the existing code rules
-and adding design-token checks. Requires Node 22.18+ or 23.6+.
-
-Tokens resolve through `app/globals.css`, including its imported token files.
-Component checks cover `@/components/ui/*`, `@/components/layouts/*` and
-`@/components/deployments/*`. Standard design-lint rules are used without custom
-overrides. Text, border and hover colours use role-specific semantic tokens.
-CSS declarations are not linted by this plugin.
-
-Button, Badge and navigation tabs resolve their theme-dependent state colours
-through semantic tokens; local `dark:` branches are forbidden by the linter.
-
-## Local database
-
-Deploy Board uses a local SQLite database at `data/deploy-board.sqlite`. Set
-`DB_FILE_NAME` to use another file; the application and database commands use
-the same value.
-
-```bash
+```sh
+git clone https://github.com/ymandrikov/ai-design-system-demo-app.git
+cd ai-design-system-demo-app
+pnpm approve-builds esbuild --yes
+pnpm install --frozen-lockfile
 mkdir -p data
-pnpm db:generate # create and save a migration after changing lib/db/schema.ts
-pnpm db:migrate  # apply saved migrations
-pnpm db:seed     # add demo services, environment versions and completed history (safe to re-run)
-pnpm db:studio   # open Drizzle Studio
-```
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm db:migrate
+pnpm db:seed
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The approval command allows esbuild's install script in `pnpm-workspace.yaml`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### With npm
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Use the npm version bundled with Node.js:
 
-## Learn More
+```sh
+git clone https://github.com/ymandrikov/ai-design-system-demo-app.git
+cd ai-design-system-demo-app
+npm install
+mkdir -p data
+npm run db:migrate
+npm run db:seed
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+The repository tracks `pnpm-lock.yaml`. npm resolves dependencies from `package.json`
+and creates its own `package-lock.json`, so installed versions may differ.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Open the app
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [localhost:3000](http://localhost:3000). The seed creates `api`, `web` and
+`worker` services with separate production and staging histories. Re-running it
+preserves existing environment state and history and restores missing demo services.
 
-## Deploy on Vercel
+The SQLite database lives at `data/deploy-board.sqlite`. To use another file, set
+`DB_FILE_NAME` for both the database commands and the app. Its parent directory must exist.
+No external database or deployment credentials are needed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Try the demo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open this repository in your coding agent. Ask it about the code, request a change,
+or explore improvements together. Try any of these prompts in any order, or bring
+your own task. The repository's instructions should guide the agent without you
+having to repeat the design-system rules in each request.
 
-## Services screen
+### Understand a decision
 
-Open `/?environment=production` or `/?environment=staging`. Missing, invalid or
-repeated environment parameters fall back to production. Data is queried from SQLite
-on each request. Dates are shown in UTC.
+> Why do adding and deleting a service use different dialogs?
 
-The seed demonstrates API remaining healthy on v1.0.0 after a failed production
-deployment, newer staging versions, successful history and an undeployed staging
-worker with no history. Re-running the seed preserves existing state and history.
-Deployments now include active progress and completed outcomes.
+Look for an explanation based on the components' purposes and contracts, with links
+to the code that uses them.
 
-Service names link to `/services/[slug]?environment=production` (or `staging`).
-The details screen keeps the selected environment when switching, reloading and
-returning to the list. It separates service health and current version from the
-latest deployment result, and lists deployment history newest first, with UTC completion times.
-`worker` in staging demonstrates empty history; unknown slugs show a not-found page.
+### Change a screen
 
-Run `pnpm db:migrate` after updating: the additive migration introduces an optional
-version commit without changing existing records. `pnpm db:seed` fills missing
-commits for predefined demo versions with illustrative hashes, preserves recorded
-commits, and leaves existing environment state and deployment history intact.
-Other versions without commit metadata display “Not recorded”.
+> Add a description to the Services page explaining that production and staging
+> have separate versions and deployment histories.
 
-Checks: `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm build`. If Turbopack cannot bind
-its internal ports in a restricted environment, `pnpm build --webpack` and
-`pnpm dev --webpack` use the supported alternative bundler.
+Check whether the agent uses an existing component's API for this small change.
 
-## Adding services
+### Change the design system
 
-On the Services screen, **Add service** opens a dialog with a required name
-(1–64 Latin letters, digits or hyphens). The URL uses the lowercase name;
-names are unique without regard to case. Creation saves the service, both
-environments and the three demo versions together. Both environments start as
-**Not deployed**, with no current version or history.
+> Make secondary text more readable by increasing its contrast in both light and
+> dark themes. First show me which parts of the app this would affect.
 
-After creation, the service page opens in the selected environment. Cancel,
-Escape and clicking outside close and reset the form. Saving prevents dismissal
-and repeat submission; errors preserve the name.
+Look for a change to the shared colour rules, followed by checks of the affected
+components and screens in both themes.
 
-Manual check: open the dialog in staging, cancel and reopen; create a service,
-reload its page, and check both environments. Try the same name with different
-casing and verify the inline error. Deploy 1.1.0, then 1.2.0: the failure must
-preserve 1.1.0. Check keyboard focus and dismissal in light/dark themes and on a
-narrow viewport.
+### Find a useful refactoring
 
-## Deleting services
+> Explore the interface and suggest one useful refactoring. Explain the problem
+> and what the change would improve. Don't change anything yet.
 
-The trash button at the end of each service row opens a confirmation dialog.
-**Delete service** permanently removes the service from both environments,
-including versions and all deployment history, even active deployments. The
-selected environment stays unchanged. Errors remain in the dialog for retry;
-deleting a service already removed in another tab succeeds. Recreating the same
-name creates a new service; a stale delete request cannot delete that new record.
+Check whether the proposal addresses a concrete problem. Discuss the tradeoffs,
+then ask the agent to implement it if you agree. Notice whether it distinguishes
+screen changes from changes to shared components and records any system gaps it finds.
 
-Manual check: cancel a deletion with Cancel and Escape; confirm deletion while a
-deployment is active and verify the row disappears from both environments. Reload
-old service/deployment URLs and verify not-found. Delete the same service from two
-open tabs, then delete the last service and check the empty state. Verify keyboard
-focus returns to the trigger on Cancel and to Add service after deletion, including
-in narrow layouts and both themes. Re-running the seed restores missing standard
-demo services.
+## Read the design system
 
-## Starting deployments
+Start with [DESIGN.md](DESIGN.md) for shared rules and the
+[design-system skill](.agents/skills/design-system/SKILL.md) for the agent workflow.
+Browse the [components](design-system/COMPONENTS.md), [layouts](design-system/LAYOUTS.md),
+[patterns](design-system/PATTERNS.md) and [tokens](design-system/tokens/README.md).
 
-On a service page, choose an environment and click **Deploy**. The form and Cancel
-preserve `?environment=production|staging`. Run `pnpm db:migrate` and `pnpm db:seed`
-after updating to add the simulation fields and predefined version descriptions.
-Versions 1.0.0 and 1.1.0 succeed; 1.2.0 deterministically fails its health check.
-Each stage (Queued, Build, Deploy, Health check) lasts five seconds. The history
-refreshes once per second while active, including after a reload, and stops at completion.
+### Selecting a component
 
-`lib/deployments` provides `startDeployment`, `retryDeployment`,
-`rollbackDeployment`, `getDeploymentDetails` and `getDeploymentForm`. Details include
-server-calculated progress, stages, timestamped logs and available actions.
-Retry creates a new record for a failed deployment. Rollback is available only for
-the current latest successful deployment, with no active run, and targets the most
-recent successful **different** version. Both preserve history and record their source.
-After starting, retrying or rolling back, the UI opens `/deployments/[id]`.
-History entries link to the same screen. It shows stages, duration and logs, refreshes
-once per second while active, and retains the environment in the return-to-service
-link. Rollback requires inline confirmation of the environment and both versions.
-Loading, missing records, data errors and action errors have explicit feedback.
+The [ConfirmationDialog contract](design-system/components/confirmation-dialog.md)
+distinguishes confirmation from form entry. Compare
+[DeleteServiceDialog](app/delete-service-dialog.tsx), which uses ConfirmationDialog,
+with [AddServiceDialog](app/add-service-dialog.tsx), which composes Dialog around a form.
 
-Reads and starts settle overdue work inside an immediate SQLite transaction.
-Successful completion and the environment version update commit together; failure
-keeps the working version. A partial unique index also prevents concurrent active
-runs for the same service/environment. Scenarios are copied into each deployment.
-Legacy completed records retain IDs, outcomes and completion times; the migration
-assigns their demo start time to 20 seconds before completion.
+### Keeping rules in components
 
-Manual checks: deploy 1.1.0, reload while active, wait for success; deploy 1.2.0
-and verify Failed with the previous current version and Healthy state unchanged.
-Open two forms for the same pair before submitting: the second submission must
-report the active deployment. Once finished, confirm history stops refreshing.
+[ConfirmationDialog](components/ui/confirmation-dialog.tsx) owns button order,
+destructive styling, initial focus and pending feedback. Its consumers supply the
+action and its consequences. Compare the service deletion dialog with the
+[deployment actions](app/deployments/[id]/deployment-actions.tsx).
+
+### Recording exceptions and gaps
+
+[BorderedCard.Section](components/ui/bordered-card.tsx) uses the
+[exception helper](lib/with-design-system-exception.tsx) to accept styling overrides
+with a required reason. The opening example is recorded as
+[E-01](design-system/gaps.md#e-01-deployment-supporting-typography).
+Only components that adopt the helper expose `designSystemException`.
+
+[G-01 and G-02](design-system/gaps.md) remain open on purpose. They cover a raw colour
+in the deployment summary and a Badge background override in
+[VersionLabel](components/deployments/version-label.tsx). Their lint suppressions and
+journal entries document unresolved decisions, not approved patterns to copy.
+
+The article includes illustrative snippets. Use the repository's contracts and
+consumers for its actual component APIs. The article's pre-commit and CI checks are
+not configured here; run the checks below yourself.
+
+## Code map
+
+The app uses Next.js App Router, TypeScript, SQLite, Drizzle, shadcn and Tailwind.
+Pages load data and compose the UI. Components receive data through props; deployment
+rules live outside React and Next.js.
+
+| Area                                  | Start reading                                                              |
+| ------------------------------------- | -------------------------------------------------------------------------- |
+| Services and environment selection    | [app/page.tsx](app/page.tsx)                                               |
+| Service summary and history           | [app/services/[slug]/page.tsx](app/services/[slug]/page.tsx)               |
+| Version selection                     | [app/services/[slug]/deploy/page.tsx](app/services/[slug]/deploy/page.tsx) |
+| Progress, logs and deployment actions | [app/deployments/[id]/page.tsx](app/deployments/[id]/page.tsx)             |
+| Deployment rules                      | [lib/deployments/index.ts](lib/deployments/index.ts)                       |
+| Service queries                       | [lib/db/queries.ts](lib/db/queries.ts)                                     |
+
+[simulation.ts](lib/deployments/simulation.ts) calculates progress from server time.
+There is no background worker. Reads and deployment actions use `withDeploymentState`
+to save overdue completions in a transaction before proceeding, so a read can write
+to the database. A successful completion updates the environment's current version;
+a failure preserves it. A database constraint prevents concurrent active deployments
+for the same service and environment.
+
+## Development
+
+Run these checks from the repository root:
+
+```sh
+pnpm fmt:check
+pnpm lint
+pnpm exec tsc --noEmit
+pnpm build
+```
+
+`pnpm fmt` formats files with Oxfmt. `pnpm lint` runs Oxlint and
+[@evilmartians/design-lint](https://github.com/evilmartians/design-lint) using
+[oxlint.config.mjs](oxlint.config.mjs). Design-lint checks semantic token use and
+component styling rules. It does not lint CSS declarations. `pnpm build` does not
+run linting or the [contract checker](.agents/skills/design-system/scripts/check-contract.mjs).
+See [design verification](DESIGN.md#verification) for contract and index checks.
+
+If Turbopack cannot bind its internal ports in a restricted environment, use
+`pnpm dev --webpack` or `pnpm build --webpack`.
+
+After changing [the database schema](lib/db/schema.ts), run `pnpm db:generate` to
+create a migration, then `pnpm db:migrate` to apply it. After pulling changes, apply
+saved migrations and run `pnpm db:seed` to update demo versions. Use `pnpm db:studio`
+to inspect the database.
+
+### Manual checks
+
+There are no automated tests yet. After making changes, check the relevant flows:
+
+- Switch environments and confirm their versions and histories stay separate.
+  The seeded `worker` in staging starts undeployed.
+- Deploy `1.1.0`, reload during the run, and wait for success. Each of the four
+  stages takes five seconds. Active pages refresh once per second and stop at completion.
+- Deploy `1.2.0` and confirm its failed health check preserves the working version.
+  Retry the failure, or roll back a successful deployment to the most recent
+  successful different version. Both actions should create new history entries.
+- Try deploying from two tabs. Only one run per service and environment may be active.
+- Add and delete a service. Check validation, confirmation and cancellation.
+  Deletion removes both environments and all history, including active runs.
+
+Check keyboard focus, both system colour schemes and narrow layouts. More scenarios
+are in [DESIGN.md](DESIGN.md#verification).
+
+## License
+
+[MIT](LICENSE).
