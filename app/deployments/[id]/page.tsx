@@ -78,7 +78,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                     {deployment.result ? (
                       <DeploymentResult result={deployment.result} />
                     ) : (
-                      <span className="text-l font-semibold">{stage}</span>
+                      <DescriptionItem.Emphasised>{stage}</DescriptionItem.Emphasised>
                     )}
                   </DescriptionItem>
                   <DescriptionItem label="Version">
@@ -90,7 +90,11 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
               <div className="space-y-xl">
                 <dl className="flex flex-wrap gap-4xl">
                   <DescriptionItem label="Commit">
-                    <code className="break-all">{version.commit ?? "Not recorded"}</code>
+                    {version.commit == null ? (
+                      <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
+                    ) : (
+                      <code className="break-all">{version.commit}</code>
+                    )}
                   </DescriptionItem>
                   <DescriptionItem label="Duration">
                     {elapsed}s{!deployment.result && " elapsed"}
@@ -108,22 +112,24 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                     </DescriptionItem>
                   )}
                 </dl>
-                <p>{version.description}</p>
-                {deployment.sourceDeploymentId && (
-                  <p>
-                    Source:{" "}
-                    <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
-                      Deployment #{deployment.sourceDeploymentId}
-                    </TextLink>
-                  </p>
-                )}
-                {deployment.result && (
-                  <p className="text-muted-foreground">
-                    {deployment.result === "failed"
-                      ? "Deployment failed. This attempt did not change the environment's current version."
-                      : "Deployment succeeded. The environment version was updated when this run completed."}
-                  </p>
-                )}
+                <div>
+                  <p>{version.description}</p>
+                  {deployment.sourceDeploymentId && (
+                    <p>
+                      Source:{" "}
+                      <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
+                        Deployment #{deployment.sourceDeploymentId}
+                      </TextLink>
+                    </p>
+                  )}
+                  {deployment.result && (
+                    <p className="text-muted-foreground">
+                      {deployment.result === "failed"
+                        ? "Deployment failed. This attempt did not change the environment's current version."
+                        : "Deployment succeeded. The environment version was updated when this run completed."}
+                    </p>
+                  )}
+                </div>
               </div>
             </StatusSummaryLayout>
           </PageContent.SectionContent>

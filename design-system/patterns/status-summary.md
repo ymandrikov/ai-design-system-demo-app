@@ -50,7 +50,8 @@ Use [TextLink](../components/text-link.md) in its default role for contextual na
   performs no status inference. Keep existing semantic colours.
 - Primary fields use a wrapping flex row with `gap-4xl`; retain the label
   styling and label/value spacing owned by DescriptionItem. Emphasise plain primary
-  values with `text-l font-semibold`. Keep composed badges' own typography.
+  values with `DescriptionItem.Emphasised`; use `DescriptionItem.Empty` for missing
+  values. Render composed badges directly with their own typography.
 - Supporting text is `text-s`; supporting labels and timestamps use
   `text-muted-foreground`. Keep linked text readable and preserve visible focus.
   Use wrapping metadata rows, `gap-x-xl gap-y-m` for inline context and

@@ -1,6 +1,6 @@
 import type { AriaAttributes, ReactNode } from "react";
 
-export function DescriptionItem({
+function DescriptionItemRoot({
   label,
   children,
   "aria-live": ariaLive,
@@ -12,9 +12,19 @@ export function DescriptionItem({
   return (
     <div>
       <dt className="text-s text-muted-foreground">{label}</dt>
-      <dd className="mt-m" aria-live={ariaLive}>
+      <dd className="mt-s" aria-live={ariaLive}>
         {children}
       </dd>
     </div>
   );
 }
+
+function Empty({ children }: { children: ReactNode }) {
+  return <span className="text-muted-foreground">{children}</span>;
+}
+
+function Emphasised({ children }: { children: ReactNode }) {
+  return <span className="text-l font-semibold">{children}</span>;
+}
+
+export const DescriptionItem = Object.assign(DescriptionItemRoot, { Empty, Emphasised });

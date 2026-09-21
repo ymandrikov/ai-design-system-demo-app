@@ -1,5 +1,5 @@
 ---
-sourcesHash: 28e75340e501cc5482740403c7dbc67260072af12081c708bdf01f4d212dea6a
+sourcesHash: 90be6472bcdace7f5013542c367426f07c8d108a21b4f99acacd2a482cd6bba6
 id: description-item
 description: Present one named read-only property and its value within a description list, with consistent label styling and spacing.
 status: discoverable
@@ -43,24 +43,45 @@ when data is missing. Use [VersionLabel](version-label.md) for recorded versions
 [DeploymentResult](deployment-result.md) for completed deployment outcomes, native
 code for commit identifiers, and ordinary text for other values.
 
+Value styling is composed with children:
+
+- Plain children inherit surrounding text styling and are the default. Use ordinary
+  text or components such as VersionLabel and DeploymentResult directly.
+- `DescriptionItem.Emphasised` renders a span with `text-l font-semibold`. Wrap a
+  plain primary summary value, such as service health or an active deployment stage.
+- `DescriptionItem.Empty` renders a span with `text-muted-foreground`. Wrap explicit
+  placeholder text when data is absent, including missing primary values.
+
+Both subcomponents require `children: ReactNode` and expose no other props.
+Use them inside DescriptionItem's value; do not nest them in each other or wrap
+components that own their typography. They do not infer missing data or supply text.
+
+```tsx
+<DescriptionItem label="Service state">
+  <DescriptionItem.Emphasised>Healthy</DescriptionItem.Emphasised>
+</DescriptionItem>
+<DescriptionItem label="Current version">
+  <DescriptionItem.Empty>No version</DescriptionItem.Empty>
+</DescriptionItem>
+```
+
 Optional `aria-live: "off" | "polite" | "assertive"` is forwarded only to dd.
 Omit it for ordinary static properties. Use polite for the active deployment status
 whose updates should be announced; assertive is reserved for urgently required
 interruptions, not routine progress. The component does not initiate announcements.
 No other native attributes, styling overrides, events or methods are exposed.
 
-The component owns the div/dt/dd pair, small muted label typography and spacing-m
-between label and value. The owner approved this single interval for all 11 existing
-pairs, including the formerly tighter Deploy form. There are no density variants.
+The component owns the div/dt/dd pair, small muted label typography and spacing-s
+between label and value, preserving the current shared interval. There are no density variants.
 Colours use [global semantic tokens](../tokens/semantic.css).
 
 Render as a direct child of dl. The consumer owns that list, columns, responsive
 layout, surrounding surface and field order. Use spacing-4xl between pairs on both
 axes (gap-4xl for flex/grid lists, space-y-4xl for vertical block lists), including
 wrapped rows. This applies to summaries, form metadata and confirmation details;
-the label/value interval within each pair remains spacing-m. Consumers also
+the label/value interval within each pair remains spacing-s. Consumers also
 own value formatting: for example, put break-all on a long commit's code element
-and font-medium on a plain value span when retaining existing emphasis. Do not use
+and use Emphasised or Empty for plain-value emphasis or missing data. Do not use
 value children to override the label or shared spacing, or bypass nested components'
 contracts. The component has no client directive or state and supports both server
 and client compositions.

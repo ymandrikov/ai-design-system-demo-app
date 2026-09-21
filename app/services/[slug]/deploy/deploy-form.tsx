@@ -51,7 +51,11 @@ export function DeployForm({
         <>
           <dl className="space-y-4xl">
             <DescriptionItem label="Commit">
-              <code className="break-all">{selected.commit ?? "Not recorded"}</code>
+              {selected.commit == null ? (
+                <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
+              ) : (
+                <code className="break-all">{selected.commit}</code>
+              )}
             </DescriptionItem>
             <DescriptionItem label="Description">{selected.description}</DescriptionItem>
           </dl>

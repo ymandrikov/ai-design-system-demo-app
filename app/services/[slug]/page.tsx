@@ -68,15 +68,17 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
               primary={
                 <>
                   <DescriptionItem label="Service state">
-                    <span className="text-l font-semibold">
-                      {service.state ? stateLabels[service.state] : "Not configured"}
-                    </span>
+                    {service.state ? (
+                      <DescriptionItem.Emphasised>{stateLabels[service.state]}</DescriptionItem.Emphasised>
+                    ) : (
+                      <DescriptionItem.Empty>Not configured</DescriptionItem.Empty>
+                    )}
                   </DescriptionItem>
                   <DescriptionItem label="Current version">
                     {service.currentVersion ? (
                       <VersionLabel version={service.currentVersion} />
                     ) : (
-                      <span className="text-muted-foreground">No version</span>
+                      <DescriptionItem.Empty>No version</DescriptionItem.Empty>
                     )}
                   </DescriptionItem>
                 </>
