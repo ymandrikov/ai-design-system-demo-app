@@ -1,9 +1,10 @@
 ---
-sourcesHash: f38d153d5d46b09c6a73b3458313e2d2d019dba2b50bb9dfba8c2b42d4a1a865
+sourcesHash: 723fd2f9382f6f876fbcb10c22ff25f36daf6c04147a32ebd4c594a9fbb5b184
 id: button
 description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
 status: discoverable
 sources:
+  - design-system/tokens/semantic.css
   - components/ui/button.tsx
 ---
 

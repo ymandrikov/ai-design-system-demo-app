@@ -87,6 +87,53 @@
   --alpha-hover: var(--raw-alpha-80);
 }
 
+/* Component state colours resolve theme differences in one place. */
+:root {
+  --border-invalid: var(--destructive);
+  --destructive-ring: color-mix(in oklab, var(--destructive) var(--alpha-subtle), transparent);
+  --destructive-surface: color-mix(in oklab, var(--destructive) var(--alpha-faint), transparent);
+  --destructive-hover: color-mix(in oklab, var(--destructive) var(--alpha-subtle), transparent);
+  --border-outline: var(--border);
+  --outline: var(--background);
+  --outline-hover: var(--muted);
+  --outline-expanded: var(--muted);
+  --ghost-hover: var(--muted);
+  --tabs-foreground: color-mix(in oklab, var(--foreground) var(--alpha-strong), transparent);
+  --border-tabs-active: transparent;
+  --tabs-active: var(--background);
+}
+
+.dark {
+  --border-invalid: color-mix(in oklab, var(--destructive) var(--alpha-half), transparent);
+  --destructive-ring: color-mix(in oklab, var(--destructive) var(--alpha-medium), transparent);
+  --destructive-surface: color-mix(in oklab, var(--destructive) var(--alpha-subtle), transparent);
+  --destructive-hover: color-mix(in oklab, var(--destructive) var(--alpha-muted), transparent);
+  --border-outline: var(--input);
+  --outline: color-mix(in oklab, var(--input) var(--alpha-muted), transparent);
+  --outline-hover: color-mix(in oklab, var(--input) var(--alpha-half), transparent);
+  --outline-expanded: color-mix(in oklab, var(--input) var(--alpha-muted), transparent);
+  --ghost-hover: color-mix(in oklab, var(--muted) var(--alpha-half), transparent);
+  --tabs-foreground: var(--muted-foreground);
+  --border-tabs-active: var(--input);
+  --tabs-active: color-mix(in oklab, var(--input) var(--alpha-muted), transparent);
+}
+
+/* Re-resolve role aliases at each theme boundary. */
+:root,
+.dark {
+  --destructive-foreground: var(--destructive);
+  --border-destructive: var(--destructive);
+  --border-destructive-focus: color-mix(in oklab, var(--destructive) var(--alpha-medium), transparent);
+  --foreground-hover: var(--foreground);
+  --muted-foreground-hover: var(--muted-foreground);
+  --link-foreground-hover: var(--primary);
+  --primary-hover: color-mix(in oklab, var(--primary) var(--alpha-hover), transparent);
+  --badge-secondary-hover: color-mix(in oklab, var(--secondary) var(--alpha-hover), transparent);
+  --badge-destructive-hover: color-mix(in oklab, var(--destructive) var(--alpha-subtle), transparent);
+  --badge-outline-hover: var(--muted);
+  --table-row-hover: color-mix(in oklab, var(--muted) var(--alpha-half), transparent);
+}
+
 /* Tailwind names are the semantic API, not an additional token tier. */
 @theme inline {
   --color-*: initial;
@@ -99,6 +146,18 @@
   --font-*: initial;
   --font-weight-*: initial;
   --tracking-*: initial;
+  --color-border-invalid: var(--border-invalid);
+  --color-destructive-ring: var(--destructive-ring);
+  --color-destructive-surface: var(--destructive-surface);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-border-outline: var(--border-outline);
+  --color-outline: var(--outline);
+  --color-outline-hover: var(--outline-hover);
+  --color-outline-expanded: var(--outline-expanded);
+  --color-ghost-hover: var(--ghost-hover);
+  --color-tabs-foreground: var(--tabs-foreground);
+  --color-border-tabs-active: var(--border-tabs-active);
+  --color-tabs-active: var(--tabs-active);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -118,6 +177,17 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border-destructive: var(--border-destructive);
+  --color-border-destructive-focus: var(--border-destructive-focus);
+  --color-foreground-hover: var(--foreground-hover);
+  --color-muted-foreground-hover: var(--muted-foreground-hover);
+  --color-link-foreground-hover: var(--link-foreground-hover);
+  --color-primary-hover: var(--primary-hover);
+  --color-badge-secondary-hover: var(--badge-secondary-hover);
+  --color-badge-destructive-hover: var(--badge-destructive-hover);
+  --color-badge-outline-hover: var(--badge-outline-hover);
+  --color-table-row-hover: var(--table-row-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);

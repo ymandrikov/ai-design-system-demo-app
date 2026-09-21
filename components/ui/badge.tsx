@@ -6,16 +6,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "group/badge inline-flex h-badge-height w-fit shrink-0 items-center justify-center gap-s overflow-hidden rounded-full border-(length:--border-width) border-transparent px-m py-xs text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-ring/(--alpha-half) has-data-[icon=inline-end]:pr-m has-data-[icon=inline-start]:pl-m aria-invalid:border-destructive aria-invalid:ring-destructive/(--alpha-subtle) dark:aria-invalid:ring-destructive/(--alpha-medium) [&>svg]:pointer-events-none [&>svg]:size-icon-s!",
+  "group/badge inline-flex h-badge-height w-fit shrink-0 items-center justify-center gap-s overflow-hidden rounded-full border-(length:--border-width) border-transparent px-m py-xs text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-ring/(--alpha-half) has-data-[icon=inline-end]:pr-m has-data-[icon=inline-start]:pl-m aria-invalid:border-border-destructive aria-invalid:ring-destructive-ring [&>svg]:pointer-events-none [&>svg]:size-icon-s!",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-primary/(--alpha-hover)",
-        secondary: "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/(--alpha-hover)",
+        default: "bg-primary text-primary-foreground [a]:hover:bg-primary-hover",
+        secondary: "bg-secondary text-secondary-foreground [a]:hover:bg-badge-secondary-hover",
         destructive:
-          "bg-destructive/(--alpha-faint) text-destructive focus-visible:ring-destructive/(--alpha-subtle) dark:bg-destructive/(--alpha-subtle) dark:focus-visible:ring-destructive/(--alpha-medium) [a]:hover:bg-destructive/(--alpha-subtle)",
-        outline: "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
-        ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/(--alpha-half)",
+          "bg-destructive-surface text-destructive-foreground focus-visible:ring-destructive-ring [a]:hover:bg-badge-destructive-hover",
+        outline: "border-border text-foreground [a]:hover:bg-badge-outline-hover [a]:hover:text-muted-foreground-hover",
+        ghost: "hover:bg-ghost-hover hover:text-muted-foreground-hover",
         link: "text-primary underline-offset-(--link-underline-offset) hover:underline",
       },
     },

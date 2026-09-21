@@ -1,9 +1,10 @@
 ---
-sourcesHash: eb5065efa21df1e818fc4ebb066cf105dbfee7f0c6a2b07771332e552421230a
+sourcesHash: 052789e5b2bfced821affdd43dd58f6cccbeb48a7447ab9117c1978312a90772
 id: navigational-tabs
 description: Navigate between related page destinations through a horizontal group of links styled like Tabs, with a current-page marker and native link behaviour.
 status: discoverable
 sources:
+  - design-system/tokens/semantic.css
   - components/ui/navigational-tabs.tsx
   - components/ui/tabs-styles.ts
 ---

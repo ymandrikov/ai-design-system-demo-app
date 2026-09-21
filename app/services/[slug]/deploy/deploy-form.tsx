@@ -77,7 +77,7 @@ export function DeployForm({
       )}
       <div aria-live="polite" aria-atomic="true">
         {state.error && (
-          <p id="deploy-error" role="alert" className="text-s text-destructive">
+          <p id="deploy-error" role="alert" className="text-s text-destructive-foreground">
             {state.error}
           </p>
         )}

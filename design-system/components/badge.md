@@ -1,9 +1,10 @@
 ---
-sourcesHash: 4265e2bd5796b7b5b958ef237f66f61c3cb9a2ad8e48e34eedaf0c9a2c0b82f4
+sourcesHash: 9535f25ad47fac8f8f626a916b82fc5532c32bbcbf2bfa856f4bf4b160bd4f65
 id: badge
 description: Display a short status or metadata label with a compact shared treatment, preserving the semantics of its content or link.
 status: discoverable
 sources:
+  - design-system/tokens/semantic.css
   - components/ui/badge.tsx
 ---
 

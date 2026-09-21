@@ -6,6 +6,22 @@ Run `pnpm fmt` to format files or `pnpm fmt:check` to check formatting without c
 [Oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) uses a 120-character print width from `.oxfmtrc.json`.
 Print width is a wrapping target; long strings and other unbreakable content can exceed it.
 
+## Linting
+
+Run `pnpm lint` for Oxlint and
+[@evilmartians/design-lint](https://github.com/evilmartians/design-lint).
+The command explicitly loads `oxlint.config.mjs`, preserving the existing code rules
+and adding design-token checks. Requires Node 22.18+ or 23.6+.
+
+Tokens resolve through `app/globals.css`, including its imported token files.
+Component checks cover `@/components/ui/*`, `@/components/layouts/*` and
+`@/components/deployments/*`. Standard design-lint rules are used without custom
+overrides. Text, border and hover colours use role-specific semantic tokens.
+CSS declarations are not linted by this plugin.
+
+Button, Badge and shared tab styles resolve their theme-dependent state colours
+through semantic tokens; local `dark:` branches are forbidden by the linter.
+
 ## Local database
 
 Deploy Board uses a local SQLite database at `data/deploy-board.sqlite`. Set

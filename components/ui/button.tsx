@@ -3,19 +3,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-m border-(length:--border-width) border-transparent bg-clip-padding text-s font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-ring/(--alpha-half) active:not-aria-[haspopup]:translate-y-(--press-offset) disabled:pointer-events-none disabled:opacity-(--opacity-disabled) aria-invalid:border-destructive aria-invalid:ring-(length:--focus-ring-width) aria-invalid:ring-destructive/(--alpha-subtle) dark:aria-invalid:border-destructive/(--alpha-half) dark:aria-invalid:ring-destructive/(--alpha-medium) [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-icon-l",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-m border-(length:--border-width) border-transparent bg-clip-padding text-s font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-ring/(--alpha-half) active:not-aria-[haspopup]:translate-y-(--press-offset) disabled:pointer-events-none disabled:opacity-(--opacity-disabled) aria-invalid:border-border-invalid aria-invalid:ring-(length:--focus-ring-width) aria-invalid:ring-destructive-ring [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-icon-l",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/(--alpha-hover)",
+        default: "bg-primary text-primary-foreground hover:bg-primary-hover",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/(--alpha-muted) dark:hover:bg-input/(--alpha-half)",
+          "border-border-outline bg-outline hover:bg-outline-hover hover:text-foreground-hover aria-expanded:bg-outline-expanded aria-expanded:hover:bg-outline-hover aria-expanded:text-foreground",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_var(--alpha-secondary-hover))] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/(--alpha-half)",
+          "hover:bg-ghost-hover hover:text-foreground-hover aria-expanded:hover:bg-ghost-hover aria-expanded:bg-muted aria-expanded:text-foreground",
         destructive:
-          "bg-destructive/(--alpha-faint) text-destructive hover:bg-destructive/(--alpha-subtle) focus-visible:border-destructive/(--alpha-medium) focus-visible:ring-destructive/(--alpha-subtle) dark:bg-destructive/(--alpha-subtle) dark:hover:bg-destructive/(--alpha-muted) dark:focus-visible:ring-destructive/(--alpha-medium)",
+          "bg-destructive-surface text-destructive-foreground hover:bg-destructive-hover focus-visible:border-border-destructive-focus focus-visible:ring-destructive-ring",
         link: "text-primary underline-offset-(--link-underline-offset) hover:underline",
       },
       size: {

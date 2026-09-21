@@ -194,6 +194,9 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
     devDependencies:
+      '@evilmartians/design-lint':
+        specifier: ^0.1.0
+        version: 0.1.0(@tailwindcss/node@4.3.3)(oxlint@1.83.0)
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.3
@@ -715,6 +718,16 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@evilmartians/design-lint@0.1.0':
+    resolution: {integrity: sha512-yd+Z5XNGUpNZWi3PSR+dpDS3uneoV7dCa4oh1wh0jBbdVhmbyO7EMgCsHN090u+EOAlfinfqrYFg/Z1q6ImCgw==}
+    engines: {node: ^22.18.0 || >=23.6.0}
+    peerDependencies:
+      '@tailwindcss/node': '>=4.1.0'
+      oxlint: '>=1.82.0'
+    peerDependenciesMeta:
+      '@tailwindcss/node':
+        optional: true
 
   '@floating-ui/core@1.8.0':
     resolution: {integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ==}
@@ -3222,6 +3235,12 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.2':
     optional: true
+
+  '@evilmartians/design-lint@0.1.0(@tailwindcss/node@4.3.3)(oxlint@1.83.0)':
+    dependencies:
+      oxlint: 1.83.0
+    optionalDependencies:
+      '@tailwindcss/node': 4.3.3
 
   '@floating-ui/core@1.8.0':
     dependencies:

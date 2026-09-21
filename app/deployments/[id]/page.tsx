@@ -152,7 +152,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                 >
                   <h3 className="font-medium">{step.name}</h3>
                   <p
-                    className={`mt-m text-s ${step.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}
+                    className={`mt-m text-s ${step.status === "failed" ? "text-destructive-foreground" : "text-muted-foreground"}`}
                   >
                     {stepLabels[step.status]}
                   </p>
@@ -175,7 +175,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
               {logs.map((log, index) => (
                 <li key={index} className="flex flex-wrap gap-x-xl gap-y-s">
                   <Time value={log.at} format="time" showTimeZone={false} />
-                  <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive" : ""}`}>
+                  <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive-foreground" : ""}`}>
                     {log.level.toUpperCase()} · {log.message}
                   </span>
                 </li>

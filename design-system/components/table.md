@@ -1,9 +1,10 @@
 ---
-sourcesHash: 6517d55a04f57578b357f52c8f9b1dfb2d97c1ee27a269a87f7baee765b0f208
+sourcesHash: 32d3288195fe31168af3adcb08ee089860afc4925d3047f3eb2a8b8b15293911
 id: table
 description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
 status: discoverable
 sources:
+  - design-system/tokens/semantic.css
   - components/ui/table.tsx
 ---
 

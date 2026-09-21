@@ -1,9 +1,10 @@
 ---
-sourcesHash: f008331e867c6f7e861a9efdf8b9a143fad01ad7b1d75bb419f89ee4c48565c1
+sourcesHash: 4835de6fd75aaecba6b995887e92baeefed7445d2c9a022a835dc91dd82296e0
 id: tabs
 description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
 status: discoverable
 sources:
+  - design-system/tokens/semantic.css
   - components/ui/tabs.tsx
   - components/ui/tabs-styles.ts
 ---

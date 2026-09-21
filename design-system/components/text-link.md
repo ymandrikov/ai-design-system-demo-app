@@ -1,9 +1,10 @@
 ---
-sourcesHash: ef9baaaa631cc8d70311ee986f277f126aaa30e6d7b67ca0d5b643fe28f28371
+sourcesHash: e3fc8cbcc2aca5f3593bab14ba8c1862d3057cbd5c81b10d98c22cce0506cdfa
 id: text-link
 description: Style title links to object details and ordinary text navigation with distinct hover treatments and visible keyboard focus, preserving native link semantics.
 status: discoverable
 sources:
+  - design-system/tokens/semantic.css
   - components/ui/text-link.tsx
   - lib/with-design-system-exception.tsx
 ---
@@ -80,7 +81,7 @@ The former class-string helpers are removed; all text-link consumers use `TextLi
 ## Behaviour and states
 
 Without a design-system exception, neither kind is underlined at rest. Title links use `foreground` and semibold
-weight; on hover their colour becomes `primary` without an underline.
+weight; on hover their colour becomes `link-foreground-hover` (an alias of `primary`) without an underline.
 Ordinary links inherit colour and weight; hover adds an underline with the 4px link-underline-offset token
 without changing colour. Visited links retain the same treatment.
 Keyboard-visible focus adds a current-colour 2px focus outline with a 4px focus offset for both kinds.

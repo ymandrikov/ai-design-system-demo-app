@@ -130,6 +130,12 @@ deployment; active progress stays in history.
 ## Verification
 
 From the repository root: `pnpm lint`, `pnpm build`, and `pnpm exec tsc --noEmit`.
+`pnpm lint` includes design-lint through [oxlint.config.mjs](oxlint.config.mjs),
+using the application's Tailwind entry and shared component import paths. Standard
+rules apply without custom overrides: text and border colours use their semantic
+roles, and hover colours use tokens ending in `-hover`.
+Button, Badge and shared tab styles resolve theme-dependent state colours through
+semantic tokens, without local `dark:` branches.
 Preview with `pnpm dev`; database setup is in [README.md](README.md).
 No automated tests are added at this stage. Browser checks cover environment switching,
 reload persistence, text status distinctions, empty data and narrow-width scrolling.

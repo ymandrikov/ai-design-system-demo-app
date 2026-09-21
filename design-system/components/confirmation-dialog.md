@@ -1,9 +1,10 @@
 ---
-sourcesHash: d98ef4f102cac9b382257d208a7f70269f052cd52c5e876a926dd46cb69ca4f8
+sourcesHash: 40ecca04edaf1a102afb39c0768296e8c50ce330af647688cb9a50e8436d9e28
 id: confirmation-dialog
 description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
 status: discoverable
 sources:
+  - design-system/tokens/semantic.css
   - components/ui/confirmation-dialog.tsx
 ---
 

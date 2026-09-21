@@ -45,6 +45,54 @@ Use the default unless its contract permits another size for the requested conte
 
 ## Themes and interaction
 
+Component state colour tokens resolve light/dark differences in CSS. Use these
+roles inside their owning shared components, rather than local `dark:` classes.
+Values below reference the existing semantic palette; translucent colours mix in
+OKLab with transparent using the named alpha scale.
+
+| Token               | Owner and role                                            | Light                | Dark                 |
+| ------------------- | --------------------------------------------------------- | -------------------- | -------------------- |
+| border-invalid      | Button invalid border                                     | destructive          | destructive / half   |
+| destructive-ring    | Button/Badge invalid and destructive focus ring           | destructive / subtle | destructive / medium |
+| destructive-surface | Button/Badge destructive background                       | destructive / faint  | destructive / subtle |
+| destructive-hover   | Button destructive hover background                       | destructive / subtle | destructive / muted  |
+| border-outline      | Button outline border                                     | border               | input                |
+| outline             | Button outline background                                 | background           | input / muted        |
+| outline-hover       | Button outline hover background, including expanded state | muted                | input / half         |
+| outline-expanded    | Button outline expanded background                        | muted                | input / muted        |
+| ghost-hover         | Button/Badge ghost hover background                       | muted                | muted / half         |
+| tabs-foreground     | Tabs/NavigationalTabs inactive text                       | foreground / strong  | muted-foreground     |
+| border-tabs-active  | Filled Tabs/NavigationalTabs active border                | transparent          | input                |
+| tabs-active         | Filled Tabs/NavigationalTabs active background            | background           | input / muted        |
+
+Line tabs keep transparent active borders and backgrounds. Badge's destructive
+link hover remains destructive / subtle in both themes. Badge's invalid border
+remains destructive; only Button uses border-invalid.
+
+The following role aliases apply in both themes and are re-resolved at each
+`:root` or `.dark` boundary. They preserve the existing colours and opacity while
+following design-lint's standard text, border and hover naming rules.
+
+| Token                    | Role                                         | Value in either theme |
+| ------------------------ | -------------------------------------------- | --------------------- |
+| destructive-foreground   | Error text and destructive Button/Badge text | destructive           |
+| border-destructive       | Badge invalid border                         | destructive           |
+| border-destructive-focus | Destructive Button focus border              | destructive / medium  |
+| foreground-hover         | Button and tab hover text                    | foreground            |
+| muted-foreground-hover   | Badge outline/ghost hover text               | muted-foreground      |
+| link-foreground-hover    | Title link hover text                        | primary               |
+| primary-hover            | Primary Button/Badge hover background        | primary / hover       |
+| badge-secondary-hover    | Secondary Badge link hover background        | secondary / hover     |
+| badge-destructive-hover  | Destructive Badge link hover background      | destructive / subtle  |
+| badge-outline-hover      | Outline Badge link hover background          | muted                 |
+| table-row-hover          | Table row hover background                   | muted / half          |
+
+`destructive-foreground` is red text on the existing neutral or translucent
+surfaces, not a contrasting white label for a solid red background. Keep
+`badge-destructive-hover` separate from Button's `destructive-hover`: Badge retains
+20% in both themes, while Button uses 20% in light and 30% in dark. Secondary Badge
+hover retains 80% opacity; the secondary Button retains its different colour mix.
+
 Colour roles retain their existing names, including background/foreground, card,
 popover, primary, secondary, muted, destructive, border, input and ring.
 Pair surfaces with their foreground tokens. Light and .dark map roles directly
