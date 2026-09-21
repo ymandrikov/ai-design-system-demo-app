@@ -10,11 +10,9 @@ function DescriptionItemRoot({
   "aria-live"?: AriaAttributes["aria-live"];
 }) {
   return (
-    <div>
+    <div className="flex flex-col gap-sm">
       <dt className="text-sm text-content-subtle">{label}</dt>
-      <dd className="mt-sm" aria-live={ariaLive}>
-        {children}
-      </dd>
+      <dd aria-live={ariaLive}>{children}</dd>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 ---
-sourcesHash: 56eb2ff9c7faf0362067c11e71705055b66acec34af4e12a87ebfe5e9e4f65f3
+sourcesHash: e68cae6b5d598ac818f40976694fca874a72b3b2e72a04df3d72fe1193a3b23b
 id: description-item
 description: Present one named read-only property and its value within a description list, with consistent label styling and spacing.
 status: discoverable
@@ -72,11 +72,14 @@ interruptions, not routine progress. The component does not initiate announcemen
 No other native attributes, styling overrides, events or methods are exposed.
 
 The component owns the div/dt/dd pair, small muted label typography and spacing-sm
-between label and value, preserving the current shared interval. There are no density variants.
+between label and value through its parent flex gap, preserving the current 4px interval.
+The dt and dd have no external margins. There are no density variants.
 Colours use [global semantic tokens](../tokens/semantic.css).
 
-Render as a direct child of dl. The consumer owns that list, columns, responsive
-layout, surrounding surface and field order. Use spacing-4xl between pairs on both
+For wrapping summary rows, render directly inside [DescriptionList](description-list.md),
+which owns the native dl, wrapping and 40px item gaps. Other existing compositions
+may retain their native dl and column layout. Consumers own the surrounding surface
+and field order. Use spacing-4xl between pairs on both
 axes (gap-4xl for flex/grid lists, space-y-4xl for vertical block lists), including
 wrapped rows. This applies to summaries, form metadata and confirmation details;
 the label/value interval within each pair remains spacing-sm. Consumers also

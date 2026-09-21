@@ -121,22 +121,23 @@ treatment with native code; [DeploymentResult](design-system/components/deployme
 uses secondary for success and destructive for failure. Both retain their domain
 labels and public props across the services list, service history and deploy summary.
 [DescriptionItem](design-system/components/description-item.md) owns each read-only
-name/value pair inside a native description list: small muted label and spacing-sm
-before its value. Plain children use ordinary styling; DescriptionItem.Emphasised and DescriptionItem.Empty
-style emphasized values and missing-data text. Consumers own the dl, grid, field order and value formatting. Lists of these pairs
-use spacing-4xl between items on both axes, including wrapped rows;
+name/value pair inside a native description list: small muted label and parent-owned
+spacing-sm between label and value. Plain children use ordinary styling; DescriptionItem.Emphasised and DescriptionItem.Empty
+style emphasized values and missing-data text. Consumers own field order and value formatting.
+[DescriptionList](design-system/components/description-list.md) owns the native dl
+and wrapping layout for summary pairs, with spacing-4xl on both axes;
 only the deployment status forwards a polite live region.
 Components receive content through props and never access SQLite.
 
 Service and deployment detail summaries follow the
 [status summary pattern](design-system/patterns/status-summary.md): primary status
 and version above supporting metadata, with neutral surfaces and precise consequence
-text. Pages compose [BorderedCard](design-system/components/bordered-card.md) and
-[Stack](design-system/layouts/stack.md), placing an explicit
-[Separator](design-system/components/separator.md) between regions using that recipe.
-The card owns the surface; Stack owns vertical arrangement, with
-no added gap. Pages supply semantic lists and
-region padding prescribed by the pattern, and arrange supporting content. Service summaries distinguish the current service from its last completed
+text. [BorderedCard](design-system/components/bordered-card.md) owns the surface and
+vertical arrangement without gaps. Its Section owns spacing-xl padding and gaps
+between blocks; [Separator](design-system/components/separator.md) divides sections.
+[Stack](design-system/layouts/stack.md) with `spacing="md"` owns spacing-md between
+related explanations. Pages supply content, conditions and a typography-only
+`text-sm` wrapper around the supporting Section. Service summaries distinguish the current service from its last completed
 deployment; active progress stays in history.
 
 ## Verification

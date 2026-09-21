@@ -22,19 +22,22 @@ All criteria must hold:
 ## Structure
 
 Inside a named [PageContent section](../layouts/page-content.md), use
-[BorderedCard](../components/bordered-card.md) around a
-[Stack](../layouts/stack.md) with default no added spacing and an explicit
-[Separator](../components/separator.md) between its two content regions.
+[BorderedCard](../components/bordered-card.md) with two Section children and an explicit
+[Separator](../components/separator.md) between them. The supporting Section may
+have a typography-only wrapper. Each parent owns its children's spacing.
 This is a reusable recipe composed on each page, with two levels in source order:
 
-1. Primary description list: status first, version second. Use
+1. Primary Section contains [DescriptionList](../components/description-list.md):
+   status first, version second. Use
    [DescriptionItem](../components/description-item.md), plain text for service state
    or active stage, [DeploymentResult](../components/deployment-result.md) for a
    completed outcome and [VersionLabel](../components/version-label.md) for a version.
 2. Supporting region, separated by Separator: metadata and contextual links.
    Use a native inline `dt`/`dd` pair for the service's last completed deployment;
    its value groups the result, timestamp and link. Deployment metadata reuses
-   DescriptionItem. An optional consequence sentence follows the metadata it explains.
+   DescriptionList and DescriptionItem. Group related explanations in
+   [Stack](../layouts/stack.md) with `spacing="md"`. An optional consequence sentence
+   follows the metadata it explains.
 
 Service recipe: `Service state / Healthy` and `Current version / v1.1.0`, then
 `Last completed deployment / Failed / completion time / View deployment #42`.
@@ -46,23 +49,27 @@ Minimal React composition (field values are supplied by the page):
 
 ```tsx
 <BorderedCard>
-  <Stack>
-    <dl className="flex flex-wrap gap-4xl p-xl">
+  <BorderedCard.Section>
+    <DescriptionList>
       <DescriptionItem label="Service state">
         <DescriptionItem.Emphasised>Healthy</DescriptionItem.Emphasised>
       </DescriptionItem>
       <DescriptionItem label="Current version">
         <VersionLabel version="v1.1.0" />
       </DescriptionItem>
-    </dl>
-    <Separator aria-hidden="true" />
-    <div className="space-y-md p-xl text-sm">
-      <dl className="flex flex-wrap items-center gap-x-xl gap-y-md">
-        <dt className="text-content-subtle">Last completed deployment</dt>
-        <dd>No completed deployments</dd>
-      </dl>
-    </div>
-  </Stack>
+    </DescriptionList>
+  </BorderedCard.Section>
+  <Separator />
+  <div className="text-sm">
+    <BorderedCard.Section>
+      <Stack spacing="md">
+        <dl className="flex flex-wrap items-center gap-x-xl gap-y-md">
+          <dt className="text-content-subtle">Last completed deployment</dt>
+          <dd>No completed deployments</dd>
+        </dl>
+      </Stack>
+    </BorderedCard.Section>
+  </div>
 </BorderedCard>
 ```
 
@@ -70,22 +77,26 @@ Minimal React composition (field values are supplied by the page):
 
 ### Required
 
-- BorderedCard owns the surface; Stack owns vertical arrangement; Separator owns the divider.
-  Pages supply a primary native dl and a supporting div with a horizontal
-  `<Separator aria-hidden="true" />` between them as direct Stack children. Both regions are required and use `p-xl`; the supporting div uses
-  `text-sm`. Keep no added spacing so the divider meets both padded regions without
-  adding a gap. Preserve existing semantic colours.
-- Pages own fields, data, links, live regions and native description lists. Preserve
-  `space-y-md` within service supporting content and `space-y-xl` within deployment
-  supporting content. These are content intervals, not Stack spacing overrides.
-- Primary fields use a wrapping flex row with `gap-4xl`; retain the label
+- BorderedCard owns the surface and vertical arrangement without gaps; Separator
+  owns the decorative divider, with no external margins. Both Sections are required.
+  Section owns `p-xl` and `gap-xl` (16px); the supporting Section has a
+  typography-only `text-sm` wrapper. Preserve existing semantic colours.
+- Pages own fields, data, links, live regions, order and conditions. Parents own
+  spacing: DescriptionList uses `gap-4xl` (40px) on both axes; DescriptionItem uses
+  `gap-sm` (4px) between dt and dd; neither child has external margins.
+  Deployment supporting Section separates metadata from explanations by 16px;
+  `Stack spacing="md"` separates description, optional source and consequence by 8px.
+  Service supporting Stack separates its inline dl from an optional consequence by
+  8px. Omit absent content without empty placeholders or margins.
+- Primary fields use DescriptionList; retain the label
   styling and label/value spacing owned by DescriptionItem. Emphasise plain primary
   values with `DescriptionItem.Emphasised`; use `DescriptionItem.Empty` for missing
   values. Render composed badges directly with their own typography.
 - Supporting text is `text-sm`; supporting labels and timestamps use
   `text-content-subtle`. Keep linked text readable and preserve visible focus.
-  Use wrapping metadata rows, `gap-x-xl gap-y-md` for inline context and
-  `gap-4xl` for description lists. Long commits wrap; do not truncate values.
+  Use DescriptionList for wrapping metadata pairs. Service inline context retains
+  its native dl and `gap-x-xl gap-y-md` (16px horizontal, 8px wrapped-row gaps),
+  including its grouped dd value. Long commits wrap; do not truncate values.
 - Identify service health separately from deployment outcome. An error badge must
   not colour the entire surface or imply that the service is unavailable.
 - Service summaries show the last **completed** deployment, even while another is
@@ -126,7 +137,9 @@ before a first successful deployment and an active attempt following failure.
 For deployment details check active, succeeded and failed attempts, including an old
 failed attempt after a later success. Confirm link, timestamp and result identity.
 Reject a composition with a nested dl around all primary pairs, missing regions,
-nonzero outer Stack spacing or an added region border duplicating Separator.
+gaps around Separator, child margins for these intervals or an added region border
+duplicating Separator. Confirm Section padding/gaps are 16px, DescriptionList gaps
+40px, explanation Stack gaps 8px and DescriptionItem label/value gaps 4px.
 Reject a summary that presents `Failed` as service health, labels an attempted version
 as current, or claims a working version existed without evidence.
 

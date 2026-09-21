@@ -1,7 +1,7 @@
 ---
-sourcesHash: 6624eda07e74cc8e765dddd742b41f39b22036fa46907eb6ac4985ffbf41809d
+sourcesHash: fb02ef9169299fd4969885c65a26bfb4ae4ccd66bdbcfc5b89bb72995ef46054
 id: bordered-card
-description: Group one subject's related content in a neutral bordered surface while the consumer owns its internal composition.
+description: Group one subject's related content in a neutral bordered surface with padded content sections while the consumer owns content and ordering.
 status: discoverable
 sources:
   - components/ui/bordered-card.tsx
@@ -30,18 +30,31 @@ Import `BorderedCard` from `@/components/ui/bordered-card`.
 
 ```tsx
 <BorderedCard>
-  <p className="p-xl">Subject details</p>
+  <BorderedCard.Section>
+    <p>Subject details</p>
+  </BorderedCard.Section>
 </BorderedCard>
 ```
 
-Required `children: ReactNode` supplies the content. Consumers own semantic groups,
-padding and internal arrangement, following the consuming pattern. The card owns
-`rounded-md border bg-canvas-card text-content-card` in both themes.
-No variants, events, methods, native-attribute forwarding or styling overrides.
+Both `BorderedCard` and `BorderedCard.Section` require `children: ReactNode`.
+The root owns the border, radius, surface and vertical order, with no padding or gap.
+Use Section for a content region: it owns spacing-xl (16px) padding on every side
+and a vertical spacing-xl gap between its direct children. A single child adds no gap.
+Separate adjoining sections with an explicit [Separator](separator.md) outside them;
+its line reaches the card edges without negative margins. Do not add section margins,
+repeat the padding on children, or nest sections to create extra insets.
+
+Use [DescriptionList](description-list.md) for wrapping read-only properties and
+[Stack](../layouts/stack.md) for related explanatory blocks inside a section.
+Consumers retain content, order, conditions, semantic groups and typography. A
+content-inheriting typography wrapper may surround a section; it must add no spacing.
+Neither part exposes events, methods, native-attribute forwarding or styling overrides.
 
 ## Behaviour and states
 
-Static neutral surface with no padding, shadow, clipping, status colouring or state.
+Static neutral surface with no root padding, shadow, clipping, status colouring or state.
+Section owns its inset and child gap. Empty/omitted conditional children create no
+reserved slot; consumers should omit a whole empty section.
 It neither infers content status nor loads data. Empty content retains the surface;
 the consumer decides whether to show explicit empty content or omit the card.
 

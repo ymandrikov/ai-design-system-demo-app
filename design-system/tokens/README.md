@@ -95,8 +95,9 @@ the native Tailwind `data-[active]` variant.
 
 Button retains default/outline/destructive variants; Badge retains
 secondary/destructive. NavigationalTabs owns one filled horizontal treatment.
-Unused panel Tabs, table footer, Stack gap variants and vertical Separator were
-removed. Stack groups adjoin; their children own padding.
+Unused panel Tabs, table footer and vertical Separator were removed.
+Stack defaults to adjoining children; `spacing="md"` groups related explanations
+with an 8px gap. BorderedCard.Section owns 16px padding and gaps between blocks.
 
 Use the configured `cn` from `@/lib/utils` to distinguish `text-md` from colours
 and merge named dimensions correctly. Structure and private derived geometry stay

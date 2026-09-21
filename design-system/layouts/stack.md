@@ -1,7 +1,7 @@
 ---
-sourcesHash: 1a17f0fc1e0c8724d2dbd8d8c6de683823ee68cd44b2f484477dca64beb5178b
+sourcesHash: cf023914d2d41aa2f71ff4249f1902bae05a84c0290fb0af0f86eda200e2f12d
 id: stack
-description: Arrange related content groups vertically in reading order without added inter-group spacing.
+description: Arrange related content groups vertically in reading order with adjoining or closely spaced children.
 status: discoverable
 sources:
   - components/layouts/stack.tsx
@@ -29,7 +29,7 @@ All criteria must hold:
 Import `Stack` from `@/components/layouts/stack`.
 
 ```tsx
-<Stack>
+<Stack spacing="md">
   <p>First group</p>
   <p>Second group</p>
 </Stack>
@@ -37,15 +37,19 @@ Import `Stack` from `@/components/layouts/stack`.
 
 `children: ReactNode` supplies groups. Each group must render one direct element;
 fragments may group sibling elements but do not establish a section boundary.
-There is no spacing prop: the two application consumers compose adjoining groups
-that own their insets. The unused spacing variants were removed.
+Optional `spacing: "0" | "md"` defaults to `"0"`, preserving adjoining groups.
+Use `"md"` for related explanatory blocks: the parent supplies an 8px gap between
+rendered direct children, with no leading or trailing gap. The approved use is the
+summary's description, source link and outcome explanation. Only these two modes
+are supported; numeric or arbitrary spacing is not accepted.
 No events, methods, native-attribute forwarding, `className` or `style` overrides.
 
 ## Composition
 
 ### Required
 
-Stack owns vertical order and adds no inter-group spacing.
+Stack owns vertical order and the selected gap between its direct children.
+Children must not add external margins to recreate that gap.
 Consumers own widths, group padding, typography and semantic elements. Stack adds
 no item wrappers, borders or perimeter padding.
 Conditional groups should render nothing when absent, rather than hidden elements.
@@ -58,7 +62,7 @@ visual boundary is needed between adjoining padded sections.
 
 ### Exceptions
 
-None. Groups own their padding; Stack adds no gap.
+None. Groups own their padding; Stack owns their separation.
 
 ## Accessibility
 

@@ -6,6 +6,7 @@ import { AppIdentity } from "@/components/ui/app-identity";
 import { Time } from "@/components/ui/time";
 import { BackNavigation } from "@/components/ui/back-navigation";
 import { TextLink } from "@/components/ui/text-link";
+import { DescriptionList } from "@/components/ui/description-list";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
@@ -74,8 +75,8 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         <PageContent.Section aria-label="Service summary">
           <PageContent.SectionContent>
             <BorderedCard>
-              <Stack>
-                <dl className="flex flex-wrap gap-4xl p-xl">
+              <BorderedCard.Section>
+                <DescriptionList>
                   <DescriptionItem label="Service state">
                     {service.state ? (
                       <DescriptionItem.Emphasised>{stateLabels[service.state]}</DescriptionItem.Emphasised>
@@ -90,34 +91,38 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                       <DescriptionItem.Empty>No version</DescriptionItem.Empty>
                     )}
                   </DescriptionItem>
-                </dl>
-                <Separator />
-                <div className="space-y-md p-xl text-sm">
-                  <dl className="flex flex-wrap items-center gap-x-xl gap-y-md">
-                    <dt className="text-content-subtle">Last completed deployment</dt>
-                    <dd className="flex flex-wrap items-center gap-x-xl gap-y-md">
-                      {service.lastResult ? (
-                        <>
-                          <DeploymentResult result={service.lastResult} />
-                          {service.lastCompletedAt && <Time value={service.lastCompletedAt} format="dateTime" />}
-                          <TextLink href={`/deployments/${service.lastDeploymentId}`}>
-                            View deployment #{service.lastDeploymentId}
-                          </TextLink>
-                        </>
-                      ) : (
-                        <span>No completed deployments</span>
-                      )}
-                    </dd>
-                  </dl>
-                  {service.lastResult === "failed" && (
-                    <p className="text-content-subtle">
-                      {service.currentVersion
-                        ? "Deployment failed. Current version unchanged."
-                        : "Deployment failed. No version is deployed."}
-                    </p>
-                  )}
-                </div>
-              </Stack>
+                </DescriptionList>
+              </BorderedCard.Section>
+              <Separator />
+              <div className="text-sm">
+                <BorderedCard.Section>
+                  <Stack spacing="md">
+                    <dl className="flex flex-wrap items-center gap-x-xl gap-y-md">
+                      <dt className="text-content-subtle">Last completed deployment</dt>
+                      <dd className="flex flex-wrap items-center gap-x-xl gap-y-md">
+                        {service.lastResult ? (
+                          <>
+                            <DeploymentResult result={service.lastResult} />
+                            {service.lastCompletedAt && <Time value={service.lastCompletedAt} format="dateTime" />}
+                            <TextLink href={`/deployments/${service.lastDeploymentId}`}>
+                              View deployment #{service.lastDeploymentId}
+                            </TextLink>
+                          </>
+                        ) : (
+                          <span>No completed deployments</span>
+                        )}
+                      </dd>
+                    </dl>
+                    {service.lastResult === "failed" && (
+                      <p className="text-content-subtle">
+                        {service.currentVersion
+                          ? "Deployment failed. Current version unchanged."
+                          : "Deployment failed. No version is deployed."}
+                      </p>
+                    )}
+                  </Stack>
+                </BorderedCard.Section>
+              </div>
             </BorderedCard>
           </PageContent.SectionContent>
         </PageContent.Section>

@@ -15,5 +15,5 @@
   - Contract: [contract](layouts/root-layout.md)
 
 - **Stack**
-  - Description: Arrange related content groups vertically in reading order without added inter-group spacing.
+  - Description: Arrange related content groups vertically in reading order with adjoining or closely spaced children.
   - Contract: [contract](layouts/stack.md)

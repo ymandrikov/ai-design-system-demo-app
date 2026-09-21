@@ -15,7 +15,7 @@
   - Contract: [contract](components/badge.md)
 
 - **BorderedCard**
-  - Description: Group one subject's related content in a neutral bordered surface while the consumer owns its internal composition.
+  - Description: Group one subject's related content in a neutral bordered surface with padded content sections while the consumer owns content and ordering.
   - Contract: [contract](components/bordered-card.md)
 
 - **Button**
@@ -41,6 +41,10 @@
 - **DescriptionItem**
   - Description: Present one named read-only property and its value within a description list, with consistent label styling and spacing.
   - Contract: [contract](components/description-item.md)
+
+- **DescriptionList**
+  - Description: Group read-only named properties in a native description list with shared spacing and wrapping in reading order.
+  - Contract: [contract](components/description-list.md)
 
 - **NavigationalTabs**
   - Description: Navigate between related page destinations through a horizontal group of links with a filled treatment, with a current-page marker and native link behaviour.

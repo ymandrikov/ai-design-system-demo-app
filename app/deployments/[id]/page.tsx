@@ -6,6 +6,7 @@ import { AppIdentity } from "@/components/ui/app-identity";
 import { BackNavigation } from "@/components/ui/back-navigation";
 import { TextLink } from "@/components/ui/text-link";
 import { Time } from "@/components/ui/time";
+import { DescriptionList } from "@/components/ui/description-list";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
 import { notFound } from "next/navigation";
@@ -73,8 +74,8 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         <PageContent.Section aria-label="Deployment summary">
           <PageContent.SectionContent>
             <BorderedCard>
-              <Stack>
-                <dl className="flex flex-wrap gap-4xl">
+              <BorderedCard.Section>
+                <DescriptionList>
                   <DescriptionItem label="Deployment status" aria-live="polite">
                     {deployment.result ? (
                       <DeploymentResult result={deployment.result} />
@@ -85,10 +86,12 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                   <DescriptionItem label="Version">
                     <VersionLabel version={version.version} />
                   </DescriptionItem>
-                </dl>
-                <Separator />
-                <div className="space-y-xl p-xl text-sm">
-                  <dl className="flex flex-wrap gap-4xl">
+                </DescriptionList>
+              </BorderedCard.Section>
+              <Separator />
+              <div className="text-sm">
+                <BorderedCard.Section>
+                  <DescriptionList>
                     <DescriptionItem label="Commit">
                       {version.commit == null ? (
                         <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
@@ -107,8 +110,8 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                         <Time value={deployment.completedAt} format="dateTime" />
                       </DescriptionItem>
                     )}
-                  </dl>
-                  <div>
+                  </DescriptionList>
+                  <Stack spacing="md">
                     <p>{version.description}</p>
                     {deployment.sourceDeploymentId && (
                       <p>
@@ -125,9 +128,9 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                           : "Deployment succeeded. The environment version was updated when this run completed."}
                       </p>
                     )}
-                  </div>
-                </div>
-              </Stack>
+                  </Stack>
+                </BorderedCard.Section>
+              </div>
             </BorderedCard>
           </PageContent.SectionContent>
         </PageContent.Section>
