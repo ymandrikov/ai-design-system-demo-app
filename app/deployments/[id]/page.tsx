@@ -127,7 +127,8 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                     </p>
                   )}
                   {deployment.result && (
-                    <p className="text-content-subtle">
+                    // oxlint-disable-next-line design/no-raw-color -- design-system/gaps.md#g-01-deployment-outcome-text-uses-a-raw-colour
+                    <p className="text-[#777]">
                       {deployment.result === "failed"
                         ? "Deployment failed. This attempt did not change the environment's current version."
                         : "Deployment succeeded. The environment version was updated when this run completed."}
