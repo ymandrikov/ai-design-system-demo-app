@@ -1,5 +1,5 @@
 ---
-sourcesHash: 4835de6fd75aaecba6b995887e92baeefed7445d2c9a022a835dc91dd82296e0
+sourcesHash: c7fa877ea8ecf728cd9f75bf09bbc702cb15dd5523f45c568c8c5c054e05c7c2
 id: tabs
 description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
 status: discoverable

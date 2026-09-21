@@ -1,5 +1,5 @@
 ---
-sourcesHash: 052789e5b2bfced821affdd43dd58f6cccbeb48a7447ab9117c1978312a90772
+sourcesHash: 61acbb11a3a6f39bec3f51ed1734c2f1d92a1e876f0c263a6ff9d7f21b9b25d1
 id: navigational-tabs
 description: Navigate between related page destinations through a horizontal group of links styled like Tabs, with a current-page marker and native link behaviour.
 status: discoverable

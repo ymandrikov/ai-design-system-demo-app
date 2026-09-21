@@ -104,7 +104,9 @@ Semantic alpha modifiers faint/subtle/muted/medium/half/strong/hover preserve
 `bg-destructive/(--alpha-faint)`. Disabled controls use opacity-disabled (50%).
 The secondary hover mix keeps its 5% foreground contribution.
 
-Border-width is 1px; focus-outline-width is 2px, focus-outline-thin is 1px,
+Borders use ordinary Tailwind `border`, `border-t` and `border-b` utilities (1px).
+The 1px border-width variable remains for the tabs indicator geometry.
+Focus-outline-width is 2px, focus-outline-thin is 1px,
 focus-ring-width is 3px and focus-offset is 4px. Link underline offset is 4px;
 indicator thickness is 2px and pressed controls move 1px. Utilities reference
 these semantic variables with Tailwind's typed variable syntax where necessary.

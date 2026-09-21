@@ -59,7 +59,7 @@ export function ConfirmationDialog({
         <AlertDialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-xl">
           <AlertDialog.Popup
             initialFocus={cancelRef}
-            className="flex max-h-full w-full max-w-dialog-width flex-col gap-2xl overflow-y-auto rounded-m border-(length:--border-width) bg-popover p-2xl text-popover-foreground shadow-l"
+            className="flex max-h-full w-full max-w-dialog-width flex-col gap-2xl overflow-y-auto rounded-m border bg-popover p-2xl text-popover-foreground shadow-l"
           >
             <div className="flex flex-col gap-m">
               <AlertDialog.Title className="text-l font-semibold">{title}</AlertDialog.Title>

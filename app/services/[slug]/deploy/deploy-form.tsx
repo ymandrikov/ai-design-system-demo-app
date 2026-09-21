@@ -32,7 +32,7 @@ export function DeployForm({
         {versions.map((version) => (
           <label
             key={version.id}
-            className="flex min-h-option-min-height cursor-pointer items-center gap-l rounded-m border-(length:--border-width) bg-background px-xl py-l text-foreground"
+            className="flex min-h-option-min-height cursor-pointer items-center gap-l rounded-m border bg-background px-xl py-l text-foreground"
           >
             <input
               type="radio"
@@ -70,7 +70,7 @@ export function DeployForm({
         </>
       )}
       {environment === "production" && (
-        <p className="rounded-m border-(length:--border-width) p-xl text-s">
+        <p className="rounded-m border p-xl text-s">
           <strong>Production warning.</strong> A successful deployment replaces the current production version. This is
           a local simulation.
         </p>

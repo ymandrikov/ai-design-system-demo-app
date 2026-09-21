@@ -148,7 +148,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                 <li
                   key={step.name}
                   aria-current={step.status === "active" ? "step" : undefined}
-                  className="rounded-m border-(length:--border-width) bg-card p-xl text-card-foreground"
+                  className="rounded-m border bg-card p-xl text-card-foreground"
                 >
                   <h3 className="font-medium">{step.name}</h3>
                   <p
@@ -171,7 +171,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
             }
           />
           <PageContent.SectionContent>
-            <ol className="space-y-m rounded-m border-(length:--border-width) bg-card p-xl font-mono text-s text-card-foreground">
+            <ol className="space-y-m rounded-m border bg-card p-xl font-mono text-s text-card-foreground">
               {logs.map((log, index) => (
                 <li key={index} className="flex flex-wrap gap-x-xl gap-y-s">
                   <Time value={log.at} format="time" showTimeZone={false} />

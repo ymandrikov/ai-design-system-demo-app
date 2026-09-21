@@ -1,5 +1,5 @@
 ---
-sourcesHash: 2e8fb97ec049ae7567cf9cb6d1172cddc6484fb4663e68d4ccfb94570a8adff1
+sourcesHash: 5d9c0fb8392fd8c40bbe7f36f3e49bed4572a876bf0b290d387976e75a1a4e75
 id: status-summary-layout
 description: Arrange a read-only status and version above supporting metadata in one neutral surface with a separated lower region.
 status: discoverable

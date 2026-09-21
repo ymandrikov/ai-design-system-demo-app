@@ -1,5 +1,5 @@
 ---
-sourcesHash: 723fd2f9382f6f876fbcb10c22ff25f36daf6c04147a32ebd4c594a9fbb5b184
+sourcesHash: 848e6609230f875237a23777f1fde746a8b14cf66dd6bc21c017c3f5f5706dd7
 id: button
 description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
 status: discoverable
