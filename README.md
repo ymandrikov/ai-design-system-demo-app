@@ -9,6 +9,8 @@ for AI-built interfaces_.
   decisions they own.
 - **Agent workflow.** The design-system skill separates selecting existing components
   with `use` from maintaining the shared system with `craft`.
+- **Lint checks.** [Evil Martians' design-lint](https://github.com/evilmartians/design-lint)
+  checks semantic token use and component styling rules through `pnpm lint`.
 - **Exceptions.** Local overrides carry a reason and a journal entry. Two deliberate
   rule violations show how unresolved gaps are recorded.
 
