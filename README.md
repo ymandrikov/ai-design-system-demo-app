@@ -101,30 +101,38 @@ having to repeat the design-system rules in each request.
 
 ### Understand a decision
 
-> Why do adding and deleting a service use different dialogs?
+```text
+Why do adding and deleting a service use different dialogs?
+```
 
 Look for an explanation based on the components' purposes and contracts, with links
 to the code that uses them.
 
 ### Change a screen
 
-> Add a description to the Services page explaining that production and staging
-> have separate versions and deployment histories.
+```text
+Add a description to the Services page explaining that production and staging
+have separate versions and deployment histories.
+```
 
 Check whether the agent uses an existing component's API for this small change.
 
 ### Change the design system
 
-> Make secondary text more readable by increasing its contrast in both light and
-> dark themes. First show me which parts of the app this would affect.
+```text
+Make secondary text more readable by increasing its contrast in both light and
+dark themes. First show me which parts of the app this would affect.
+```
 
 Look for a change to the shared colour rules, followed by checks of the affected
 components and screens in both themes.
 
 ### Find a useful refactoring
 
-> Explore the interface and suggest one useful refactoring. Explain the problem
-> and what the change would improve. Don't change anything yet.
+```text
+Explore the interface and suggest one useful refactoring. Explain the problem
+and what the change would improve. Don't change anything yet.
+```
 
 Check whether the proposal addresses a concrete problem. Discuss the tradeoffs,
 then ask the agent to implement it if you agree. Notice whether it distinguishes
