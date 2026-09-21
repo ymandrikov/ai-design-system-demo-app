@@ -208,7 +208,16 @@ export function getDeploymentDetails(id: number) {
     if (!row) {
       return undefined;
     }
-    return { ...row, ...getProgress(row.deployment, now), actions: actions(tx, row.deployment) };
+    const available = actions(tx, row.deployment);
+    const rollbackVersion =
+      available.rollbackVersionId === null
+        ? null
+        : (tx
+            .select({ version: serviceVersions.version })
+            .from(serviceVersions)
+            .where(eq(serviceVersions.id, available.rollbackVersionId))
+            .get()?.version ?? null);
+    return { ...row, ...getProgress(row.deployment, now), actions: available, rollbackVersion };
   });
 }
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { BackNavigation } from "@/components/ui/back-navigation";
 import { TextLink } from "@/components/ui/text-link";
 import { PageContainer } from "@/components/layouts/page-container";
 import { useSearchParams } from "next/navigation";
@@ -17,11 +18,13 @@ export default function ServiceNotFound() {
   return (
     <PageContainer>
       <PageHeader title="Service not found" description="This service does not exist in Deploy Board." />
-      <nav aria-label="Back to services" className="mt-2xl text-s">
-        <Suspense>
-          <BackToServices />
-        </Suspense>
-      </nav>
+      <div className="mt-2xl">
+        <BackNavigation label="Back to services">
+          <Suspense>
+            <BackToServices />
+          </Suspense>
+        </BackNavigation>
+      </div>
     </PageContainer>
   );
 }

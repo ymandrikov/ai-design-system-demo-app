@@ -40,6 +40,7 @@ export function getProgress(deployment: Deployment, now: Date) {
       : []),
   ]);
   return {
+    elapsedSeconds: Math.floor(elapsed / 1000),
     percent: Math.min(100, Math.floor((elapsed / durationMs) * 100)),
     stage: steps.find((step) => step.status === "active")?.name ?? "Health check",
     steps,

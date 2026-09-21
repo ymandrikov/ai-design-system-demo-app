@@ -61,6 +61,22 @@ A specific screen does not automatically become a reusable pattern.
 The design system serves only this application.
 A separate package and monorepo are not required.
 
+### Page readability
+
+Pages describe UI composition and consume ready-to-use domain values.
+Move an operation into the appropriate module when understanding its result requires
+the reader to do any of the following:
+
+- Trace a chain of loading, searching and matching related entities.
+- Decode a formula, unit conversion or handling of boundary values.
+- Reconstruct a business rule from conditions, priorities and fallback values.
+
+Name the function or returned field for its result, such as `rollbackVersion` or
+`elapsedSeconds`. Reuse existing logic first; extraction is justified by the criteria
+above, not by the number of lines.
+Keep simple presence checks, display-label choices and direct field access next to
+JSX when they contain none of that logic.
+
 ### Model and simulation
 
 The core entities are service, service version, service environment, and deployment.

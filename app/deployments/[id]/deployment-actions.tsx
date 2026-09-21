@@ -1,5 +1,6 @@
 "use client";
 
+import { RequestFeedback } from "@/components/ui/request-feedback";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -90,16 +91,7 @@ export function DeploymentActions({
           </ConfirmationDialog>
         )}
       </div>
-      {!rollbackVersion && (
-        <div aria-live="polite" className={pending || error ? undefined : "sr-only"}>
-          {pending && <p className="text-s text-muted-foreground">Starting deployment…</p>}
-          {error && (
-            <p role="alert" className="text-s text-destructive-foreground">
-              {error}
-            </p>
-          )}
-        </div>
-      )}
+      {!rollbackVersion && <RequestFeedback pending={pending} pendingLabel="Starting deployment…" error={error} />}
     </div>
   );
 }

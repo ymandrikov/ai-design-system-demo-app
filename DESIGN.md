@@ -78,6 +78,12 @@ the Services and Service details screens. Tabs remains for local panel switching
 Standalone screen actions use [Button](design-system/components/button.md):
 `Button` for form submission and `buttonVariants` on native/Next.js links for
 navigation. Deploy uses the default treatment.
+Named single-link return regions use [BackNavigation](design-system/components/back-navigation.md)
+around TextLink, with page-owned outer spacing and destination context.
+Standalone pending/error feedback for retry and confirmation uses
+[RequestFeedback](design-system/components/request-feedback.md); field-associated form
+feedback remains owned by the form.
+
 Text navigation uses [TextLink](design-system/components/text-link.md),
 preserving native navigation and page-owned destinations. These rules are required:
 

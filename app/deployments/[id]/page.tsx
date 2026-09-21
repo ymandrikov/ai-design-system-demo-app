@@ -1,6 +1,7 @@
 import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout";
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
+import { BackNavigation } from "@/components/ui/back-navigation";
 import { TextLink } from "@/components/ui/text-link";
 import { Time } from "@/components/ui/time";
 import { DescriptionItem } from "@/components/ui/description-item";
@@ -11,7 +12,7 @@ import { CommitHash } from "@/components/deployments/commit-hash";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { PageHeader } from "@/components/ui/page-header";
-import { getDeploymentDetails, getDeploymentForm } from "@/lib/deployments";
+import { getDeploymentDetails } from "@/lib/deployments";
 import { deploymentKindLabels, environmentLabels } from "@/lib/deployments/presentation";
 import { DeploymentActions } from "./deployment-actions";
 
@@ -27,18 +28,8 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
   if (!data) {
     notFound();
   }
-  const { deployment, service, version, actions, steps, logs, stage, percent } = data;
+  const { deployment, service, version, actions, steps, logs, stage, percent, rollbackVersion, elapsedSeconds } = data;
   const serviceHref = `/services/${encodeURIComponent(service.slug)}?environment=${deployment.environment}`;
-  const rollbackVersion =
-    actions.rollbackVersionId === null
-      ? null
-      : (getDeploymentForm(service.slug, deployment.environment)?.versions.find(
-          (item) => item.id === actions.rollbackVersionId,
-        )?.version ?? null);
-  const elapsed = Math.max(
-    0,
-    Math.floor(((deployment.completedAt ?? new Date()).getTime() - deployment.startedAt.getTime()) / 1000),
-  );
   const stepLabels: Record<string, string> = {
     pending: "Waiting",
     active: "In progress",
@@ -51,11 +42,13 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
       <div className="mb-5xl">
         <AppIdentity />
       </div>
-      <nav aria-label="Back to service" className="mb-2xl text-s">
-        <TextLink href={serviceHref}>
-          ← {service.name} · {environmentLabels[deployment.environment]}
-        </TextLink>
-      </nav>
+      <div className="mb-2xl">
+        <BackNavigation label="Back to service">
+          <TextLink href={serviceHref}>
+            ← {service.name} · {environmentLabels[deployment.environment]}
+          </TextLink>
+        </BackNavigation>
+      </div>
       <PageContent>
         <PageHeader
           title={`Deployment #${deployment.id}`}
@@ -103,7 +96,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                     )}
                   </DescriptionItem>
                   <DescriptionItem label="Duration">
-                    {elapsed}s{!deployment.result && " elapsed"}
+                    {elapsedSeconds}s{!deployment.result && " elapsed"}
                   </DescriptionItem>
                   <DescriptionItem label="Started">
                     <Time value={deployment.startedAt} format="dateTime" />

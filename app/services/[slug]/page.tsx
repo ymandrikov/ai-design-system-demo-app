@@ -2,6 +2,7 @@ import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout"
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { Time } from "@/components/ui/time";
+import { BackNavigation } from "@/components/ui/back-navigation";
 import { TextLink } from "@/components/ui/text-link";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
@@ -41,9 +42,11 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
       <div className="mb-5xl">
         <AppIdentity />
       </div>
-      <nav aria-label="Back to services" className="mb-2xl text-s">
-        <TextLink href={`/?environment=${environment}`}>← Services</TextLink>
-      </nav>
+      <div className="mb-2xl">
+        <BackNavigation label="Back to services">
+          <TextLink href={`/?environment=${environment}`}>← Services</TextLink>
+        </BackNavigation>
+      </div>
       <PageContent>
         <PageHeader
           title={service.name}

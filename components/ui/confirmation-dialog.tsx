@@ -1,5 +1,6 @@
 "use client";
 
+import { RequestFeedback } from "@/components/ui/request-feedback";
 import { useRef, type ReactNode } from "react";
 import { AlertDialog } from "@base-ui/react/alert-dialog";
 import { Button } from "@/components/ui/button";
@@ -69,14 +70,7 @@ export function ConfirmationDialog({
               <AlertDialog.Description className="text-s text-muted-foreground">{description}</AlertDialog.Description>
             </div>
             {children}
-            <div aria-live="polite" className={pending || error ? undefined : "sr-only"}>
-              {pending && <p className="text-s text-muted-foreground">{pendingLabel}</p>}
-              {error && (
-                <p role="alert" className="text-s text-destructive-foreground">
-                  {error}
-                </p>
-              )}
-            </div>
+            <RequestFeedback pending={pending} pendingLabel={pendingLabel} error={error} />
             <div className="flex flex-col items-end gap-l sm:flex-row sm:justify-end">
               {intent === "destructive" ? (
                 <>

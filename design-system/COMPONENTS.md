@@ -6,6 +6,10 @@
   - Description: Identify Deploy Board and its local-demo context with a shared non-interactive application name and qualifier.
   - Contract: [contract](components/app-identity.md)
 
+- **BackNavigation**
+  - Description: Identify a named navigation region containing one return link to a parent context.
+  - Contract: [contract](components/back-navigation.md)
+
 - **Badge**
   - Description: Display a short status or metadata label with a compact shared treatment, preserving the semantics of its content or link.
   - Contract: [contract](components/badge.md)
@@ -41,6 +45,10 @@
 - **PageHeader**
   - Description: Identify the current page with its primary heading, optional supporting description and optional page-level controls, grouped above the page content.
   - Contract: [contract](components/page-header.md)
+
+- **RequestFeedback**
+  - Description: Report pending work and request failures as standalone feedback beside an action or inside its confirmation dialog.
+  - Contract: [contract](components/request-feedback.md)
 
 - **Table**
   - Description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.

@@ -1,11 +1,12 @@
 ---
-sourcesHash: f25ded5ea89b527bd669e6f594fb799aeaa32b8814a98aebc8b15ba199b2d387
+sourcesHash: 2dda7792331efcc2bfc97393ac16ec3246ae6dcbeb8c498cd5e9fbf64dd28498
 id: confirmation-dialog
 description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
 status: discoverable
 sources:
   - design-system/tokens/semantic.css
   - components/ui/confirmation-dialog.tsx
+  - components/ui/request-feedback.tsx
 ---
 
 # ConfirmationDialog
@@ -55,6 +56,10 @@ a request error; omitted or empty means no error. The consumer owns request stat
 validation, permissions, clearing errors, and closing or navigation after success.
 Confirmation invokes `onConfirm` without closing automatically, so errors can stay
 in context. No className or styling overrides are exposed.
+
+Request feedback is rendered through [RequestFeedback](request-feedback.md); the dialog
+retains ownership of its placement and public pending/error API. Do not supply
+another feedback block through children.
 
 The component owns modal width, inset, spacing, typography, scrolling, backdrop and
 button placement. It uses existing popover/foreground, muted and border tokens and
