@@ -11,8 +11,8 @@ export function DescriptionItem({
 }) {
   return (
     <div>
-      <dt className="text-sm text-muted-foreground">{label}</dt>
-      <dd className="mt-2" aria-live={ariaLive}>
+      <dt className="text-s text-muted-foreground">{label}</dt>
+      <dd className="mt-m" aria-live={ariaLive}>
         {children}
       </dd>
     </div>

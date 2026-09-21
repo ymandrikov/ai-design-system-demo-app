@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 function PageContentRoot({ children }: { children: ReactNode }) {
-  return <div className="flex flex-col [&>header+section]:mt-8 [&>section+section]:mt-10">{children}</div>;
+  return <div className="flex flex-col [&>header+section]:mt-3xl [&>section+section]:mt-4xl">{children}</div>;
 }
 
 function Section({
@@ -14,7 +14,7 @@ function Section({
   "aria-labelledby"?: string;
 }) {
   return (
-    <section aria-label={label} aria-labelledby={labelledBy} className="flex flex-col gap-4">
+    <section aria-label={label} aria-labelledby={labelledBy} className="flex flex-col gap-xl">
       {children}
     </section>
   );
@@ -22,11 +22,11 @@ function Section({
 
 function SectionHeader({ id, title, description }: { id: string; title: ReactNode; description?: ReactNode }) {
   return (
-    <header className="flex flex-col gap-2">
-      <h2 id={id} className="text-lg font-semibold">
+    <header className="flex flex-col gap-m">
+      <h2 id={id} className="text-l font-semibold">
         {title}
       </h2>
-      {description != null && <p className="text-sm text-muted-foreground">{description}</p>}
+      {description != null && <p className="text-s text-muted-foreground">{description}</p>}
     </header>
   );
 }

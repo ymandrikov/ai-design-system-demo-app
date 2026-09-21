@@ -1,5 +1,5 @@
 ---
-sourcesHash: 75d2b8becb9faf79cf9c6809029f13ef5e33b1b356bca3983856ebb838ea7cc9
+sourcesHash: 7e6873024fea26217bca4c0567de66b229222010612a5cf328f528e3838ac5f6
 id: page-header
 description: Identify the current page with its primary heading, optional supporting description and optional page-level controls, grouped above the page content.
 status: discoverable
@@ -47,9 +47,9 @@ Import `PageHeader` from `@/components/ui/page-header`.
 There are no events, methods, children, native-attribute forwarding or styling
 overrides. This component supports server rendering without client state.
 
-The owner approved one shared treatment based on the Services header: a 3xl
-semibold, tightly tracked title; a small muted description separated by spacing-2;
-and spacing-6 between the text group and controls. Existing foreground and
+The owner approved one shared treatment based on the Services header: an xl
+semibold, tightly tracked title; a small muted description separated by spacing-m;
+and spacing-2xl between the text group and controls. Existing foreground and
 muted-foreground tokens apply in light and dark themes. There are no size variants.
 The component owns this typography, internal spacing and wrapping. The page owns
 outer spacing, width and placement, using a surrounding container when needed.

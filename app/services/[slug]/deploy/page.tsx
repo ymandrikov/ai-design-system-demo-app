@@ -17,7 +17,7 @@ export default async function DeployPage({ params, searchParams }: PageProps<"/s
   if (!data || !data.configured) notFound();
   return (
     <PageContainer width="narrow">
-      <div className="mb-12">
+      <div className="mb-5xl">
         <AppIdentity />
       </div>
       <PageContent>

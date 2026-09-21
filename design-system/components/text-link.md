@@ -1,5 +1,5 @@
 ---
-sourcesHash: 27201d4f3839499d86fe8bb090ec913bc326b897282939ef43489be8b970ba33
+sourcesHash: ef9baaaa631cc8d70311ee986f277f126aaa30e6d7b67ca0d5b643fe28f28371
 id: text-link
 description: Style title links to object details and ordinary text navigation with distinct hover treatments and visible keyboard focus, preserving native link semantics.
 status: discoverable
@@ -52,7 +52,7 @@ Handlers require a client consumer. There are no additional events or methods.
 ```
 
 The component owns the anchor and its colour, decoration and keyboard-focus
-styling, using [global tokens](../../app/globals.css). Title links also own
+styling, using [global tokens](../tokens/semantic.css). Title links also own
 semibold weight; ordinary links inherit surrounding weight and colour.
 Consumers own the destination, meaningful label/content, routing options,
 query parameters, navigation landmarks and surrounding layout. Put external
@@ -81,9 +81,9 @@ The former class-string helpers are removed; all text-link consumers use `TextLi
 
 Without a design-system exception, neither kind is underlined at rest. Title links use `foreground` and semibold
 weight; on hover their colour becomes `primary` without an underline.
-Ordinary links inherit colour and weight; hover adds an underline with offset-4
+Ordinary links inherit colour and weight; hover adds an underline with the 4px link-underline-offset token
 without changing colour. Visited links retain the same treatment.
-Keyboard-visible focus adds a current-colour outline-2 with offset-4 for both kinds.
+Keyboard-visible focus adds a current-colour 2px focus outline with a 4px focus offset for both kinds.
 These rules apply in light and dark themes and replace the previous always-underlined,
 primary-coloured treatment. Button treatments and navigation tabs are outside this rule.
 

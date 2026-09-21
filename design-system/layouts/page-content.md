@@ -1,5 +1,5 @@
 ---
-sourcesHash: b64b2d3a3b4b38ec752290e8c6d80d1537e3297ac14a1d21b20e9ccb4085fb55
+sourcesHash: 0331c3b91c5fda98b964b6594635c7f97db0cc9101745030189b95be32ea000d
 id: page-content
 description: Arrange a page heading and named top-level content sections with consistent vertical spacing and optional section headings and descriptions.
 status: discoverable
@@ -61,13 +61,13 @@ are ordinary components and can be composed in server or client views.
   It adds a div, not a second main, and owns no width, surface or perimeter padding.
 - Render exactly one [PageHeader](../components/page-header.md) first, followed by
   one or more direct Section children. Do not insert DOM wrappers between these parts.
-- Root owns spacing-8 (32 px at the default root size) after PageHeader and spacing-10
+- Root owns spacing-3xl (32 px at the default root size) after PageHeader and spacing-4xl
   (40 px) between adjacent sections. It adds no trailing section margin. These values
   follow the owner's final decision; sections do not add their own outer spacing.
 - Section contains optional SectionHeader followed by exactly one SectionContent.
-  It owns spacing-4 between them. SectionHeader owns spacing-2 between h2 and description,
-  lg semibold heading typography and small muted description typography, using
-  [global tokens](../../app/globals.css). Omitting the header leaves no reserved gap.
+  It owns spacing-xl between them. SectionHeader owns spacing-m between h2 and description,
+  l semibold heading typography and small muted description typography, using
+  [global tokens](../tokens/semantic.css). Omitting the header leaves no reserved gap.
 - Sections are one level only; do not nest Section. SectionHeader always renders h2.
   Consumers own deeper headings (such as stage h3), field order, cards, grids, forms,
   table semantics and spacing within SectionContent. Content can contain multiple blocks.

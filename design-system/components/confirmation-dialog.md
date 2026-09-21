@@ -1,5 +1,5 @@
 ---
-sourcesHash: da088e7659d16b83917140cfe924d1f28454857fc1052e7e71f554d6670e18dd
+sourcesHash: d98ef4f102cac9b382257d208a7f70269f052cd52c5e876a926dd46cb69ca4f8
 id: confirmation-dialog
 description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
 status: discoverable

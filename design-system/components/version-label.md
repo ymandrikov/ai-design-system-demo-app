@@ -44,7 +44,7 @@ composes [Badge](badge.md) with `variant="secondary"` and `render={<code />}`.
 The requested Badge migration adopts its compact pill, secondary surface/foreground,
 padding and extra-small medium-weight text, retaining native code semantics.
 VersionLabel exposes no visual variants.
-[Global CSS](../../app/globals.css) provides the mono font and theme tokens.
+[Global CSS](../tokens/semantic.css) provides the mono font and theme tokens.
 Consumers own surrounding spacing, surface, field labels and layout. Compose it
 inside a table cell, description-list value or other inline text context.
 

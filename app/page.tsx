@@ -25,7 +25,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
 
   return (
     <PageContainer>
-      <div className="mb-12">
+      <div className="mb-5xl">
         <AppIdentity />
       </div>
       <PageContent>
@@ -104,7 +104,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                 </TableBody>
               </Table>
             )}
-            <p className="mt-4 text-xs text-muted-foreground">
+            <p className="mt-xl text-xs text-muted-foreground">
               A failed deployment can leave the previous working version healthy.
             </p>
           </PageContent.SectionContent>

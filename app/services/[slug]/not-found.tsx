@@ -17,7 +17,7 @@ export default function ServiceNotFound() {
   return (
     <PageContainer>
       <PageHeader title="Service not found" description="This service does not exist in Deploy Board." />
-      <nav aria-label="Back to services" className="mt-6 text-sm">
+      <nav aria-label="Back to services" className="mt-2xl text-s">
         <Suspense>
           <BackToServices />
         </Suspense>

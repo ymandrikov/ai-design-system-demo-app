@@ -1,5 +1,5 @@
 ---
-sourcesHash: 03901fb0b087dd255168354cfe32b32f974783fbdfd9440a9b01752a6a64d187
+sourcesHash: eb5065efa21df1e818fc4ebb066cf105dbfee7f0c6a2b07771332e552421230a
 id: navigational-tabs
 description: Navigate between related page destinations through a horizontal group of links styled like Tabs, with a current-page marker and native link behaviour.
 status: discoverable
@@ -69,10 +69,15 @@ overrides. This server-compatible component has no local selection state.
 The owner requested the horizontal `default` appearance of [Tabs](tabs.md): muted
 rounded group, foreground active link, background active surface and focus ring.
 It reuses the exact Tabs list and trigger styling from `components/ui/tabs-styles.ts`,
-with existing [semantic tokens](../../app/globals.css) in both themes. This one
+with existing [semantic tokens](../tokens/semantic.css) in both themes. This one
 treatment is the standard; line, vertical and density variants are not supplied.
 The component owns typography, padding, state styling and horizontal overflow.
 Consumers own placement and surrounding spacing and must let its container shrink.
+
+For the filled group, the inner radius equals the outer radius minus the group
+inset, clamped to zero: radius-m minus spacing-s (8px − 4px = 4px at the default
+root size). The inset is equal on all sides. The group has a control-m minimum
+height and grows to fit trigger text, borders and padding without squeezing that inset.
 
 ## Behaviour and states
 

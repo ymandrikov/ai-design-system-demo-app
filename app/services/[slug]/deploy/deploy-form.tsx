@@ -23,15 +23,15 @@ export function DeployForm({
   const selected = versions.find((version) => version.id === selectedId);
 
   return (
-    <form action={action} className="space-y-6" aria-busy={pending}>
+    <form action={action} className="space-y-2xl" aria-busy={pending}>
       <input type="hidden" name="slug" value={slug} />
       <input type="hidden" name="environment" value={environment} />
-      <fieldset disabled={pending} className="space-y-2">
-        <legend className="mb-2 font-medium">Target version (required)</legend>
+      <fieldset disabled={pending} className="space-y-m">
+        <legend className="mb-m font-medium">Target version (required)</legend>
         {versions.map((version) => (
           <label
             key={version.id}
-            className="flex min-h-12 cursor-pointer items-center gap-3 rounded-md border bg-background px-4 py-3 text-foreground"
+            className="flex min-h-option-min-height cursor-pointer items-center gap-l rounded-m border-(length:--border-width) bg-background px-xl py-l text-foreground"
           >
             <input
               type="radio"
@@ -41,7 +41,7 @@ export function DeployForm({
               onChange={() => setSelectedId(version.id)}
               required
               aria-describedby={state.error ? "deploy-error" : undefined}
-              className="accent-primary focus-visible:outline-2 focus-visible:outline-offset-4"
+              className="accent-primary focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset)"
             />
             <span>v{version.version}</span>
           </label>
@@ -49,14 +49,14 @@ export function DeployForm({
       </fieldset>
       {selected && (
         <>
-          <dl className="space-y-4">
+          <dl className="space-y-xl">
             <DescriptionItem label="Commit">
               <code className="break-all">{selected.commit ?? "Not recorded"}</code>
             </DescriptionItem>
             <DescriptionItem label="Description">{selected.description}</DescriptionItem>
           </dl>
-          <div className="rounded-md bg-card p-4 text-card-foreground">
-            <p className="mb-2 text-sm text-muted-foreground">Current version → Target version</p>
+          <div className="rounded-m bg-card p-xl text-card-foreground">
+            <p className="mb-m text-s text-muted-foreground">Current version → Target version</p>
             <p>
               {currentVersion ? <VersionLabel version={currentVersion} /> : "No version"}{" "}
               <span aria-hidden="true"> → </span> <VersionLabel version={selected.version} />
@@ -65,21 +65,21 @@ export function DeployForm({
         </>
       )}
       {environment === "production" && (
-        <p className="rounded-md border p-4 text-sm">
+        <p className="rounded-m border-(length:--border-width) p-xl text-s">
           <strong>Production warning.</strong> A successful deployment replaces the current production version. This is
           a local simulation.
         </p>
       )}
       <div aria-live="polite" aria-atomic="true">
         {state.error && (
-          <p id="deploy-error" role="alert" className="text-sm text-destructive">
+          <p id="deploy-error" role="alert" className="text-s text-destructive">
             {state.error}
           </p>
         )}
-        {pending && <p className="text-sm text-muted-foreground">Starting deployment…</p>}
+        {pending && <p className="text-s text-muted-foreground">Starting deployment…</p>}
       </div>
       {!versions.length && <p>No versions are available for this service.</p>}
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="flex flex-wrap items-center gap-xl">
         <Button type="submit" disabled={pending || !versions.length}>
           {pending ? "Starting…" : "Deploy"}
         </Button>

@@ -42,10 +42,10 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
 
   return (
     <PageContainer>
-      <div className="mb-12">
+      <div className="mb-5xl">
         <AppIdentity />
       </div>
-      <nav aria-label="Back to service" className="mb-6 text-sm">
+      <nav aria-label="Back to service" className="mb-2xl text-s">
         <TextLink href={serviceHref}>
           ← {service.name} · {environmentLabels[deployment.environment]}
         </TextLink>
@@ -78,7 +78,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                     {deployment.result ? (
                       <DeploymentResult result={deployment.result} />
                     ) : (
-                      <span className="text-lg font-semibold">{stage}</span>
+                      <span className="text-l font-semibold">{stage}</span>
                     )}
                   </DescriptionItem>
                   <DescriptionItem label="Version">
@@ -87,8 +87,8 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                 </>
               }
             >
-              <div className="space-y-4">
-                <dl className="flex flex-wrap gap-x-8 gap-y-4">
+              <div className="space-y-xl">
+                <dl className="flex flex-wrap gap-x-3xl gap-y-xl">
                   <DescriptionItem label="Commit">
                     <code className="break-all">{version.commit ?? "Not recorded"}</code>
                   </DescriptionItem>
@@ -139,16 +139,16 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
             }
           />
           <PageContent.SectionContent>
-            <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="grid gap-xl sm:grid-cols-2 lg:grid-cols-4">
               {steps.map((step) => (
                 <li
                   key={step.name}
                   aria-current={step.status === "active" ? "step" : undefined}
-                  className="rounded-lg border bg-card p-4 text-card-foreground"
+                  className="rounded-m border-(length:--border-width) bg-card p-xl text-card-foreground"
                 >
                   <h3 className="font-medium">{step.name}</h3>
                   <p
-                    className={`mt-2 text-sm ${step.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}
+                    className={`mt-m text-s ${step.status === "failed" ? "text-destructive" : "text-muted-foreground"}`}
                   >
                     {stepLabels[step.status]}
                   </p>
@@ -162,14 +162,14 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
             id="logs-heading"
             title={
               <>
-                Logs <span className="text-sm font-normal text-muted-foreground">(UTC)</span>
+                Logs <span className="text-s font-normal text-muted-foreground">(UTC)</span>
               </>
             }
           />
           <PageContent.SectionContent>
-            <ol className="space-y-2 rounded-lg border bg-card p-4 font-mono text-sm text-card-foreground">
+            <ol className="space-y-m rounded-m border-(length:--border-width) bg-card p-xl font-mono text-s text-card-foreground">
               {logs.map((log, index) => (
-                <li key={index} className="flex flex-wrap gap-x-4 gap-y-1">
+                <li key={index} className="flex flex-wrap gap-x-xl gap-y-s">
                   <time dateTime={log.at.toISOString()} className="text-muted-foreground">
                     {log.at.toISOString().slice(11, 19)}
                   </time>

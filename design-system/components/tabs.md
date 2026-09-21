@@ -1,5 +1,5 @@
 ---
-sourcesHash: a58454dc9883f320486e917bc6421d75cd954b257dfdba36862476abd246adbb
+sourcesHash: f008331e867c6f7e861a9efdf8b9a143fad01ad7b1d75bb419f89ee4c48565c1
 id: tabs
 description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
 status: discoverable
@@ -80,10 +80,15 @@ state attributes. There are no component-specific imperative methods.
 
 The component owns typography, padding, focus treatment and active/disabled styling
 from the installed [shadcn Tabs](https://ui.shadcn.com/docs/components/base/tabs),
-using the semantic tokens in [global CSS](../../app/globals.css). Consumers own
+using the semantic tokens in [global CSS](../tokens/semantic.css). Consumers own
 surrounding placement, width and spacing. `className` may adjust that layout, not
 replace component colours, typography or state styling. `tabsListVariants` is an
 exported styling helper, not a separate component or a substitute for `TabsList`.
+
+For the default filled list in either orientation, the trigger radius is the list
+radius minus its inset, clamped to zero: radius-m minus spacing-s. The list keeps
+the same inset on all sides; its horizontal control-m height is a minimum, allowing
+text, borders and padding to fit. The line variant retains its own corner treatment.
 
 ## Behaviour and states
 

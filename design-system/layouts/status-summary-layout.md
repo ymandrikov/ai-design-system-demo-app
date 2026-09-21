@@ -1,5 +1,5 @@
 ---
-sourcesHash: d4592a54dc013f8b716cafd44b5c0e607a46b1490a308905a5bb73ba884fc3cc
+sourcesHash: c3a5ee380724ac2e09a2a91fc01428dd33074898456bb66d88c44470c508c0f5
 id: status-summary-layout
 description: Arrange a read-only status and version above supporting metadata in one neutral surface with a separated lower region.
 status: discoverable
@@ -47,13 +47,13 @@ overrides. The layout has no client directive, state or data access.
 
 - Place inside a named PageContent.SectionContent composition, with the accessible
   name on its parent PageContent.Section. The layout adds no section or main landmark.
-- The layout owns the neutral `rounded-lg border bg-card text-card-foreground`
-  surface, upper dl with `flex flex-wrap gap-x-8 gap-y-4 p-4`, and lower div with
-  `border-t p-4 text-sm`. Primary content precedes supporting content in DOM order.
+- The layout owns the neutral `rounded-m border bg-card text-card-foreground`
+  surface, upper dl with `flex flex-wrap gap-x-3xl gap-y-xl p-xl`, and lower div with
+  `border-t p-xl text-s`. Primary content precedes supporting content in DOM order.
   These values preserve Status summary's existing rules under the authorised LP-01 extraction.
 - Consumers own field labels and values, status interpretation, empty text, data,
   links, value emphasis, live regions and all arrangement inside the lower region.
-  Preserve the service's `space-y-2` and deployment's `space-y-4` on inner wrappers;
+  Preserve the service's `space-y-m` and deployment's `space-y-xl` on inner wrappers;
   these are content-group intervals, not layout variants or permission to override its inset.
 - Keep DescriptionItem label/value spacing and nested value components' typography.
   Supporting lists retain their own dl. Keep page-level actions in PageHeader.

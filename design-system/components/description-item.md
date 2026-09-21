@@ -1,5 +1,5 @@
 ---
-sourcesHash: 77d1f51245d0c77e706e09f564f827a2f6a947aa9a8edc0a9f9af0cbe94cbcd6
+sourcesHash: 28e75340e501cc5482740403c7dbc67260072af12081c708bdf01f4d212dea6a
 id: description-item
 description: Present one named read-only property and its value within a description list, with consistent label styling and spacing.
 status: discoverable
@@ -49,10 +49,10 @@ whose updates should be announced; assertive is reserved for urgently required
 interruptions, not routine progress. The component does not initiate announcements.
 No other native attributes, styling overrides, events or methods are exposed.
 
-The component owns the div/dt/dd pair, small muted label typography and spacing-2
+The component owns the div/dt/dd pair, small muted label typography and spacing-m
 between label and value. The owner approved this single interval for all 11 existing
 pairs, including the formerly tighter Deploy form. There are no density variants.
-Colours use [global semantic tokens](../../app/globals.css).
+Colours use [global semantic tokens](../tokens/semantic.css).
 
 Render as a direct child of dl. The consumer owns that list, columns, responsive
 layout, spacing between pairs, surrounding surface and field order. Consumers also

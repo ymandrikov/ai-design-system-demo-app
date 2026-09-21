@@ -1,5 +1,5 @@
 ---
-sourcesHash: 314fc856d796974ff5dac769e61cf8f3a5b7e0f9740c78efd1fa935b9c77efbc
+sourcesHash: 6517d55a04f57578b357f52c8f9b1dfb2d97c1ee27a269a87f7baee765b0f208
 id: table
 description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
 status: discoverable
@@ -54,7 +54,7 @@ Import the compound parts from `@/components/ui/table`.
 
 All parts forward native attributes, including refs and events, to their corresponding native element. There are no custom events, methods or variants. Native attributes supply semantics and content relationships; do not replace table roles or introduce row click/selection behaviour. `data-slot` identifies each part. The scroll section's focusability and label remain component-owned.
 
-The component owns shadcn cell spacing, typography, borders and hover treatment, using existing semantic tokens in [global CSS](../../app/globals.css). It retains the project's rounded card surface. Consumer `className` may set layout widths/alignment or hide the caption; do not override colours, typography or cell padding. Consumers own surrounding spacing and inline content semantics.
+The component owns shadcn cell spacing, typography, borders and hover treatment, using existing semantic tokens in [global CSS](../tokens/semantic.css). It retains the project's rounded card surface. Consumer `className` may set layout widths/alignment or hide the caption; do not override colours, typography or cell padding. Consumers own surrounding spacing and inline content semantics.
 
 ## Behaviour and states
 

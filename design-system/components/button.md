@@ -1,5 +1,5 @@
 ---
-sourcesHash: dfd90f0ab41c1aea2d2c88dcd18a6feb633a32b1621a6bc93162f63e5de16870
+sourcesHash: f38d153d5d46b09c6a73b3458313e2d2d019dba2b50bb9dfba8c2b42d4a1a865
 id: button
 description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
 status: discoverable
@@ -30,7 +30,9 @@ All criteria must hold:
 Import `Button` and `buttonVariants` from `@/components/ui/button`.
 This is the locally installed shadcn `base-nova` source, backed by Base UI.
 The owner requested adoption of the shadcn Button treatment and migration of
-screen actions; the upstream variants and sizes are retained without local styling forks.
+screen actions. Public variants and size names are retained; their styling now uses
+[the two-level token system](../tokens/README.md), including the approved spacing,
+typography and radius normalization.
 See [shadcn Button](https://ui.shadcn.com/docs/components/base/button).
 
 ```tsx
@@ -60,8 +62,8 @@ They are available for explicitly requested treatments; this adoption does not e
 additional application-wide rules choosing between outline, secondary and ghost.
 Use destructive only for destructive actions, never merely to indicate a failed result.
 
-Text sizes are `xs`, `sm`, `default`, and `lg` (heights 6, 7, 8, and 9 in the
-Tailwind spacing scale). Icon-only sizes are `icon-xs`, `icon-sm`, `icon`, and
+Text sizes are `xs`, `sm`, `default`, and `lg`, using semantic control sizes
+`xs`, `s`, `m`, and `l` respectively (24, 28, 32, and 36px at the default root size). Icon-only sizes are `icon-xs`, `icon-sm`, `icon`, and
 `icon-lg`, with matching square dimensions. Use the default unless a compact or
 large treatment is explicitly required; use an icon size only for icon-only content.
 Icons may use `data-icon="inline-start"` or `data-icon="inline-end"` for built-in spacing.

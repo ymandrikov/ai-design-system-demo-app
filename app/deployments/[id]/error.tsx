@@ -11,7 +11,7 @@ export default function ErrorPage({ retry }: { retry: () => void }) {
         title="Could not load deployment"
         description="Deployment state is stored on the server. Try loading it again."
       />
-      <div className="mt-6">
+      <div className="mt-2xl">
         <Button type="button" onClick={() => retry()}>
           Try again
         </Button>

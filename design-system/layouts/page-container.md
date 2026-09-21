@@ -1,5 +1,5 @@
 ---
-sourcesHash: 069fbbdb10d86aec9fdca691270e47b2766cee930bc4596a90df96dec18cc6d2
+sourcesHash: 69c565e0ead654d7defb17cbb172f859a002334ff883e98608825676088027c9
 id: page-container
 description: Center a route's main content with shared responsive page padding and a width suited to data views or a focused single-column form, including route fallback states.
 status: discoverable
@@ -54,9 +54,10 @@ server or client views.
 ### Required
 
 - PageContainer owns one native main, full available width, horizontal centering,
-  and maximum width: `max-w-6xl` for wide, `max-w-2xl` for narrow.
-- It owns `px-5 py-10`, increasing to `sm:px-10 sm:py-16` at the existing small
-  breakpoint. These are the preserved page dimensions, now shared design decisions.
+  and maximum width: `max-w-page-wide` for wide, `max-w-page-narrow` for narrow.
+- It owns `px-2xl py-4xl`, increasing to `sm:px-4xl sm:py-6xl` at the existing small
+  breakpoint. The narrow-screen horizontal inset is normalized from 20px to 24px;
+  other dimensions retain their values through the semantic token system.
 - Children remain in source order and normal block flow. The container adds no
   wrappers, gaps, clipping, scroll region, background or typography changes.
 - Routes own branding, back navigation, empty states and all data/actions.

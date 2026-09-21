@@ -34,10 +34,10 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
 
   return (
     <PageContainer>
-      <div className="mb-12">
+      <div className="mb-5xl">
         <AppIdentity />
       </div>
-      <nav aria-label="Back to services" className="mb-6 text-sm">
+      <nav aria-label="Back to services" className="mb-2xl text-s">
         <TextLink href={`/?environment=${environment}`}>← Services</TextLink>
       </nav>
       <PageContent>
@@ -45,7 +45,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
           title={service.name}
           description={`Service health and deployment history in ${environment}.`}
           controls={
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-xl">
               <NavigationalTabs
                 label="Environment"
                 currentHref={`${pathname}?environment=${environment}`}
@@ -68,7 +68,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
               primary={
                 <>
                   <DescriptionItem label="Service state">
-                    <span className="text-lg font-semibold">
+                    <span className="text-l font-semibold">
                       {service.state ? stateLabels[service.state] : "Not configured"}
                     </span>
                   </DescriptionItem>
@@ -82,10 +82,10 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                 </>
               }
             >
-              <div className="space-y-2">
-                <dl className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <div className="space-y-m">
+                <dl className="flex flex-wrap items-center gap-x-xl gap-y-m">
                   <dt className="text-muted-foreground">Last completed deployment</dt>
-                  <dd className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <dd className="flex flex-wrap items-center gap-x-xl gap-y-m">
                     {service.lastResult ? (
                       <>
                         <DeploymentResult result={service.lastResult} />

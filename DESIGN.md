@@ -23,10 +23,17 @@ then `use` and its checks. Page-specific compositions do not require pattern ext
 - Components: [index](design-system/COMPONENTS.md)
 - Layouts: [index](design-system/LAYOUTS.md)
 - Patterns: [index](design-system/PATTERNS.md)
-- Tokens and themes: [app/globals.css](app/globals.css). Existing shadcn semantic roles
+- Tokens and themes: [token catalogue](design-system/tokens/README.md),
+  [raw values](design-system/tokens/raw.css) and [semantic definitions](design-system/tokens/semantic.css),
+  imported by [app/globals.css](app/globals.css). Semantic tokens reference raw values;
+  components and pages use semantic Tailwind utilities. Existing shadcn semantic roles
   govern background/foreground, card surfaces, muted content, primary navigation,
   borders, focus and destructive outcomes. Pair surface tokens with their foreground
   counterparts. Colour supplements status text. No new status palette is needed.
+- All existing component variants use the same token system. Numeric spacing utilities
+  are replaced by the named scale; structural CSS and private geometric corrections
+  remain local. Use `cn` from `@/lib/utils` so custom typography and spacing names merge correctly.
+  Do not import the unconfigured `cn` package directly.
 - Fonts: [app/layout.tsx](app/layout.tsx) loads Geist Sans and Geist Mono; global sans
   and mono aliases resolve to these variables. The sans font is applied on HTML.
 - Dark tokens activate under `.dark`; there is no theme-switching UI or system-preference
@@ -45,12 +52,12 @@ the default wide width; focused single-column forms use `width="narrow"`. Fallba
 retain their route width; the shared service not-found view uses the service detail
 width. Pages own content order, placement of branding, spacing between regions and empty-data
 conditions. [PageContent](design-system/layouts/page-content.md) owns the four main
-pages' heading/section composition: spacing-8 after PageHeader, spacing-10 between
-sections, spacing-4 from section heading to content and spacing-2 before descriptions.
+pages' heading/section composition: spacing-3xl after PageHeader, spacing-4xl between
+sections, spacing-xl from section heading to content and spacing-m before descriptions.
 It adds no perimeter padding; cards, grids and form internals remain consumer-owned.
 [AppIdentity](design-system/components/app-identity.md) owns the fixed
 Deploy Board / Local demo text and its typography; the four main pages retain their
-outer mb-12 spacing. Route fallback views do not add this identity. [DatasetEmptyState](design-system/components/dataset-empty-state.md)
+outer mb-5xl spacing. Route fallback views do not add this identity. [DatasetEmptyState](design-system/components/dataset-empty-state.md)
 owns the shared empty-table surface, typography and internal spacing; pages supply
 contextual copy and the appropriate h2 or h3 heading level.
 [PageHeader](design-system/components/page-header.md) owns the page heading,
@@ -104,7 +111,7 @@ treatment with native code; [DeploymentResult](design-system/components/deployme
 uses secondary for success and destructive for failure. Both retain their domain
 labels and public props across the services list, service history and deploy summary.
 [DescriptionItem](design-system/components/description-item.md) owns each read-only
-name/value pair inside a native description list: small muted label and spacing-2
+name/value pair inside a native description list: small muted label and spacing-m
 before its value. Consumers own the dl, grid, field order and value formatting;
 only the deployment status forwards a polite live region.
 Components receive content through props and never access SQLite.

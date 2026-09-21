@@ -9,7 +9,7 @@ export default function NotFound() {
         title="Deployment not found"
         description="This deployment does not exist. Open a deployment from service history."
       />
-      <div className="mt-6">
+      <div className="mt-2xl">
         <TextLink href="/">Services</TextLink>
       </div>
     </PageContainer>

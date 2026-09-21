@@ -1,5 +1,5 @@
 ---
-sourcesHash: 3ef5cf4309ef045fa8326127c19dcdc53d7ab6753157defaa0113e0ebfcf4d68
+sourcesHash: 1df1453dc7aa1805194e4ea43e23f754cb19d2d0ddb5a79e942a049d28eddba1
 id: root-layout
 description: >-
   Provide the application's shared HTML document shell around route content,
@@ -10,6 +10,8 @@ status: discoverable
 sources:
   - app/layout.tsx
   - app/globals.css
+  - design-system/tokens/raw.css
+  - design-system/tokens/semantic.css
 examples:
   - app/page.tsx
 ---
@@ -65,7 +67,7 @@ The shell owns `lang="en"`, global CSS loading and font variable setup. Its stat
 metadata provides document defaults; route metadata uses the
 Next.js metadata API rather than shell props or manually inserted `head` elements.
 
-The [theme definitions](../../app/globals.css) provide background/foreground roles
+The [semantic theme definitions](../tokens/semantic.css) provide background/foreground roles
 and sans/mono aliases. Dark colours use an ancestor `.dark` class; no theme control is exposed by the shell.
 The sans alias resolves to Geist Sans and is selected on HTML; the mono alias resolves to Geist Mono.
 

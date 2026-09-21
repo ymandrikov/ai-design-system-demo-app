@@ -11,7 +11,7 @@ export function PageContainer({
 }) {
   return (
     <main
-      className={`mx-auto w-full ${width === "narrow" ? "max-w-2xl" : "max-w-6xl"} px-5 py-10 sm:px-10 sm:py-16`}
+      className={`mx-auto w-full ${width === "narrow" ? "max-w-page-narrow" : "max-w-page-wide"} px-2xl py-4xl sm:px-4xl sm:py-6xl`}
       aria-busy={busy}
     >
       {children}

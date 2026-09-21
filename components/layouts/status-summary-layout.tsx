@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 export function StatusSummaryLayout({ primary, children }: { primary: ReactNode; children: ReactNode }) {
   return (
-    <div className="rounded-lg border bg-card text-card-foreground">
-      <dl className="flex flex-wrap gap-x-8 gap-y-4 p-4">{primary}</dl>
-      <div className="border-t p-4 text-sm">{children}</div>
+    <div className="rounded-m border-(length:--border-width) bg-card text-card-foreground">
+      <dl className="flex flex-wrap gap-x-3xl gap-y-xl p-xl">{primary}</dl>
+      <div className="border-t-(length:--border-width) p-xl text-s">{children}</div>
     </div>
   );
 }

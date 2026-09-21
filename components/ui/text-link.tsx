@@ -1,10 +1,10 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
-import { cn } from "cn";
+import { cn } from "@/lib/utils";
 import { withDesignSystemException } from "@/lib/with-design-system-exception";
 
 const variants = {
-  default: "text-inherit underline-offset-4 hover:underline",
+  default: "text-inherit underline-offset-(--link-underline-offset) hover:underline",
   title: "font-semibold text-foreground hover:text-primary",
 };
 
@@ -17,7 +17,7 @@ function TextLinkBase({
     <Link
       {...props}
       className={cn(
-        "no-underline focus-visible:outline-2 focus-visible:outline-current focus-visible:outline-offset-4",
+        "no-underline focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-current focus-visible:outline-offset-(--focus-offset)",
         variants[variant],
         className,
       )}

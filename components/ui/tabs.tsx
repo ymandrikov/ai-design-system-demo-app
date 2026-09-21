@@ -3,7 +3,7 @@
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import type { VariantProps } from "class-variance-authority";
 import { tabsListVariants, tabsTriggerClassName } from "./tabs-styles";
-import { cn } from "cn";
+import { cn } from "@/lib/utils";
 
 function Tabs({ className, orientation = "horizontal", ...props }: TabsPrimitive.Root.Props) {
   return (
@@ -11,7 +11,7 @@ function Tabs({ className, orientation = "horizontal", ...props }: TabsPrimitive
       data-slot="tabs"
       orientation={orientation}
       data-orientation={orientation}
-      className={cn("group/tabs flex gap-2 data-horizontal:flex-col", className)}
+      className={cn("group/tabs flex gap-m data-horizontal:flex-col", className)}
       {...props}
     />
   );
@@ -41,7 +41,7 @@ function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
     <TabsPrimitive.Panel
       data-slot="tabs-content"
       className={cn(
-        "flex-1 text-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground",
+        "flex-1 text-s focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset) focus-visible:outline-foreground",
         className,
       )}
       {...props}

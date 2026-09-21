@@ -43,7 +43,7 @@ The shared [DeploymentResult implementation](../../components/deployments/deploy
 composes [Badge](badge.md): `destructive` for Failed and `secondary` for Succeeded.
 The requested migration adopts Badge's compact pill and typography while preserving
 explicit labels and the destructive failure distinction. Labels reuse the shared
-presentation module. [Global tokens](../../app/globals.css) supply both themes;
+presentation module. [Global tokens](../tokens/semantic.css) supply both themes;
 consumers retain surrounding surface, spacing and field labels.
 Use within a table cell, a description-list value or other inline text context.
 

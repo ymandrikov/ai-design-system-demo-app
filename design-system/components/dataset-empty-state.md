@@ -1,5 +1,5 @@
 ---
-sourcesHash: 16a693eba018ef7539ec6952c16b9bfb83f245a43e8455e4d7661908faa34455
+sourcesHash: 480836bf213bba699ff15dbba6f0658e9c2cd8923478d88ec16deb21e16eb2b6
 id: dataset-empty-state
 description: Explain an empty dataset in place of its table with a heading and contextual description.
 status: discoverable
@@ -46,10 +46,10 @@ Import `DatasetEmptyState` from `@/components/ui/dataset-empty-state`.
   There is no default; consumers choose the semantic level, not a visual variant.
 
 The component owns the existing A-02 treatment: rounded border, card surface paired
-with card foreground, spacing-6 horizontal and spacing-16 vertical padding, centered
-text, an lg semibold heading and a small muted paragraph separated by spacing-2.
+with card foreground, spacing-2xl horizontal and spacing-6xl vertical padding, centered
+text, an l semibold heading and a small muted paragraph separated by spacing-m.
 The owner's A-02 implementation request authorizes sharing this existing treatment.
-Tokens resolve through [global CSS](../../app/globals.css) in light and dark themes.
+Tokens resolve through [global CSS](../tokens/semantic.css) in light and dark themes.
 Consumers own outer spacing, placement, copy and the empty-data condition.
 No children, actions, styling overrides, native-attribute forwarding, events or methods
 are exposed. The component supports server rendering without client state.

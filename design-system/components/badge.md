@@ -1,5 +1,5 @@
 ---
-sourcesHash: 1a9cad37d7c8754a9f3cf2aa3c391a24b42c8270620e91046bfae823193c0fbb
+sourcesHash: 4265e2bd5796b7b5b958ef237f66f61c3cb9a2ad8e48e34eedaf0c9a2c0b82f4
 id: badge
 description: Display a short status or metadata label with a compact shared treatment, preserving the semantics of its content or link.
 status: discoverable

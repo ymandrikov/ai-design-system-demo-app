@@ -49,8 +49,8 @@ export function DeploymentActions({
   if (!canRetry && !rollbackVersion) return null;
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-center gap-4">
+    <div className="flex flex-col gap-l">
+      <div className="flex flex-wrap items-center gap-xl">
         {canRetry && (
           <Button type="button" disabled={pending} onClick={() => run("retry")}>
             Retry deployment
@@ -73,7 +73,7 @@ export function DeploymentActions({
             pendingLabel="Starting deployment…"
             error={error}
           >
-            <dl className="grid gap-4 sm:grid-cols-2">
+            <dl className="grid gap-xl sm:grid-cols-2">
               <DescriptionItem label="Current version">
                 <VersionLabel version={currentVersion} />
               </DescriptionItem>
@@ -86,9 +86,9 @@ export function DeploymentActions({
       </div>
       {!rollbackVersion && (
         <div aria-live="polite" className={pending || error ? undefined : "sr-only"}>
-          {pending && <p className="text-sm text-muted-foreground">Starting deployment…</p>}
+          {pending && <p className="text-s text-muted-foreground">Starting deployment…</p>}
           {error && (
-            <p role="alert" className="text-sm text-destructive">
+            <p role="alert" className="text-s text-destructive">
               {error}
             </p>
           )}

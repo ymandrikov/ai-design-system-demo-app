@@ -55,26 +55,26 @@ export function ConfirmationDialog({
         {triggerLabel}
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
-        <AlertDialog.Backdrop className="fixed inset-0 bg-foreground/40" />
-        <AlertDialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-4">
+        <AlertDialog.Backdrop className="fixed inset-0 bg-foreground/(--alpha-medium)" />
+        <AlertDialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-xl">
           <AlertDialog.Popup
             initialFocus={cancelRef}
-            className="flex max-h-full w-full max-w-lg flex-col gap-6 overflow-y-auto rounded-lg border bg-popover p-6 text-popover-foreground shadow-lg"
+            className="flex max-h-full w-full max-w-dialog-width flex-col gap-2xl overflow-y-auto rounded-m border-(length:--border-width) bg-popover p-2xl text-popover-foreground shadow-l"
           >
-            <div className="flex flex-col gap-2">
-              <AlertDialog.Title className="text-lg font-semibold">{title}</AlertDialog.Title>
-              <AlertDialog.Description className="text-sm text-muted-foreground">{description}</AlertDialog.Description>
+            <div className="flex flex-col gap-m">
+              <AlertDialog.Title className="text-l font-semibold">{title}</AlertDialog.Title>
+              <AlertDialog.Description className="text-s text-muted-foreground">{description}</AlertDialog.Description>
             </div>
             {children}
             <div aria-live="polite" className={pending || error ? undefined : "sr-only"}>
-              {pending && <p className="text-sm text-muted-foreground">{pendingLabel}</p>}
+              {pending && <p className="text-s text-muted-foreground">{pendingLabel}</p>}
               {error && (
-                <p role="alert" className="text-sm text-destructive">
+                <p role="alert" className="text-s text-destructive">
                   {error}
                 </p>
               )}
             </div>
-            <div className="flex flex-col items-end gap-3 sm:flex-row sm:justify-end">
+            <div className="flex flex-col items-end gap-l sm:flex-row sm:justify-end">
               {intent === "destructive" ? (
                 <>
                   {confirm}
