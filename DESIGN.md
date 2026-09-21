@@ -101,7 +101,8 @@ component that accepts optional styling props. Wrapped implementations must merg
 incoming classes after their defaults (using `cn`) and apply incoming inline styles
 after any default styles. The helper forwards other props, including refs, unchanged;
 it adds no DOM wrapper, runtime validation or CSS inspection. Apply it only to
-components explicitly adopting this contract; currently that is `TextLink`.
+components explicitly adopting this contract; currently those are `TextLink` and
+[Time](design-system/components/time.md).
 Each actual exception requires a reason and an entry in the
 [journal](design-system/gaps.md), linked from an adjacent source comment.
 

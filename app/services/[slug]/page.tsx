@@ -1,6 +1,7 @@
 import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout";
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
+import { Time } from "@/components/ui/time";
 import { TextLink } from "@/components/ui/text-link";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
@@ -17,7 +18,7 @@ import { DatasetEmptyState } from "@/components/ui/dataset-empty-state";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { getServiceDetails } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
-import { dateFormat, environmentLabels, stateLabels } from "@/lib/deployments/presentation";
+import { environmentLabels, stateLabels } from "@/lib/deployments/presentation";
 
 export async function generateMetadata({ params }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -91,11 +92,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                     {service.lastResult ? (
                       <>
                         <DeploymentResult result={service.lastResult} />
-                        {service.lastCompletedAt && (
-                          <time className="text-muted-foreground" dateTime={service.lastCompletedAt.toISOString()}>
-                            {dateFormat.format(service.lastCompletedAt)} UTC
-                          </time>
-                        )}
+                        {service.lastCompletedAt && <Time value={service.lastCompletedAt} format="dateTime" />}
                         <TextLink href={`/deployments/${service.lastDeploymentId}`}>
                           View deployment #{service.lastDeploymentId}
                         </TextLink>
@@ -170,14 +167,9 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                           </span>
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="whitespace-nowrap">
                         {deployment.completedAt ? (
-                          <time
-                            className="whitespace-nowrap text-muted-foreground"
-                            dateTime={deployment.completedAt.toISOString()}
-                          >
-                            {dateFormat.format(deployment.completedAt)}
-                          </time>
+                          <Time value={deployment.completedAt} format="dateTime" showTimeZone={false} />
                         ) : (
                           <span className="text-muted-foreground">In progress</span>
                         )}

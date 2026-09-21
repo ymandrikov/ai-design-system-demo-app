@@ -50,6 +50,10 @@
   - Description: Style title links to object details and ordinary text navigation with distinct hover treatments and visible keyboard focus, preserving native link semantics.
   - Contract: [contract](components/text-link.md)
 
+- **Time**
+  - Description: Display a recorded date or time as secondary inline metadata with a machine-readable value.
+  - Contract: [contract](components/time.md)
+
 - **VersionLabel**
   - Description: Show a recorded service version as non-interactive inline code with a v prefix, separately from commit identifiers and missing-version text.
   - Contract: [contract](components/version-label.md)

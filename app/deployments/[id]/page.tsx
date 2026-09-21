@@ -2,6 +2,7 @@ import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout"
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { TextLink } from "@/components/ui/text-link";
+import { Time } from "@/components/ui/time";
 import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
 import { notFound } from "next/navigation";
@@ -10,7 +11,7 @@ import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { PageHeader } from "@/components/ui/page-header";
 import { getDeploymentDetails, getDeploymentForm } from "@/lib/deployments";
-import { dateFormat, deploymentKindLabels, environmentLabels } from "@/lib/deployments/presentation";
+import { deploymentKindLabels, environmentLabels } from "@/lib/deployments/presentation";
 import { DeploymentActions } from "./deployment-actions";
 
 export const dynamic = "force-dynamic";
@@ -100,15 +101,11 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                     {elapsed}s{!deployment.result && " elapsed"}
                   </DescriptionItem>
                   <DescriptionItem label="Started">
-                    <time dateTime={deployment.startedAt.toISOString()} className="text-muted-foreground">
-                      {dateFormat.format(deployment.startedAt)} UTC
-                    </time>
+                    <Time value={deployment.startedAt} format="dateTime" />
                   </DescriptionItem>
                   {deployment.completedAt && (
                     <DescriptionItem label="Completed">
-                      <time dateTime={deployment.completedAt.toISOString()} className="text-muted-foreground">
-                        {dateFormat.format(deployment.completedAt)} UTC
-                      </time>
+                      <Time value={deployment.completedAt} format="dateTime" />
                     </DescriptionItem>
                   )}
                 </dl>
@@ -176,9 +173,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
             <ol className="space-y-m rounded-m border-(length:--border-width) bg-card p-xl font-mono text-s text-card-foreground">
               {logs.map((log, index) => (
                 <li key={index} className="flex flex-wrap gap-x-xl gap-y-s">
-                  <time dateTime={log.at.toISOString()} className="text-muted-foreground">
-                    {log.at.toISOString().slice(11, 19)}
-                  </time>
+                  <Time value={log.at} format="time" showTimeZone={false} />
                   <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive" : ""}`}>
                     {log.level.toUpperCase()} · {log.message}
                   </span>

@@ -1,5 +1,6 @@
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
+import { Time } from "@/components/ui/time";
 import { TextLink } from "@/components/ui/text-link";
 import { PageContainer } from "@/components/layouts/page-container";
 import type { Metadata } from "next";
@@ -11,7 +12,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { DatasetEmptyState } from "@/components/ui/dataset-empty-state";
 import { listServices } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
-import { dateFormat, environmentLabels, stateLabels } from "@/lib/deployments/presentation";
+import { environmentLabels, stateLabels } from "@/lib/deployments/presentation";
 
 export const metadata: Metadata = {
   title: "Services | Deploy Board",
@@ -91,9 +92,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                       <TableCell>
                         <span className="whitespace-nowrap text-nowrap text-muted-foreground">
                           {service.lastCompletedAt ? (
-                            <time dateTime={service.lastCompletedAt.toISOString()}>
-                              {dateFormat.format(service.lastCompletedAt)}
-                            </time>
+                            <Time value={service.lastCompletedAt} format="dateTime" showTimeZone={false} />
                           ) : (
                             "—"
                           )}
