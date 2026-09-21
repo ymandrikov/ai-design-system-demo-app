@@ -14,6 +14,6 @@
   - Description: Provide the application's shared HTML document shell around route content, including document language, global theme and font definitions, and a vertical body container. Next.js applies it to routes under app/; it is not a wrapper for individual sections within a page.
   - Contract: [contract](layouts/root-layout.md)
 
-- **StatusSummaryLayout**
-  - Description: Arrange a read-only status and version above supporting metadata in one neutral surface with a separated lower region.
-  - Contract: [contract](layouts/status-summary-layout.md)
+- **Stack**
+  - Description: Arrange related content groups vertically in reading order with spacing restricted to the design-system scale.
+  - Contract: [contract](layouts/stack.md)

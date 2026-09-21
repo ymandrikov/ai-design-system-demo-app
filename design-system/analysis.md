@@ -131,7 +131,7 @@ DeploymentResult — для завершённого деплоя, а не ре�
 | Конструкция и источники | Решение, граница и причина |
 | --- | --- |
 | AppIdentity + mb-5xl в [Services](../app/page.tsx), [Service](../app/services/[slug]/page.tsx), [Deploy](../app/services/[slug]/deploy/page.tsx), [Deployment](../app/deployments/[id]/page.tsx) | Reuse existing / keep local: AppIdentity уже выделен; отступ принадлежит страницам по контракту. Новый AppShell ради одной обёртки не нужен. |
-| DescriptionItem: 12 вызовов в Service, Deployment, DeployForm и DeploymentActions | Reuse existing: пары уже выделены. Разные списки не требуют SummaryGrid; двухчастные сводки уже используют StatusSummaryLayout (LP-01 реализован). |
+| DescriptionItem: 12 вызовов в Service, Deployment, DeployForm и DeploymentActions | Reuse existing: пары уже выделены. Разные списки не требуют SummaryGrid; двухчастные сводки используют рецепт Status summary с BorderedCard и Stack (LP-01 обновлён). |
 | Отсутствующие значения в [Services](../app/page.tsx) и [истории](../app/services/[slug]/page.tsx), а также DescriptionItem.Empty в сводках/форме | Keep local / reuse existing внутри DescriptionItem: No version, No deployments, Not recorded и In progress обозначают разные состояния. Не переносить условия в общий компонент и не использовать DescriptionItem.Empty вне его контрактной области. Общий MissingValue пока уберёт только span с одним классом. |
 | CommitHash в трёх потребителях; Time в шести местах трёх страниц | Reuse existing: семантика code/time и форматирование уже централизованы. Nullable-обёртки для commit/date не нужны: контракты явно оставляют отсутствие значения потребителю. |
 | NavigationalTabs для environment в [Services](../app/page.tsx) и [Service](../app/services/[slug]/page.tsx) | Reuse existing: общий UI и Environment browsing уже есть. Общий EnvironmentTabs переносил бы построение доменных URL в UI ради двух map; оставить текущую границу. |
@@ -187,7 +187,7 @@ LP-01 впоследствии согласован и реализован; о�
 
 | Приоритет | Кандидат | Решение | Реальные потребители |
 | --- | --- | --- | --- |
-| Готово | LP-01 — двухчастная сводка | StatusSummaryLayout реализован | Сводки сервиса и деплоя |
+| Готово | LP-01 — двухчастная сводка | Рецепт Status summary с BorderedCard и Stack | Сводки сервиса и деплоя |
 | 2 | LP-02 — проверка смены версии перед запуском | Документировать общий pattern, без общего компонента | Форма Deploy и подтверждение rollback |
 | — | LP-03 — верх страницы и возврат | Оставить текущую композицию | Четыре основные страницы; возврат на двух detail-страницах |
 | — | LP-04 — группы действий и fallback-экраны | Переиспользовать существующее, без нового layout | Форма, header, диалог, loading/error/not-found |
@@ -198,16 +198,14 @@ LP-02 имеет пользу как правило принятия решен�
 
 ### LP-01 — Двухчастная сводка
 
-**Тип:** layout. **Действие:** extract new. **Статус:** реализовано по запросу владельца «сделай 1».
+**Тип:** pattern. **Статус:** обновлено по согласованию владельца.
 
-[StatusSummaryLayout](../components/layouts/status-summary-layout.tsx) теперь используется
-обеими страницами; [контракт](layouts/status-summary-layout.md) опубликован в индексе.
-`primary` содержит прежние DescriptionItem, `children` — supporting-контент. Поля,
-условия, ссылки и live region сохранены; внутренние space-y-2/space-y-4 остались
-у потребителей. Контракт Status summary и DESIGN.md отражают нового владельца раскладки.
-Структурные проверки обоих контрактов, актуальность индексов, lint и webpack build прошли.
-Обычный аудит выбора: сводка другого сервиса без истории подходит с явным empty-текстом;
-форма выбора и таблица не подходят; вложенный dl вместо primary-пар нарушает контракт.
+[Status summary](patterns/status-summary.md) задаёт рецепт композиции
+[BorderedCard](components/bordered-card.md), [Stack](layouts/stack.md) и отдельного
+[Separator](components/separator.md) между областями.
+Обе страницы собирают его напрямую; прежний StatusSummaryLayout и его контракт удалены.
+Stack принимает только токены spacing из дизайн-системы. Поля, условия, ссылки,
+live region и прежняя визуальная композиция сохранены.
 Ниже сохранено исходное обоснование предложения; будущие шаги описывают фазу до реализации.
 Источники и потребители: [ServicePage](../app/services/[slug]/page.tsx),
 [DeploymentPage](../app/deployments/[id]/page.tsx).

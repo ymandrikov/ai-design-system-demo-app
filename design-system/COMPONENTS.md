@@ -14,6 +14,10 @@
   - Description: Display a short status or metadata label with a compact shared treatment, preserving the semantics of its content or link.
   - Contract: [contract](components/badge.md)
 
+- **BorderedCard**
+  - Description: Group one subject's related content in a neutral bordered surface while the consumer owns its internal composition.
+  - Contract: [contract](components/bordered-card.md)
+
 - **Button**
   - Description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
   - Contract: [contract](components/button.md)
@@ -49,6 +53,10 @@
 - **RequestFeedback**
   - Description: Report pending work and request failures as standalone feedback beside an action or inside its confirmation dialog.
   - Contract: [contract](components/request-feedback.md)
+
+- **Separator**
+  - Description: Mark a visual or semantic boundary between adjacent content groups without adding a container or spacing.
+  - Contract: [contract](components/separator.md)
 
 - **Table**
   - Description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.

@@ -107,8 +107,8 @@ component that accepts optional styling props. Wrapped implementations must merg
 incoming classes after their defaults (using `cn`) and apply incoming inline styles
 after any default styles. The helper forwards other props, including refs, unchanged;
 it adds no DOM wrapper, runtime validation or CSS inspection. Apply it only to
-components explicitly adopting this contract; currently those are `TextLink` and
-[Time](design-system/components/time.md).
+components explicitly adopting this contract; currently those are `TextLink`,
+[Time](design-system/components/time.md) and [Separator](design-system/components/separator.md).
 Each actual exception requires a reason and an entry in the
 [journal](design-system/gaps.md), linked from an adjacent source comment.
 
@@ -128,9 +128,12 @@ Components receive content through props and never access SQLite.
 Service and deployment detail summaries follow the
 [status summary pattern](design-system/patterns/status-summary.md): primary status
 and version above supporting metadata, with neutral surfaces and precise consequence
-text. [StatusSummaryLayout](design-system/layouts/status-summary-layout.md) owns the
-shared surface, wrapping primary description list and separated supporting region.
-Pages supply the fields and retain spacing and arrangement within supporting content. Service summaries distinguish the current service from its last completed
+text. Pages compose [BorderedCard](design-system/components/bordered-card.md) and
+[Stack](design-system/layouts/stack.md), placing an explicit
+[Separator](design-system/components/separator.md) between regions using that recipe.
+The card owns the surface; Stack owns vertical arrangement, with
+spacing restricted to the design-system scale. Pages supply semantic lists and
+region padding prescribed by the pattern, and arrange supporting content. Service summaries distinguish the current service from its last completed
 deployment; active progress stays in history.
 
 ## Verification

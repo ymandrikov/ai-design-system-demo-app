@@ -22,14 +22,16 @@ All criteria must hold:
 ## Structure
 
 Inside a named [PageContent section](../layouts/page-content.md), use
-[StatusSummaryLayout](../layouts/status-summary-layout.md) for one neutral surface
-with two levels in source order:
+[BorderedCard](../components/bordered-card.md) around a
+[Stack](../layouts/stack.md) with default `spacing="0"` and an explicit
+[Separator](../components/separator.md) between its two content regions.
+This is a reusable recipe composed on each page, with two levels in source order:
 
 1. Primary description list: status first, version second. Use
    [DescriptionItem](../components/description-item.md), plain text for service state
    or active stage, [DeploymentResult](../components/deployment-result.md) for a
    completed outcome and [VersionLabel](../components/version-label.md) for a version.
-2. Supporting region, separated by a top border: metadata and contextual links.
+2. Supporting region, separated by Separator: metadata and contextual links.
    Use a native inline `dt`/`dd` pair for the service's last completed deployment;
    its value groups the result, timestamp and link. Deployment metadata reuses
    DescriptionItem. An optional consequence sentence follows the metadata it explains.
@@ -40,14 +42,40 @@ Deployment recipe: `Deployment status / Failed` and `Version / v1.2.0`, then com
 duration, start/completion times, version description and an optional source link.
 Use [TextLink](../components/text-link.md) in its default role for contextual navigation.
 
+Minimal React composition (field values are supplied by the page):
+
+```tsx
+<BorderedCard>
+  <Stack>
+    <dl className="flex flex-wrap gap-4xl p-xl">
+      <DescriptionItem label="Service state">
+        <DescriptionItem.Emphasised>Healthy</DescriptionItem.Emphasised>
+      </DescriptionItem>
+      <DescriptionItem label="Current version"><VersionLabel version="v1.1.0" /></DescriptionItem>
+    </dl>
+    <Separator aria-hidden="true" />
+    <div className="space-y-m p-xl text-s">
+      <dl className="flex flex-wrap items-center gap-x-xl gap-y-m">
+        <dt className="text-muted-foreground">Last completed deployment</dt>
+        <dd>No completed deployments</dd>
+      </dl>
+    </div>
+  </Stack>
+</BorderedCard>
+```
+
 ## Composition
 
 ### Required
 
-- StatusSummaryLayout owns the surface, primary dl, region padding and divider.
-  Pass primary DescriptionItem siblings through `primary` and supporting content
-  through `children`. Pages own data and the contents of both regions; the layout
-  performs no status inference. Keep existing semantic colours.
+- BorderedCard owns the surface; Stack owns vertical arrangement; Separator owns the divider.
+  Pages supply a primary native dl and a supporting div with a horizontal
+  `<Separator aria-hidden="true" />` between them as direct Stack children. Both regions are required and use `p-xl`; the supporting div uses
+  `text-s`. Keep `spacing="0"` so the divider meets both padded regions without
+  adding a gap. Preserve existing semantic colours.
+- Pages own fields, data, links, live regions and native description lists. Preserve
+  `space-y-m` within service supporting content and `space-y-xl` within deployment
+  supporting content. These are content intervals, not Stack spacing overrides.
 - Primary fields use a wrapping flex row with `gap-4xl`; retain the label
   styling and label/value spacing owned by DescriptionItem. Emphasise plain primary
   values with `DescriptionItem.Emphasised`; use `DescriptionItem.Empty` for missing
@@ -95,6 +123,8 @@ Check a healthy service after failure, a successful last attempt, no history, fa
 before a first successful deployment and an active attempt following failure.
 For deployment details check active, succeeded and failed attempts, including an old
 failed attempt after a later success. Confirm link, timestamp and result identity.
+Reject a composition with a nested dl around all primary pairs, missing regions,
+nonzero outer Stack spacing or an added region border duplicating Separator.
 Reject a summary that presents `Failed` as service health, labels an attempted version
 as current, or claims a working version existed without evidence.
 

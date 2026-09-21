@@ -1,4 +1,6 @@
-import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout";
+import { Separator } from "@/components/ui/separator";
+import { Stack } from "@/components/layouts/stack";
+import { BorderedCard } from "@/components/ui/bordered-card";
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { Time } from "@/components/ui/time";
@@ -71,9 +73,9 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
         />
         <PageContent.Section aria-label="Service summary">
           <PageContent.SectionContent>
-            <StatusSummaryLayout
-              primary={
-                <>
+            <BorderedCard>
+              <Stack>
+                <dl className="flex flex-wrap gap-4xl p-xl">
                   <DescriptionItem label="Service state">
                     {service.state ? (
                       <DescriptionItem.Emphasised>{stateLabels[service.state]}</DescriptionItem.Emphasised>
@@ -88,35 +90,35 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                       <DescriptionItem.Empty>No version</DescriptionItem.Empty>
                     )}
                   </DescriptionItem>
-                </>
-              }
-            >
-              <div className="space-y-m">
-                <dl className="flex flex-wrap items-center gap-x-xl gap-y-m">
-                  <dt className="text-muted-foreground">Last completed deployment</dt>
-                  <dd className="flex flex-wrap items-center gap-x-xl gap-y-m">
-                    {service.lastResult ? (
-                      <>
-                        <DeploymentResult result={service.lastResult} />
-                        {service.lastCompletedAt && <Time value={service.lastCompletedAt} format="dateTime" />}
-                        <TextLink href={`/deployments/${service.lastDeploymentId}`}>
-                          View deployment #{service.lastDeploymentId}
-                        </TextLink>
-                      </>
-                    ) : (
-                      <span>No completed deployments</span>
-                    )}
-                  </dd>
                 </dl>
-                {service.lastResult === "failed" && (
-                  <p className="text-muted-foreground">
-                    {service.currentVersion
-                      ? "Deployment failed. Current version unchanged."
-                      : "Deployment failed. No version is deployed."}
-                  </p>
-                )}
-              </div>
-            </StatusSummaryLayout>
+                <Separator />
+                <div className="space-y-m p-xl text-s">
+                  <dl className="flex flex-wrap items-center gap-x-xl gap-y-m">
+                    <dt className="text-muted-foreground">Last completed deployment</dt>
+                    <dd className="flex flex-wrap items-center gap-x-xl gap-y-m">
+                      {service.lastResult ? (
+                        <>
+                          <DeploymentResult result={service.lastResult} />
+                          {service.lastCompletedAt && <Time value={service.lastCompletedAt} format="dateTime" />}
+                          <TextLink href={`/deployments/${service.lastDeploymentId}`}>
+                            View deployment #{service.lastDeploymentId}
+                          </TextLink>
+                        </>
+                      ) : (
+                        <span>No completed deployments</span>
+                      )}
+                    </dd>
+                  </dl>
+                  {service.lastResult === "failed" && (
+                    <p className="text-muted-foreground">
+                      {service.currentVersion
+                        ? "Deployment failed. Current version unchanged."
+                        : "Deployment failed. No version is deployed."}
+                    </p>
+                  )}
+                </div>
+              </Stack>
+            </BorderedCard>
           </PageContent.SectionContent>
         </PageContent.Section>
         <RefreshActiveDeployment

@@ -1,4 +1,6 @@
-import { StatusSummaryLayout } from "@/components/layouts/status-summary-layout";
+import { Separator } from "@/components/ui/separator";
+import { Stack } from "@/components/layouts/stack";
+import { BorderedCard } from "@/components/ui/bordered-card";
 import { PageContent } from "@/components/layouts/page-content";
 import { AppIdentity } from "@/components/ui/app-identity";
 import { BackNavigation } from "@/components/ui/back-navigation";
@@ -70,9 +72,9 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
         <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
         <PageContent.Section aria-label="Deployment summary">
           <PageContent.SectionContent>
-            <StatusSummaryLayout
-              primary={
-                <>
+            <BorderedCard>
+              <Stack>
+                <dl className="flex flex-wrap gap-4xl">
                   <DescriptionItem label="Deployment status" aria-live="polite">
                     {deployment.result ? (
                       <DeploymentResult result={deployment.result} />
@@ -83,50 +85,50 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                   <DescriptionItem label="Version">
                     <VersionLabel version={version.version} />
                   </DescriptionItem>
-                </>
-              }
-            >
-              <div className="space-y-xl">
-                <dl className="flex flex-wrap gap-4xl">
-                  <DescriptionItem label="Commit">
-                    {version.commit == null ? (
-                      <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
-                    ) : (
-                      <CommitHash hash={version.commit} />
-                    )}
-                  </DescriptionItem>
-                  <DescriptionItem label="Duration">
-                    {elapsedSeconds}s{!deployment.result && " elapsed"}
-                  </DescriptionItem>
-                  <DescriptionItem label="Started">
-                    <Time value={deployment.startedAt} format="dateTime" />
-                  </DescriptionItem>
-                  {deployment.completedAt && (
-                    <DescriptionItem label="Completed">
-                      <Time value={deployment.completedAt} format="dateTime" />
-                    </DescriptionItem>
-                  )}
                 </dl>
-                <div>
-                  <p>{version.description}</p>
-                  {deployment.sourceDeploymentId && (
-                    <p>
-                      Source:{" "}
-                      <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
-                        Deployment #{deployment.sourceDeploymentId}
-                      </TextLink>
-                    </p>
-                  )}
-                  {deployment.result && (
-                    <p className="text-muted-foreground">
-                      {deployment.result === "failed"
-                        ? "Deployment failed. This attempt did not change the environment's current version."
-                        : "Deployment succeeded. The environment version was updated when this run completed."}
-                    </p>
-                  )}
+                <Separator />
+                <div className="space-y-xl p-xl text-s">
+                  <dl className="flex flex-wrap gap-4xl">
+                    <DescriptionItem label="Commit">
+                      {version.commit == null ? (
+                        <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
+                      ) : (
+                        <CommitHash hash={version.commit} />
+                      )}
+                    </DescriptionItem>
+                    <DescriptionItem label="Duration">
+                      {elapsedSeconds}s{!deployment.result && " elapsed"}
+                    </DescriptionItem>
+                    <DescriptionItem label="Started">
+                      <Time value={deployment.startedAt} format="dateTime" />
+                    </DescriptionItem>
+                    {deployment.completedAt && (
+                      <DescriptionItem label="Completed">
+                        <Time value={deployment.completedAt} format="dateTime" />
+                      </DescriptionItem>
+                    )}
+                  </dl>
+                  <div>
+                    <p>{version.description}</p>
+                    {deployment.sourceDeploymentId && (
+                      <p>
+                        Source:{" "}
+                        <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
+                          Deployment #{deployment.sourceDeploymentId}
+                        </TextLink>
+                      </p>
+                    )}
+                    {deployment.result && (
+                      <p className="text-muted-foreground">
+                        {deployment.result === "failed"
+                          ? "Deployment failed. This attempt did not change the environment's current version."
+                          : "Deployment succeeded. The environment version was updated when this run completed."}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </StatusSummaryLayout>
+              </Stack>
+            </BorderedCard>
           </PageContent.SectionContent>
         </PageContent.Section>
         <PageContent.Section aria-labelledby="stages-heading">
