@@ -1,35 +1,28 @@
 import { createCn } from "cn/config";
 
-// Register the semantic scales so text sizes cannot be mistaken for colours.
+// Teach the merger the additional semantic size names.
 export const cn = createCn({
   extend: {
     theme: {
-      text: ["s", "m", "l"],
+      text: ["md"],
       spacing: [
         "xs",
-        "s",
-        "m",
-        "l",
+        "sm",
+        "md",
+        "lg",
         "xl",
         "2xl",
         "3xl",
         "4xl",
         "5xl",
         "6xl",
-        "control-xs",
-        "control-s",
-        "control-m",
-        "control-l",
-        "icon-s",
-        "icon-m",
-        "icon-l",
-        "badge-height",
-        "table-header-height",
-        "option-min-height",
+        "control",
+        "icon",
+        "badge",
+        "table-header",
+        "option",
       ],
-      container: ["dialog-width", "page-narrow", "page-wide", "table-min-width"],
-      radius: ["m"],
-      shadow: ["s", "l"],
+      container: ["dialog", "page-narrow", "page-wide", "table"],
     },
   },
 });

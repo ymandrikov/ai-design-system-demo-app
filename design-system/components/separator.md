@@ -1,5 +1,5 @@
 ---
-sourcesHash: 9781b2621c7e7f96d17b4d3a4fd205d3c5b0316018744975cb4c75a58358ba85
+sourcesHash: cef02331dc277786816a0d9637fc7d292bc035faa1294be46e2c4479ff92159b
 id: separator
 description: Mark a visual or semantic boundary between adjacent content groups without adding a container or spacing.
 status: discoverable
@@ -34,11 +34,9 @@ Import `Separator` from `@/components/ui/separator`.
 ```
 
 Locally installed from [shadcn Base UI Separator](https://ui.shadcn.com/docs/components/base/separator).
-Accepts Base UI `Separator.Props` except top-level `className` and `style`.
-`orientation` defaults to `"horizontal"` for
-stacked groups; use `"vertical"` between side-by-side groups. Horizontal separators
-span the container width; vertical separators stretch across a flex container's
-cross axis. The parent must provide a height for a vertical boundary.
+Accepts Base UI `Separator.Props` except top-level `className`, `style` and `orientation`.
+Only the horizontal separator used by application pages is supported; it spans
+its container width. The unused vertical variant was removed.
 
 Native attributes and refs are forwarded. `aria-hidden="true"` makes a purely
 visual boundary decorative, as required by [Status summary](../patterns/status-summary.md).
@@ -66,7 +64,7 @@ use defaults and need no migration; no actual exception is introduced here.
 
 Uses the semantic border colour and `--border-width` thickness in both themes.
 The local source adapts shadcn's pixel thickness to the system token and uses the
-project's configured `cn`. Orientation controls the line direction. It does not
+project's configured `cn`. The line is always horizontal. It does not
 shrink, add margins, pad content or infer where boundaries belong.
 
 ## Accessibility

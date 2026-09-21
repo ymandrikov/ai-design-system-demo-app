@@ -5,7 +5,7 @@ export default function Loading() {
   return (
     <PageContainer aria-busy="true">
       <PageHeader title="Deployment" />
-      <output className="mt-2xl block text-muted-foreground">Loading deployment details…</output>
+      <output className="mt-2xl block text-content-subtle">Loading deployment details…</output>
     </PageContainer>
   );
 }

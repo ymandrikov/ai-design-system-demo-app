@@ -1,5 +1,5 @@
 ---
-sourcesHash: 982b9f5da539bf9d0e158b8c844fc78fa16a4afbd3df5d1f1d7670e684473505
+sourcesHash: ed027b5ede0d6b94ef543a9c01d935cb2d5f15a658c779b95a6e0bce4c9c9dd3
 id: confirmation-dialog
 description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
 status: discoverable
@@ -74,7 +74,7 @@ retains ownership of its placement and public pending/error API. Do not supply
 another feedback block through children.
 
 The component owns modal width, inset, spacing, typography, scrolling, backdrop and
-button placement. It uses existing popover/foreground, muted and border tokens and
+button placement. It uses canvas-overlay/content-overlay, content-subtle and border tokens and
 [Button](button.md) treatments. The consumer owns placement of the trigger.
 
 ## Behaviour and states

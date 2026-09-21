@@ -1,5 +1,5 @@
 ---
-sourcesHash: dcc61a428fd043d8395beaff70dabf0881476bb43c6bca08ddd6a76de9c12efa
+sourcesHash: 4cc6d10c8643580c162666c9da96000e1a690e8cc0720588cc3a28e68206a076
 id: back-navigation
 description: Identify a named navigation region containing one return link to a parent context.
 status: discoverable
@@ -43,7 +43,7 @@ be absent; keep BackNavigation outside that boundary so the region stays mounted
 Do not supply multiple destinations, nested navigation or action buttons.
 
 The owner approved SEM-01 on 2026-09-21: the component owns native nav semantics,
-its accessible name and text-s typography using [semantic tokens](../tokens/semantic.css).
+its accessible name and text-sm typography using [semantic tokens](../tokens/semantic.css).
 Consumers own placement and outer spacing: existing detail pages retain mb-2xl on
 an outer container; the service fallback retains mt-2xl. Consumers supply the link,
 its arrow and visible label, destination and environment. TextLink owns focus and

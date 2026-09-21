@@ -87,7 +87,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                   </DescriptionItem>
                 </dl>
                 <Separator />
-                <div className="space-y-xl p-xl text-s">
+                <div className="space-y-xl p-xl text-sm">
                   <dl className="flex flex-wrap gap-4xl">
                     <DescriptionItem label="Commit">
                       {version.commit == null ? (
@@ -119,7 +119,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                       </p>
                     )}
                     {deployment.result && (
-                      <p className="text-muted-foreground">
+                      <p className="text-content-subtle">
                         {deployment.result === "failed"
                           ? "Deployment failed. This attempt did not change the environment's current version."
                           : "Deployment succeeded. The environment version was updated when this run completed."}
@@ -147,11 +147,11 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                 <li
                   key={step.name}
                   aria-current={step.status === "active" ? "step" : undefined}
-                  className="rounded-m border bg-card p-xl text-card-foreground"
+                  className="rounded-md border bg-canvas-card p-xl text-content-card"
                 >
                   <h3 className="font-medium">{step.name}</h3>
                   <p
-                    className={`mt-m text-s ${step.status === "failed" ? "text-destructive-foreground" : "text-muted-foreground"}`}
+                    className={`mt-md text-sm ${step.status === "failed" ? "text-content-destructive" : "text-content-subtle"}`}
                   >
                     {stepLabels[step.status]}
                   </p>
@@ -165,16 +165,16 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
             id="logs-heading"
             title={
               <>
-                Logs <span className="text-s font-normal text-muted-foreground">(UTC)</span>
+                Logs <span className="text-sm font-normal text-content-subtle">(UTC)</span>
               </>
             }
           />
           <PageContent.SectionContent>
-            <ol className="space-y-m rounded-m border bg-card p-xl font-mono text-s text-card-foreground">
+            <ol className="space-y-md rounded-md border bg-canvas-card p-xl font-mono text-sm text-content-card">
               {logs.map((log, index) => (
-                <li key={index} className="flex flex-wrap gap-x-xl gap-y-s">
+                <li key={index} className="flex flex-wrap gap-x-xl gap-y-sm">
                   <Time value={log.at} format="time" showTimeZone={false} />
-                  <span className={`min-w-0 break-words ${log.level === "error" ? "text-destructive-foreground" : ""}`}>
+                  <span className={`min-w-0 break-words ${log.level === "error" ? "text-content-destructive" : ""}`}>
                     {log.level.toUpperCase()} · {log.message}
                   </span>
                 </li>

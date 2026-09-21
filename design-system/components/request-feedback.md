@@ -1,5 +1,5 @@
 ---
-sourcesHash: bec1fc84e6c4f27a7ad9a08f5d4615b0203f92371e4369e44deeb652c3c8f90b
+sourcesHash: 5a6b589516f21c9cf8aa98822822fcf025845d0e8a24b1355c0052d974b3a039
 id: request-feedback
 description: Report pending work and request failures as standalone feedback beside an action or inside its confirmation dialog.
 status: discoverable
@@ -41,7 +41,7 @@ clear a previous error; this component does not infer a state machine.
 
 The owner approved SEM-02 on 2026-09-21: preserve the two existing feedback blocks'
 order, polite live region, alert error and idle sr-only treatment. The component
-owns text-s typography with muted-foreground for progress and destructive-foreground
+owns text-sm typography with content-subtle for progress and content-destructive
 for errors, using [semantic tokens](../tokens/semantic.css). Consumers own outer
 spacing and placement. No children, variants, styling overrides, forwarded attributes,
 events or methods are exposed. It works in server and client compositions.

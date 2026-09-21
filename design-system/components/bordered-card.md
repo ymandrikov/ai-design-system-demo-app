@@ -1,5 +1,5 @@
 ---
-sourcesHash: fe4a3577c8d44e58ad4b90d1e494b733fe9c41b023b57b3607c0ec9b685732c1
+sourcesHash: 6624eda07e74cc8e765dddd742b41f39b22036fa46907eb6ac4985ffbf41809d
 id: bordered-card
 description: Group one subject's related content in a neutral bordered surface while the consumer owns its internal composition.
 status: discoverable
@@ -36,7 +36,7 @@ Import `BorderedCard` from `@/components/ui/bordered-card`.
 
 Required `children: ReactNode` supplies the content. Consumers own semantic groups,
 padding and internal arrangement, following the consuming pattern. The card owns
-`rounded-m border bg-card text-card-foreground` in both themes.
+`rounded-md border bg-canvas-card text-content-card` in both themes.
 No variants, events, methods, native-attribute forwarding or styling overrides.
 
 ## Behaviour and states

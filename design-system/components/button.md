@@ -1,5 +1,5 @@
 ---
-sourcesHash: 848e6609230f875237a23777f1fde746a8b14cf66dd6bc21c017c3f5f5706dd7
+sourcesHash: a2edf92163aeb4bfae0b14d5f7e24fcb2ccd62bd8d22bb47e00ecbbbca53723e
 id: button
 description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
 status: discoverable
@@ -21,7 +21,7 @@ All criteria must hold:
 
 - Navigation is an object title, contextual reference, back link or form Cancel: use [Text link](text-link.md).
 - Links switch between peer page contexts: use [NavigationalTabs](navigational-tabs.md).
-- A control selects a saved value or switches local panels: use a native form control or [Tabs](tabs.md), respectively.
+- A control selects a saved value or switches local panels: use a native form control; local panel switching needs a separately designed control.
 - Content only reports an outcome: use [DeploymentResult](deployment-result.md).
 
 ## Public API
@@ -31,9 +31,9 @@ All criteria must hold:
 Import `Button` and `buttonVariants` from `@/components/ui/button`.
 This is the locally installed shadcn `base-nova` source, backed by Base UI.
 The owner requested adoption of the shadcn Button treatment and migration of
-screen actions. Public variants and size names are retained; their styling now uses
-[the two-level token system](../tokens/README.md), including the approved spacing,
-typography and radius normalization.
+screen actions. Only variants used by application pages remain. Styling uses
+[semantic tokens](../tokens/README.md), including the shared spacing,
+typography and radius scales.
 See [shadcn Button](https://ui.shadcn.com/docs/components/base/button).
 
 ```tsx
@@ -55,19 +55,16 @@ For navigation, use `buttonVariants` on Next.js `Link` or a native anchor with a
 The helper supplies styles only, without events, roles, routing or disabled behaviour.
 
 Both exports accept `variant` and `size`; omitted values select `default`.
-Use the defaults for Deploy. Form Cancel uses [Text link](text-link.md), not
-`buttonVariants({ variant: "link" })`; modal Cancel remains a button. The retained
-upstream `link` variant is a button treatment, not the ordinary text-link style.
-Other available upstream variants are `outline`, `secondary`, `ghost`, and `destructive`.
-They are available for explicitly requested treatments; this adoption does not establish
-additional application-wide rules choosing between outline, secondary and ghost.
-Use destructive only for destructive actions, never merely to indicate a failed result.
+Available variants are `default` for primary actions, `outline` for modal Cancel,
+and `destructive` for destructive actions. Form Cancel uses [Text link](text-link.md).
+Do not use destructive styling merely to indicate a failed result.
 
-Text sizes are `xs`, `sm`, `default`, and `lg`, using semantic control sizes
-`xs`, `s`, `m`, and `l` respectively (24, 28, 32, and 36px at the default root size). Icon-only sizes are `icon-xs`, `icon-sm`, `icon`, and
-`icon-lg`, with matching square dimensions. Use the default unless a compact or
-large treatment is explicitly required; use an icon size only for icon-only content.
-Icons may use `data-icon="inline-start"` or `data-icon="inline-end"` for built-in spacing.
+Sizes are `default` (32px tall) and `icon` (32px square). Use `icon` only for
+icon-only content with an accessible label. Inline icons may use
+`data-icon="inline-start"` or `data-icon="inline-end"` for spacing. Button sizes
+descendant SVG icons to 16px using `size-icon`, including icons inside a decorative
+wrapper. Icons do not shrink or intercept pointer events.
+The unused secondary, ghost, link, compact and large variants were removed.
 
 The component owns colours, typography, padding, radii, borders and interaction styles,
 using the project's semantic tokens in light and dark themes. Consumers own placement,

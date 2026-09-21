@@ -1,5 +1,5 @@
 ---
-sourcesHash: 86ec61473dec62cfac76233910850e7de3488f4679115533acbd2f86546fddd0
+sourcesHash: d0a85ba889329000d81c3f39ffc938ec03f93d4883dc0b2855bab9cdf08e33bb
 id: badge
 description: Display a short status or metadata label with a compact shared treatment, preserving the semantics of its content or link.
 status: discoverable
@@ -42,10 +42,8 @@ metadata navigation. Callbacks and event handlers require a client consumer.
 The owner requested the upstream Badge treatment for existing badges. This adoption
 uses `secondary` for neutral metadata and successful deployment outcomes, and
 `destructive` for failed outcomes, retaining explicit status text and existing tokens.
-The default `default` variant provides primary emphasis. `outline` provides a border
-without a filled surface; `ghost` omits that border; `link` gives link styling.
-These upstream alternatives remain available for explicitly requested treatments;
-they do not establish additional product-wide status mappings.
+The default is `secondary`; `destructive` is the only alternative.
+Unused primary, outline, ghost and link treatments were removed.
 
 Badge owns its pill radius, height, padding, typography, border and theme colours.
 Consumers own placement, grouping and outer spacing; restrict `className` to layout
@@ -60,7 +58,7 @@ The default span is non-interactive and adds no focus stop or live announcement.
 Badge owns no loading, selection or disabled state. Content changes follow props.
 Text stays on one line; keep labels short and let surrounding rows wrap or scroll.
 Native links retain their own keyboard and navigation behaviour; Badge supplies
-hover and focus styles. `aria-invalid` has an error treatment but does not validate.
+focus styles; there is no separate link-hover treatment. `aria-invalid` has an error treatment but does not validate.
 
 ## Accessibility
 

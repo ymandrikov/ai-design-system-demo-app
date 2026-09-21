@@ -92,10 +92,10 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                   </DescriptionItem>
                 </dl>
                 <Separator />
-                <div className="space-y-m p-xl text-s">
-                  <dl className="flex flex-wrap items-center gap-x-xl gap-y-m">
-                    <dt className="text-muted-foreground">Last completed deployment</dt>
-                    <dd className="flex flex-wrap items-center gap-x-xl gap-y-m">
+                <div className="space-y-md p-xl text-sm">
+                  <dl className="flex flex-wrap items-center gap-x-xl gap-y-md">
+                    <dt className="text-content-subtle">Last completed deployment</dt>
+                    <dd className="flex flex-wrap items-center gap-x-xl gap-y-md">
                       {service.lastResult ? (
                         <>
                           <DeploymentResult result={service.lastResult} />
@@ -110,7 +110,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                     </dd>
                   </dl>
                   {service.lastResult === "failed" && (
-                    <p className="text-muted-foreground">
+                    <p className="text-content-subtle">
                       {service.currentVersion
                         ? "Deployment failed. Current version unchanged."
                         : "Deployment failed. No version is deployed."}
@@ -163,7 +163,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                         {deployment.commit ? (
                           <CommitHash hash={deployment.commit} />
                         ) : (
-                          <span className="text-muted-foreground">Not recorded</span>
+                          <span className="text-content-subtle">Not recorded</span>
                         )}
                       </TableCell>
                       <TableCell>
@@ -179,7 +179,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                         {deployment.completedAt ? (
                           <Time value={deployment.completedAt} format="dateTime" showTimeZone={false} />
                         ) : (
-                          <span className="text-muted-foreground">In progress</span>
+                          <span className="text-content-subtle">In progress</span>
                         )}
                       </TableCell>
                     </TableRow>

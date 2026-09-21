@@ -1,5 +1,5 @@
 ---
-sourcesHash: e3fc8cbcc2aca5f3593bab14ba8c1862d3057cbd5c81b10d98c22cce0506cdfa
+sourcesHash: 06e4951d767fdbd154103efcaa9a7b8f001fd7c49a0d176b71aa3e4520de57c4
 id: text-link
 description: Style title links to object details and ordinary text navigation with distinct hover treatments and visible keyboard focus, preserving native link semantics.
 status: discoverable
@@ -80,8 +80,8 @@ The former class-string helpers are removed; all text-link consumers use `TextLi
 
 ## Behaviour and states
 
-Without a design-system exception, neither kind is underlined at rest. Title links use `foreground` and semibold
-weight; on hover their colour becomes `link-foreground-hover` (an alias of `primary`) without an underline.
+Without a design-system exception, neither kind is underlined at rest. Title links use `content` and semibold
+weight; on hover their colour becomes `content-emphasis-hover` (the shared blue emphasis colour) without an underline.
 Ordinary links inherit colour and weight; hover adds an underline with the 4px link-underline-offset token
 without changing colour. Visited links retain the same treatment.
 Keyboard-visible focus adds a current-colour 2px focus outline with a 4px focus offset for both kinds.

@@ -1,5 +1,5 @@
 ---
-sourcesHash: a43d18af19ad42818e23fea82f7367c93d53fb17e8b22dc174911ca88d6e9877
+sourcesHash: 2f1742747830d04655df26cc992045e18a56505e92f445affa91f341ab1018dc
 id: app-identity
 description: Identify Deploy Board and its local-demo context with a shared non-interactive application name and qualifier.
 status: discoverable
@@ -39,9 +39,9 @@ events or methods. The fixed text is `Deploy Board` followed by `/ Local demo`.
 The component supports server rendering without state or a client directive.
 
 The owner approved preserving the four existing identity blocks: a small semibold,
-tightly tracked paragraph with a normal-weight muted qualifier separated by spacing-m.
-The component owns this typography and internal spacing. Colours inherit foreground
-and use muted-foreground from [global tokens](../tokens/semantic.css).
+tightly tracked paragraph with a normal-weight muted qualifier separated by spacing-md.
+The component owns this typography and internal spacing. Colours inherit content
+and use content-subtle from [global tokens](../tokens/semantic.css).
 
 Pages own placement and outer spacing. The four existing consumers (Services,
 Service details, Deployment details and Deploy) wrap it with mb-5xl before the next

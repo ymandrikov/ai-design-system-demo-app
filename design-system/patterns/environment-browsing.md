@@ -19,7 +19,7 @@ All criteria must hold:
 
 ## When not to use
 
-- The choice only switches local content panels without navigation: use [Tabs](../components/tabs.md).
+- The choice only switches local content panels without navigation: a separately designed panel control is required.
 - The choice supplies a form value: use a labelled form control, not navigation.
 - The page shows one deployment whose identity already determines its environment, with no environment choice: use a page-specific detail composition.
 
@@ -48,10 +48,10 @@ Use [text links](../components/text-link.md) for record/back navigation and
 
 Existing compositions demonstrate the recipe:
 
-| Screen | Heading / controls | Data region | Navigation |
-| --- | --- | --- | --- |
-| [Services](../../app/page.tsx) | Services, environment description, Environment links | Service table with environment-specific attributes, or empty-service message | Service identity link includes the selected environment |
-| [Service details](../../app/services/[slug]/page.tsx) | Service name, environment description, Environment links, permitted Deploy action | Service summary, then deployment history or empty-history message | Back and Deploy retain environment; history links use deployment identity |
+| Screen                                                | Heading / controls                                                                | Data region                                                                  | Navigation                                                                |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| [Services](../../app/page.tsx)                        | Services, environment description, Environment links                              | Service table with environment-specific attributes, or empty-service message | Service identity link includes the selected environment                   |
+| [Service details](../../app/services/[slug]/page.tsx) | Service name, environment description, Environment links, permitted Deploy action | Service summary, then deployment history or empty-history message            | Back and Deploy retain environment; history links use deployment identity |
 
 The minimum recipe is heading with environment navigation → table or empty state.
 A service summary, deployment polling, branding and page actions are not mandatory

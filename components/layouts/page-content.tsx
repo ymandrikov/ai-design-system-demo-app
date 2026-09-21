@@ -22,11 +22,11 @@ function Section({
 
 function SectionHeader({ id, title, description }: { id: string; title: ReactNode; description?: ReactNode }) {
   return (
-    <header className="flex flex-col gap-m">
-      <h2 id={id} className="text-l font-semibold">
+    <header className="flex flex-col gap-md">
+      <h2 id={id} className="text-md font-semibold">
         {title}
       </h2>
-      {description != null && <p className="text-s text-muted-foreground">{description}</p>}
+      {description != null && <p className="text-sm text-content-subtle">{description}</p>}
     </header>
   );
 }

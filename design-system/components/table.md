@@ -1,5 +1,5 @@
 ---
-sourcesHash: 18747578c1a17bdf791d40ae49a270c5189c0b1017fac3a0158545d6821e9eb6
+sourcesHash: d3156c56447353c50755a1341b4208dd50e8330a99e408358882e0640bde60ab
 id: table
 description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
 status: discoverable
@@ -51,7 +51,7 @@ Import the compound parts from `@/components/ui/table`.
 
 `Table` requires a nonempty `aria-label` naming the dataset and active filter; it labels both the table and its scroll region. Supply one matching `TableCaption` as the first child. Use `className="sr-only"` when the surrounding page already visibly identifies the dataset; otherwise the caption is visible below the table.
 
-`TableHeader`, `TableBody` and optional `TableFooter` contain `TableRow` children. Use the footer for aggregate or summary rows. Rows contain `TableHead` (native th) or `TableCell` (native td). Use `TableHead scope="col"` for column headers and `TableHead scope="row"` for row identities, including in the body. Consumers own content, ordering, formatting and empty-state text.
+`TableHeader` and `TableBody` contain `TableRow` children. The unused TableFooter export was removed. Rows contain `TableHead` (native th) or `TableCell` (native td). Use `TableHead scope="col"` for column headers and `TableHead scope="row"` for row identities, including in the body. Consumers own content, ordering, formatting and empty-state text.
 
 All parts forward native attributes, including refs and events, to their corresponding native element. There are no custom events, methods or variants. Native attributes supply semantics and content relationships; do not replace table roles or introduce row click/selection behaviour. `data-slot` identifies each part. The scroll section's focusability and label remain component-owned.
 

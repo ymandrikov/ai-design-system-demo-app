@@ -32,15 +32,15 @@ export function AddServiceDialog({ environment }: { environment: Environment }) 
         Add service
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 bg-foreground/(--alpha-medium)" />
+        <Dialog.Backdrop className="fixed inset-0 bg-backdrop" />
         <Dialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-xl">
           <Dialog.Popup
             initialFocus={inputRef}
-            className="flex max-h-full w-full max-w-dialog-width flex-col gap-2xl overflow-y-auto rounded-m border bg-popover p-2xl text-popover-foreground shadow-l"
+            className="flex max-h-full w-full max-w-dialog flex-col gap-2xl overflow-y-auto rounded-md border bg-canvas-overlay p-2xl text-content-overlay shadow-lg"
           >
-            <div className="flex flex-col gap-m">
-              <Dialog.Title className="text-l font-semibold">Add service</Dialog.Title>
-              <Dialog.Description className="text-s text-muted-foreground">
+            <div className="flex flex-col gap-md">
+              <Dialog.Title className="text-md font-semibold">Add service</Dialog.Title>
+              <Dialog.Description className="text-sm text-content-subtle">
                 Create a service with production and staging environments, ready for demo deployments.
               </Dialog.Description>
             </div>
@@ -69,8 +69,8 @@ export function AddServiceDialog({ environment }: { environment: Environment }) 
               }}
             >
               <input type="hidden" name="environment" value={environment} />
-              <div className="flex flex-col gap-m">
-                <label htmlFor="service-name" className="text-s font-medium">
+              <div className="flex flex-col gap-md">
+                <label htmlFor="service-name" className="text-sm font-medium">
                   Service name (required)
                 </label>
                 <input
@@ -90,19 +90,19 @@ export function AddServiceDialog({ environment }: { environment: Environment }) 
                   disabled={pending}
                   aria-invalid={Boolean(error)}
                   aria-describedby={`service-name-hint${error ? " service-name-error" : ""}`}
-                  className="h-control-m w-full rounded-m border border-input bg-background px-l text-s text-foreground focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset) focus-visible:outline-ring disabled:opacity-disabled aria-invalid:border-border-destructive"
+                  className="h-control w-full rounded-md border border-border-input bg-canvas px-lg text-sm text-content focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset) focus-visible:outline-border-focus disabled:opacity-disabled aria-invalid:border-border-destructive"
                 />
-                <p id="service-name-hint" className="text-s text-muted-foreground">
+                <p id="service-name-hint" className="text-sm text-content-subtle">
                   1–64 characters: Latin letters, numbers or hyphens.
                 </p>
                 {error && (
-                  <p id="service-name-error" role="alert" className="text-s text-destructive-foreground">
+                  <p id="service-name-error" role="alert" className="text-sm text-content-destructive">
                     {error}
                   </p>
                 )}
               </div>
               <output className="sr-only">{pending ? "Creating service…" : ""}</output>
-              <div className="flex flex-col items-end gap-l sm:flex-row sm:justify-end">
+              <div className="flex flex-col items-end gap-lg sm:flex-row sm:justify-end">
                 <Dialog.Close render={<Button type="button" variant="outline" disabled={pending} />}>
                   Cancel
                 </Dialog.Close>

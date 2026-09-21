@@ -27,12 +27,12 @@ export function DeployForm({
     <form action={action} className="space-y-2xl" aria-busy={pending}>
       <input type="hidden" name="slug" value={slug} />
       <input type="hidden" name="environment" value={environment} />
-      <fieldset disabled={pending} className="space-y-m">
-        <legend className="mb-m font-medium">Target version (required)</legend>
+      <fieldset disabled={pending} className="space-y-md">
+        <legend className="mb-md font-medium">Target version (required)</legend>
         {versions.map((version) => (
           <label
             key={version.id}
-            className="flex min-h-option-min-height cursor-pointer items-center gap-l rounded-m border bg-background px-xl py-l text-foreground"
+            className="flex min-h-option cursor-pointer items-center gap-lg rounded-md border bg-canvas px-xl py-lg text-content"
           >
             <input
               type="radio"
@@ -42,7 +42,7 @@ export function DeployForm({
               onChange={() => setSelectedId(version.id)}
               required
               aria-describedby={state.error ? "deploy-error" : undefined}
-              className="accent-primary focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset)"
+              className="accent-container-emphasis focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset)"
             />
             <span>v{version.version}</span>
           </label>
@@ -60,8 +60,8 @@ export function DeployForm({
             </DescriptionItem>
             <DescriptionItem label="Description">{selected.description}</DescriptionItem>
           </dl>
-          <div className="rounded-m bg-card p-xl text-card-foreground">
-            <p className="mb-m text-s text-muted-foreground">Current version → Target version</p>
+          <div className="rounded-md bg-canvas-card p-xl text-content-card">
+            <p className="mb-md text-sm text-content-subtle">Current version → Target version</p>
             <p>
               {currentVersion ? <VersionLabel version={currentVersion} /> : "No version"}{" "}
               <span aria-hidden="true"> → </span> <VersionLabel version={selected.version} />
@@ -70,18 +70,18 @@ export function DeployForm({
         </>
       )}
       {environment === "production" && (
-        <p className="rounded-m border p-xl text-s">
+        <p className="rounded-md border p-xl text-sm">
           <strong>Production warning.</strong> A successful deployment replaces the current production version. This is
           a local simulation.
         </p>
       )}
       <div aria-live="polite" aria-atomic="true">
         {state.error && (
-          <p id="deploy-error" role="alert" className="text-s text-destructive-foreground">
+          <p id="deploy-error" role="alert" className="text-sm text-content-destructive">
             {state.error}
           </p>
         )}
-        {pending && <p className="text-s text-muted-foreground">Starting deployment…</p>}
+        {pending && <p className="text-sm text-content-subtle">Starting deployment…</p>}
       </div>
       {!versions.length && <p>No versions are available for this service.</p>}
       <div className="flex flex-wrap items-center gap-xl">

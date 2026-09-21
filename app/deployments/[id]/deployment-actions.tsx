@@ -54,7 +54,7 @@ export function DeploymentActions({
   }
 
   return (
-    <div className="flex flex-col gap-l">
+    <div className="flex flex-col gap-lg">
       <div className="flex flex-wrap items-center gap-xl">
         {canRetry && (
           <Button type="button" disabled={pending} onClick={() => run("retry")}>

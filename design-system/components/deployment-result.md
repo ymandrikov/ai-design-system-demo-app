@@ -1,5 +1,5 @@
 ---
-sourcesHash: 44663435504bf53dc9c368d7d161d57ba3116446cb48da85b42aee23629f251b
+sourcesHash: c5223616285702d78177facf88c0e13f5a1df0a65c901d59db9aa9b547b2ee7f
 id: deployment-result
 description: Show the succeeded or failed outcome of a completed deployment as inline text, separately from service health and missing deployment history.
 status: discoverable

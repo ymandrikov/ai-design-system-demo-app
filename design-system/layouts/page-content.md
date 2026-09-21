@@ -1,5 +1,5 @@
 ---
-sourcesHash: 0331c3b91c5fda98b964b6594635c7f97db0cc9101745030189b95be32ea000d
+sourcesHash: 16204e5b5c6d93181c4d4eb9e020e39e423f3ae98be07d703c0e12c711a07513
 id: page-content
 description: Arrange a page heading and named top-level content sections with consistent vertical spacing and optional section headings and descriptions.
 status: discoverable
@@ -65,8 +65,8 @@ are ordinary components and can be composed in server or client views.
   (40 px) between adjacent sections. It adds no trailing section margin. These values
   follow the owner's final decision; sections do not add their own outer spacing.
 - Section contains optional SectionHeader followed by exactly one SectionContent.
-  It owns spacing-xl between them. SectionHeader owns spacing-m between h2 and description,
-  l semibold heading typography and small muted description typography, using
+  It owns spacing-xl between them. SectionHeader owns spacing-md between h2 and description,
+  16px semibold heading typography and small muted description typography, using
   [global tokens](../tokens/semantic.css). Omitting the header leaves no reserved gap.
 - Sections are one level only; do not nest Section. SectionHeader always renders h2.
   Consumers own deeper headings (such as stage h3), field order, cards, grids, forms,

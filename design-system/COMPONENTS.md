@@ -43,7 +43,7 @@
   - Contract: [contract](components/description-item.md)
 
 - **NavigationalTabs**
-  - Description: Navigate between related page destinations through a horizontal group of links styled like Tabs, with a current-page marker and native link behaviour.
+  - Description: Navigate between related page destinations through a horizontal group of links with a filled treatment, with a current-page marker and native link behaviour.
   - Contract: [contract](components/navigational-tabs.md)
 
 - **PageHeader**
@@ -61,10 +61,6 @@
 - **Table**
   - Description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
   - Contract: [contract](components/table.md)
-
-- **Tabs**
-  - Description: Switch between related content panels within one view, displaying one panel at a time without owning URL navigation or a saved form value.
-  - Contract: [contract](components/tabs.md)
 
 - **Text link**
   - Description: Style title links to object details and ordinary text navigation with distinct hover treatments and visible keyboard focus, preserving native link semantics.

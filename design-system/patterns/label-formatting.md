@@ -21,8 +21,7 @@ All criteria must hold:
 
 Required: a text label associated with its destination, action or subject. Optional:
 a supporting icon or value. The label remains meaningful without the icon.
-Use [Tabs](../components/tabs.md) for local panels,
-[NavigationalTabs](../components/navigational-tabs.md) for destinations,
+Use [NavigationalTabs](../components/navigational-tabs.md) for destinations,
 [Badge](../components/badge.md) for annotations and
 [Button](../components/button.md) for actions, according to their contracts.
 Native field labels and table headings follow the same text rule.

@@ -11,8 +11,8 @@ function DescriptionItemRoot({
 }) {
   return (
     <div>
-      <dt className="text-s text-muted-foreground">{label}</dt>
-      <dd className="mt-s" aria-live={ariaLive}>
+      <dt className="text-sm text-content-subtle">{label}</dt>
+      <dd className="mt-sm" aria-live={ariaLive}>
         {children}
       </dd>
     </div>
@@ -20,11 +20,11 @@ function DescriptionItemRoot({
 }
 
 function Empty({ children }: { children: ReactNode }) {
-  return <span className="text-muted-foreground">{children}</span>;
+  return <span className="text-content-subtle">{children}</span>;
 }
 
 function Emphasised({ children }: { children: ReactNode }) {
-  return <span className="text-l font-semibold">{children}</span>;
+  return <span className="text-md font-semibold">{children}</span>;
 }
 
 export const DescriptionItem = Object.assign(DescriptionItemRoot, { Empty, Emphasised });

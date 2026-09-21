@@ -6,28 +6,23 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const badgeVariants = cva(
-  "group/badge inline-flex h-badge-height w-fit shrink-0 items-center justify-center gap-s overflow-hidden rounded-full border border-transparent px-m py-xs text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-ring/(--alpha-half) has-data-[icon=inline-end]:pr-m has-data-[icon=inline-start]:pl-m aria-invalid:border-border-destructive aria-invalid:ring-destructive-ring [&>svg]:pointer-events-none [&>svg]:size-icon-s!",
+  "group/badge inline-flex h-badge w-fit shrink-0 items-center justify-center gap-sm overflow-hidden rounded-full border border-transparent px-md py-xs text-xs font-medium whitespace-nowrap transition-all focus-visible:border-border-focus focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-border-focus-ring has-data-[icon=inline-end]:pr-md has-data-[icon=inline-start]:pl-md aria-invalid:border-border-destructive aria-invalid:ring-border-destructive-ring",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-primary-hover",
-        secondary: "bg-secondary text-secondary-foreground [a]:hover:bg-badge-secondary-hover",
-        destructive:
-          "bg-destructive-surface text-destructive-foreground focus-visible:ring-destructive-ring [a]:hover:bg-badge-destructive-hover",
-        outline: "border-border text-foreground [a]:hover:bg-badge-outline-hover [a]:hover:text-muted-foreground-hover",
-        ghost: "hover:bg-ghost-hover hover:text-muted-foreground-hover",
-        link: "text-primary underline-offset-(--link-underline-offset) hover:underline",
+        secondary: "bg-container text-content-secondary",
+        destructive: "bg-container-destructive text-content-destructive focus-visible:ring-border-destructive-ring",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "secondary",
     },
   },
 );
 
 function Badge({
   className,
-  variant = "default",
+  variant = "secondary",
   render,
   ...props
 }: useRender.ComponentProps<"span"> & VariantProps<typeof badgeVariants>) {

@@ -5,21 +5,18 @@ import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { withDesignSystemException } from "@/lib/with-design-system-exception";
 
-type SeparatorProps = Omit<SeparatorPrimitive.Props, "className" | "style"> & {
+type SeparatorProps = Omit<SeparatorPrimitive.Props, "className" | "style" | "orientation"> & {
   className?: string;
   style?: CSSProperties;
 };
 
-function SeparatorBase({ className, orientation = "horizontal", ...props }: SeparatorProps) {
+function SeparatorBase({ className, ...props }: SeparatorProps) {
   return (
     <SeparatorPrimitive
       aria-hidden="true"
       data-slot="separator"
-      orientation={orientation}
-      className={cn(
-        "shrink-0 bg-border data-horizontal:h-(--border-width) data-horizontal:w-full data-vertical:w-(--border-width) data-vertical:self-stretch",
-        className,
-      )}
+      orientation="horizontal"
+      className={cn("h-(--border-width) w-full shrink-0 bg-border", className)}
       {...props}
     />
   );

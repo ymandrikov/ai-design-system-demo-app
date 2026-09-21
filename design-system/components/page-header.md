@@ -1,5 +1,5 @@
 ---
-sourcesHash: 7e6873024fea26217bca4c0567de66b229222010612a5cf328f528e3838ac5f6
+sourcesHash: e61185c2d0d0110b4fc03034976663e1f8e91387cb6cdd1d8fc712aeda7eb1d8
 id: page-header
 description: Identify the current page with its primary heading, optional supporting description and optional page-level controls, grouped above the page content.
 status: discoverable
@@ -48,9 +48,9 @@ There are no events, methods, children, native-attribute forwarding or styling
 overrides. This component supports server rendering without client state.
 
 The owner approved one shared treatment based on the Services header: an xl
-semibold, tightly tracked title; a small muted description separated by spacing-m;
-and spacing-2xl between the text group and controls. Existing foreground and
-muted-foreground tokens apply in light and dark themes. There are no size variants.
+semibold, tightly tracked title; a small muted description separated by spacing-md;
+and spacing-2xl between the text group and controls. Existing content and
+content-subtle tokens apply in light and dark themes. There are no size variants.
 The component owns this typography, internal spacing and wrapping. The page owns
 outer spacing, width and placement, using a surrounding container when needed.
 

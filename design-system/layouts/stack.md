@@ -1,7 +1,7 @@
 ---
-sourcesHash: bc0e0bccfa87a0217d8f849ce5a244392cb2a59b686cea74f94f5f4983d25f8e
+sourcesHash: 1a17f0fc1e0c8724d2dbd8d8c6de683823ee68cd44b2f484477dca64beb5178b
 id: stack
-description: Arrange related content groups vertically in reading order with spacing restricted to the design-system scale.
+description: Arrange related content groups vertically in reading order without added inter-group spacing.
 status: discoverable
 sources:
   - components/layouts/stack.tsx
@@ -29,7 +29,7 @@ All criteria must hold:
 Import `Stack` from `@/components/layouts/stack`.
 
 ```tsx
-<Stack spacing="xl">
+<Stack>
   <p>First group</p>
   <p>Second group</p>
 </Stack>
@@ -37,18 +37,15 @@ Import `Stack` from `@/components/layouts/stack`.
 
 `children: ReactNode` supplies groups. Each group must render one direct element;
 fragments may group sibling elements but do not establish a section boundary.
-`spacing` accepts only `"0"`, `"xs"`, `"s"`, `"m"`, `"l"`, `"xl"`, `"2xl"`,
-`"3xl"`, `"4xl"`, `"5xl"`, `"6xl"` from the [spacing scale](../tokens/semantic.css).
-It defaults to `"0"` for adjoining groups that own their insets. Follow the consuming
-pattern's spacing rule; outside a prescribed pattern, consumers may select any of
-these tokens for the interval between groups. No arbitrary sizes are supported.
+There is no spacing prop: the two application consumers compose adjoining groups
+that own their insets. The unused spacing variants were removed.
 No events, methods, native-attribute forwarding, `className` or `style` overrides.
 
 ## Composition
 
 ### Required
 
-Stack owns vertical order and inter-group spacing.
+Stack owns vertical order and adds no inter-group spacing.
 Consumers own widths, group padding, typography and semantic elements. Stack adds
 no item wrappers, borders or perimeter padding.
 Conditional groups should render nothing when absent, rather than hidden elements.
@@ -57,13 +54,11 @@ Do not reorder groups with CSS or use Stack's div directly inside a native dl.
 ### Recommendations
 
 Compose [Separator](../components/separator.md) explicitly between groups when a
-visual boundary is needed. Stack spacing applies on both sides of that child; use
-`spacing="0"` for adjoining padded sections. Nest stacks when
-inner groups need their own independent spacing.
+visual boundary is needed between adjoining padded sections.
 
 ### Exceptions
 
-None. Spacing stays within the system scale.
+None. Groups own their padding; Stack adds no gap.
 
 ## Accessibility
 

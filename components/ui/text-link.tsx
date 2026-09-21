@@ -5,7 +5,7 @@ import { withDesignSystemException } from "@/lib/with-design-system-exception";
 
 const variants = {
   default: "text-inherit underline-offset-(--link-underline-offset) hover:underline",
-  title: "font-semibold text-foreground hover:text-link-foreground-hover",
+  title: "font-semibold text-content hover:text-content-emphasis-hover",
 };
 
 function TextLinkBase({

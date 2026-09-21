@@ -1,17 +1,16 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "tailwindcss" source(none);
 @import "../design-system/tokens/raw.css";
 @import "../design-system/tokens/semantic.css";
 
-@custom-variant dark (&:is(.dark *));
+@source "./";
+@source "../components";
 
 @layer base {
   * {
-    @apply border-border outline-ring/(--alpha-half);
+    @apply border-border outline-border-focus-ring;
   }
   body {
-    @apply bg-background text-foreground text-m;
+    @apply bg-canvas text-content text-md;
   }
   html {
     @apply font-sans;

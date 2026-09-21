@@ -1,143 +1,110 @@
 # CSS design tokens
 
-Two levels: [raw.css](raw.css) owns literal values; [semantic.css](semantic.css)
-assigns those values to public roles and scales. Global CSS imports both after
-Tailwind. Components and pages use semantic utilities or semantic CSS variables,
-never raw tokens. Tailwind colour aliases only expose the existing semantic roles;
-they are an integration bridge, not another design tier.
+[raw.css](raw.css) contains only the shared dimension scale, named by its pixel
+value at a 16px root (`--size-16: 1rem`). Components never consume it directly.
+[semantic.css](semantic.css) assigns dimensions to roles and defines colours,
+typography, geometry and motion directly. Semantic Tailwind theme names are the
+public API; there is no additional colour-alias tier and no `ui-` prefix.
+
+Keep only tokens consumed by application pages, including loading, empty, error
+and interaction states and both themes. A supported component variant must have
+an application consumer. Documentation, merger configuration, or an alias with no
+final consumer does not establish usage. Remove obsolete variants and their
+transitive dependencies together; do not retain compatibility aliases.
 
 ## Scales
 
-Values below are CSS pixels at the default 16px root size. Dimensions and font sizes
-are stored in rem; line heights use ratios. Borders, focus strokes and offsets use px.
+Dimensions and font sizes use rem. Borders and focus geometry use px. The spacing
+scale is unchanged; names use `sm/md/lg` rather than `s/m/l`.
 
-| Scale                             | Names                                    | Values                                    |
-| --------------------------------- | ---------------------------------------- | ----------------------------------------- |
-| Spacing                           | xs, s, m, l, xl, 2xl, 3xl, 4xl, 5xl, 6xl | 2, 4, 8, 12, 16, 24, 32, 40, 48, 64       |
-| Font size                         | xs, s, m, l, xl                          | 12, 14, 16, 18, 30                        |
-| Line height paired with font size | xs, s, m, l, xl                          | 16, 20, 24, 28, 36                        |
-| Radius                            | none, m, full                            | 0, 8, capsule                             |
-| Font weight                       | normal, medium, semibold                 | 400, 500, 600                             |
-| Shadow                            | s, l                                     | existing small elevation, modal elevation |
+| Scale              | Names                                       | Values at a 16px root                 |
+| ------------------ | ------------------------------------------- | ------------------------------------- |
+| Spacing            | xs, sm, md, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl | 2, 4, 8, 12, 16, 24, 32, 40, 48, 64px |
+| Text               | xs, sm, md, xl                              | 12, 14, 16, 30px                      |
+| Paired line height | xs, sm, md, xl                              | 16, 20, 24, 36px                      |
+| Font weight        | normal, medium, semibold                    | 400, 500, 600                         |
+| Radius             | md, full                                    | 8px, capsule                          |
+| Shadow             | sm, lg                                      | Small elevation, modal elevation      |
 
-Use spacing utilities such as `p-xl`, `gap-m`, `mt-2xl`; text utilities
-`text-s`, `text-xl`; and `rounded-m` or `rounded-full`.
-The same size name in different scales does not imply the same numerical value.
-Zero is structural and remains `p-0`, `gap-0`, `rounded-none`, etc.
+The former 18px text step now uses `text-md` (16px/24px). Section/dialog headings
+and emphasized summary values retain semibold weight. Page titles stay 30px.
+Use `p-xl`, `gap-md`, `mt-2xl`, `text-sm`, `rounded-md` and `rounded-full`.
+Zero remains structural (`inset-0`, etc.). Identical names across scales do not
+imply identical values.
 
 ## Dimensions by purpose
 
-| Role                            | Utility examples                          | Value       |
-| ------------------------------- | ----------------------------------------- | ----------- |
-| Button/control height           | h-control-xs/s/m/l, size-control-xs/s/m/l | 24/28/32/36 |
-| Icon size                       | size-icon-s/m/l                           | 12/14/16    |
-| Badge height                    | h-badge-height                            | 20          |
-| Table header/row heading height | h-table-header-height                     | 40          |
-| Choice target minimum height    | min-h-option-min-height                   | 48          |
-| Modal width                     | max-w-dialog-width                        | 512         |
-| Focused form width              | max-w-page-narrow                         | 672         |
-| Overview/detail width           | max-w-page-wide                           | 1152        |
-| Scrollable table minimum        | min-w-table-min-width                     | 896         |
+| Role                                       | Utility                 | Value  |
+| ------------------------------------------ | ----------------------- | ------ |
+| Button/input height; icon-only button size | h-control, size-control | 32px   |
+| Button SVG icon                            | size-icon               | 16px   |
+| Badge height                               | h-badge                 | 20px   |
+| Table heading height                       | h-table-header          | 40px   |
+| Choice minimum height                      | min-h-option            | 48px   |
+| Modal maximum width                        | max-w-dialog            | 512px  |
+| Focused page maximum width                 | max-w-page-narrow       | 672px  |
+| Overview/detail maximum width              | max-w-page-wide         | 1152px |
+| Scrollable table minimum width             | min-w-table             | 896px  |
 
-Preserve roles even when values coincide: a control height is not page spacing.
-Button's public sizes remain xs/sm/default/lg and their icon equivalents.
-Use the default unless its contract permits another size for the requested context.
+Keep distinct roles even when their values coincide. Only Button sizes `default`
+and `icon` remain. Button SVGs use the single 16px icon token; unused compact/large
+control sizes and additional icon sizes were removed.
 
-## Themes and interaction
+## Colours and themes
 
-Component state colour tokens resolve light/dark differences in CSS. Use these
-roles inside their owning shared components, rather than local `dark:` classes.
-Values below reference the existing semantic palette; translucent colours mix in
-OKLab with transparent using the named alpha scale.
+Names describe purpose: `content` for text, `canvas` for surfaces, `container` for
+controls/annotations and `border` for lines/focus. State names end in `-hover`,
+`-selected`, etc. Component-scoped names remain where their role differs from a
+shared one. The CSS groups and declarations are the authoritative value catalogue.
 
-| Token               | Owner and role                                            | Light                | Dark                 |
-| ------------------- | --------------------------------------------------------- | -------------------- | -------------------- |
-| border-invalid      | Button invalid border                                     | destructive          | destructive / half   |
-| destructive-ring    | Button/Badge invalid and destructive focus ring           | destructive / subtle | destructive / medium |
-| destructive-surface | Button/Badge destructive background                       | destructive / faint  | destructive / subtle |
-| destructive-hover   | Button destructive hover background                       | destructive / subtle | destructive / muted  |
-| border-outline      | Button outline border                                     | border               | input                |
-| outline             | Button outline background                                 | background           | input / muted        |
-| outline-hover       | Button outline hover background, including expanded state | muted                | input / half         |
-| outline-expanded    | Button outline expanded background                        | muted                | input / muted        |
-| ghost-hover         | Button/Badge ghost hover background                       | muted                | muted / half         |
-| tabs-foreground     | Tabs/NavigationalTabs inactive text                       | foreground / strong  | muted-foreground     |
-| border-tabs-active  | Filled Tabs/NavigationalTabs active border                | transparent          | input                |
-| tabs-active         | Filled Tabs/NavigationalTabs active background            | background           | input / muted        |
+- Body uses `canvas` / `content`; cards use `canvas-card` / `content-card`;
+  dialogs use `canvas-overlay` / `content-overlay`.
+- Primary actions use `container-emphasis` / `content-inverted`. Title links use
+  `content-emphasis-hover` on hover. Both retain the existing blue emphasis colour.
+- Neutral badges use `container` / `content-secondary`; destructive controls and
+  badges use `container-destructive` / `content-destructive`.
+- Supporting text uses `content-subtle`. Navigation tabs own their selected
+  container/border and inactive content roles.
+- Translucent surfaces, backdrops and focus rings are named colours. Percentages
+  live directly in their `color-mix()` definitions; there is no raw or semantic
+  alpha scale. Components do not add colour opacity modifiers.
 
-Line tabs keep transparent active borders and backgrounds. Badge's destructive
-link hover remains destructive / subtle in both themes. Badge's invalid border
-remains destructive; only Button uses border-invalid.
+Theme-dependent colours use `light-dark(light, dark)` in a single declaration.
+Root `color-scheme: light dark` follows the operating-system/browser preference,
+including native controls. There are no `.dark` overrides, theme switch, or
+JavaScript theme state. Preserve both branches when editing colours; fixed colours
+need no `light-dark()` wrapper. Existing light/dark colour values are retained.
 
-The following role aliases apply in both themes and are re-resolved at each
-`:root` or `.dark` boundary. They preserve the existing colours and opacity while
-following design-lint's standard text, border and hover naming rules.
+## Geometry, fonts and motion
 
-| Token                    | Role                                         | Value in either theme |
-| ------------------------ | -------------------------------------------- | --------------------- |
-| destructive-foreground   | Error text and destructive Button/Badge text | destructive           |
-| border-destructive       | Badge invalid border                         | destructive           |
-| border-destructive-focus | Destructive Button focus border              | destructive / medium  |
-| foreground-hover         | Button and tab hover text                    | foreground            |
-| muted-foreground-hover   | Badge outline/ghost hover text               | muted-foreground      |
-| link-foreground-hover    | Title link hover text                        | primary               |
-| primary-hover            | Primary Button/Badge hover background        | primary / hover       |
-| badge-secondary-hover    | Secondary Badge link hover background        | secondary / hover     |
-| badge-destructive-hover  | Destructive Badge link hover background      | destructive / subtle  |
-| badge-outline-hover      | Outline Badge link hover background          | muted                 |
-| table-row-hover          | Table row hover background                   | muted / half          |
+Shared non-Tailwind geometry variables cover the 1px separator, 2px focus outline,
+1px navigation outline, 3px focus ring, 4px focus/underline offsets and 1px press
+movement. Disabled controls use `--opacity-disabled: 0.5`.
 
-`destructive-foreground` is red text on the existing neutral or translucent
-surfaces, not a contrasting white label for a solid red background. Keep
-`badge-destructive-hover` separate from Button's `destructive-hover`: Badge retains
-20% in both themes, while Button uses 20% in light and 30% in dark. Secondary Badge
-hover retains 80% opacity; the secondary Button retains its different colour mix.
+Next.js supplies Geist Sans and Geist Mono. Inline Tailwind font aliases resolve
+those variables at the consuming element, without intermediate raw aliases.
+Transitions retain 150ms and `cubic-bezier(0.4, 0, 0.2, 1)`.
+Standard Tailwind breakpoints are `sm=40rem` and `lg=64rem`; direct build-time
+values replace raw breakpoint tokens and custom variant registration.
 
-Colour roles retain their existing names, including background/foreground, card,
-popover, primary, secondary, muted, destructive, border, input and ring.
-Pair surfaces with their foreground tokens. Light and .dark map roles directly
-to raw palette values; no automatic theme switching or new palette is introduced.
-Existing chart/sidebar/accent definitions remain available without new consumers.
+Tailwind scans only `app/` and `components/`; documentation examples do not generate
+utilities. Unused animation/shadcn stylesheet imports are removed; navigation uses
+the native Tailwind `data-[active]` variant.
 
-Primary and sidebar-primary use `--raw-color-blue-600`
-(`oklch(0.566 0.2036 258.88)`) in both themes, paired with white foregrounds.
-Primary hover and title-link hover derive from the primary role.
+## Components and verification
 
-Semantic alpha modifiers faint/subtle/muted/medium/half/strong/hover preserve
-10/20/30/40/50/60/80 percent opacity, for example
-`bg-destructive/(--alpha-faint)`. Disabled controls use opacity-disabled (50%).
-The secondary hover mix keeps its 5% foreground contribution.
+Button retains default/outline/destructive variants; Badge retains
+secondary/destructive. NavigationalTabs owns one filled horizontal treatment.
+Unused panel Tabs, table footer, Stack gap variants and vertical Separator were
+removed. Stack groups adjoin; their children own padding.
 
-Borders use ordinary Tailwind `border`, `border-t` and `border-b` utilities (1px).
-The 1px border-width variable remains for the tabs indicator geometry.
-Focus-outline-width is 2px, focus-outline-thin is 1px,
-focus-ring-width is 3px and focus-offset is 4px. Link underline offset is 4px;
-indicator thickness is 2px and pressed controls move 1px. Utilities reference
-these semantic variables with Tailwind's typed variable syntax where necessary.
-Normal transitions retain 150ms and the existing standard easing.
+Use the configured `cn` from `@/lib/utils` to distinguish `text-md` from colours
+and merge named dimensions correctly. Structure and private derived geometry stay
+local to components. No new dependencies, test suite or token-check framework are
+introduced.
 
-Responsive variants remain sm=640px and lg=1024px. Their semantic viewport-sm/lg tokens use
-Tailwind's build-time `theme()` lookup of raw values: runtime CSS `var()` does not
-work in media conditions. Explicit variant registration preserves ascending
-breakpoint order. Change the raw breakpoint, then rebuild.
-
-## Migration and boundaries
-
-The owner approved normalizing spacing 3→4, 6→8, 10→12 and 20→24px, compact-button
-type 12.8→12px, and radii 8/10→8px. The former 26px badge radius becomes full.
-Other existing design values retain their meaning and value.
-The audit covered every defined variant, including currently unused Button and
-Tabs variants, rather than only the four main screens.
-
-Structural classes (flex/grid, alignment, wrapping, full/auto sizes, zero offsets,
-visibility and scrolling) remain ordinary CSS. Private geometry stays with its
-component and derives from semantic tokens when related to a border or inset.
-The tabs indicator follows the list inset; the horizontal trigger fills its inner
-height after the approved padding normalization.
-
-Use the configured `cn` from `@/lib/utils`; the default merger mistakes text-s/m/l
-for colours and does not resolve all custom spacing conflicts.
-No new components, dependencies, visual lint or automated test suite are introduced.
-Run the existing build, type, lint and contract checks from [DESIGN.md](../../DESIGN.md).
-Inspect both themes at narrow and wide widths, focus, variant sizes, modal placement
-and table scrolling after changing tokens.
+Run lint, build, type checking and the contract/index checks from
+[DESIGN.md](../../DESIGN.md). For token changes, trace every retained declaration
+to a CSS use or a generated utility used by a page/component, following aliases
+transitively; inspect the compiled CSS for unresolved references. Check both system
+colour schemes at narrow/wide widths, focus, dialogs and table scrolling.

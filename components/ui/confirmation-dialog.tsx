@@ -76,22 +76,22 @@ export function ConfirmationDialog({
         {triggerIcon ? <span aria-hidden="true">{triggerIcon}</span> : triggerLabel}
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
-        <AlertDialog.Backdrop className="fixed inset-0 bg-foreground/(--alpha-medium)" />
+        <AlertDialog.Backdrop className="fixed inset-0 bg-backdrop" />
         <AlertDialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-xl">
           <AlertDialog.Popup
             initialFocus={cancelRef}
             finalFocus={
               fallbackFocus ? () => (triggerRef.current?.isConnected ? triggerRef.current : fallbackFocus()) : undefined
             }
-            className="flex max-h-full w-full max-w-dialog-width flex-col gap-2xl overflow-y-auto rounded-m border bg-popover p-2xl text-popover-foreground shadow-l"
+            className="flex max-h-full w-full max-w-dialog flex-col gap-2xl overflow-y-auto rounded-md border bg-canvas-overlay p-2xl text-content-overlay shadow-lg"
           >
-            <div className="flex flex-col gap-m">
-              <AlertDialog.Title className="text-l font-semibold">{title}</AlertDialog.Title>
-              <AlertDialog.Description className="text-s text-muted-foreground">{description}</AlertDialog.Description>
+            <div className="flex flex-col gap-md">
+              <AlertDialog.Title className="text-md font-semibold">{title}</AlertDialog.Title>
+              <AlertDialog.Description className="text-sm text-content-subtle">{description}</AlertDialog.Description>
             </div>
             {children}
             <RequestFeedback pending={pending} pendingLabel={pendingLabel} error={error} />
-            <div className="flex flex-col items-end gap-l sm:flex-row sm:justify-end">
+            <div className="flex flex-col items-end gap-lg sm:flex-row sm:justify-end">
               {intent === "destructive" ? (
                 <>
                   {confirm}

@@ -36,7 +36,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           title="Services"
           description={`Service health and the latest deployment in ${environment}.`}
           controls={
-            <div className="flex flex-wrap items-center gap-l">
+            <div className="flex flex-wrap items-center gap-lg">
               <NavigationalTabs
                 label="Environment"
                 currentHref={`/?environment=${environment}`}
@@ -90,18 +90,18 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                         {service.currentVersion ? (
                           <VersionLabel version={service.currentVersion} />
                         ) : (
-                          <span className="text-muted-foreground">No version</span>
+                          <span className="text-content-subtle">No version</span>
                         )}
                       </TableCell>
                       <TableCell>
                         {service.lastResult ? (
                           <DeploymentResult result={service.lastResult} />
                         ) : (
-                          <span className="text-muted-foreground">No deployments</span>
+                          <span className="text-content-subtle">No deployments</span>
                         )}
                       </TableCell>
                       <TableCell>
-                        <span className="whitespace-nowrap text-nowrap text-muted-foreground">
+                        <span className="whitespace-nowrap text-nowrap text-content-subtle">
                           {service.lastCompletedAt ? (
                             <Time value={service.lastCompletedAt} format="dateTime" showTimeZone={false} />
                           ) : (
@@ -117,7 +117,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                 </TableBody>
               </Table>
             )}
-            <p className="mt-xl text-xs text-muted-foreground">
+            <p className="mt-xl text-xs text-content-subtle">
               A failed deployment can leave the previous working version healthy.
             </p>
           </PageContent.SectionContent>

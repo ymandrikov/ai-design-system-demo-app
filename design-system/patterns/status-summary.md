@@ -23,7 +23,7 @@ All criteria must hold:
 
 Inside a named [PageContent section](../layouts/page-content.md), use
 [BorderedCard](../components/bordered-card.md) around a
-[Stack](../layouts/stack.md) with default `spacing="0"` and an explicit
+[Stack](../layouts/stack.md) with default no added spacing and an explicit
 [Separator](../components/separator.md) between its two content regions.
 This is a reusable recipe composed on each page, with two levels in source order:
 
@@ -51,12 +51,14 @@ Minimal React composition (field values are supplied by the page):
       <DescriptionItem label="Service state">
         <DescriptionItem.Emphasised>Healthy</DescriptionItem.Emphasised>
       </DescriptionItem>
-      <DescriptionItem label="Current version"><VersionLabel version="v1.1.0" /></DescriptionItem>
+      <DescriptionItem label="Current version">
+        <VersionLabel version="v1.1.0" />
+      </DescriptionItem>
     </dl>
     <Separator aria-hidden="true" />
-    <div className="space-y-m p-xl text-s">
-      <dl className="flex flex-wrap items-center gap-x-xl gap-y-m">
-        <dt className="text-muted-foreground">Last completed deployment</dt>
+    <div className="space-y-md p-xl text-sm">
+      <dl className="flex flex-wrap items-center gap-x-xl gap-y-md">
+        <dt className="text-content-subtle">Last completed deployment</dt>
         <dd>No completed deployments</dd>
       </dl>
     </div>
@@ -71,18 +73,18 @@ Minimal React composition (field values are supplied by the page):
 - BorderedCard owns the surface; Stack owns vertical arrangement; Separator owns the divider.
   Pages supply a primary native dl and a supporting div with a horizontal
   `<Separator aria-hidden="true" />` between them as direct Stack children. Both regions are required and use `p-xl`; the supporting div uses
-  `text-s`. Keep `spacing="0"` so the divider meets both padded regions without
+  `text-sm`. Keep no added spacing so the divider meets both padded regions without
   adding a gap. Preserve existing semantic colours.
 - Pages own fields, data, links, live regions and native description lists. Preserve
-  `space-y-m` within service supporting content and `space-y-xl` within deployment
+  `space-y-md` within service supporting content and `space-y-xl` within deployment
   supporting content. These are content intervals, not Stack spacing overrides.
 - Primary fields use a wrapping flex row with `gap-4xl`; retain the label
   styling and label/value spacing owned by DescriptionItem. Emphasise plain primary
   values with `DescriptionItem.Emphasised`; use `DescriptionItem.Empty` for missing
   values. Render composed badges directly with their own typography.
-- Supporting text is `text-s`; supporting labels and timestamps use
-  `text-muted-foreground`. Keep linked text readable and preserve visible focus.
-  Use wrapping metadata rows, `gap-x-xl gap-y-m` for inline context and
+- Supporting text is `text-sm`; supporting labels and timestamps use
+  `text-content-subtle`. Keep linked text readable and preserve visible focus.
+  Use wrapping metadata rows, `gap-x-xl gap-y-md` for inline context and
   `gap-4xl` for description lists. Long commits wrap; do not truncate values.
 - Identify service health separately from deployment outcome. An error badge must
   not colour the entire surface or imply that the service is unavailable.

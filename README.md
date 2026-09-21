@@ -19,7 +19,7 @@ Component checks cover `@/components/ui/*`, `@/components/layouts/*` and
 overrides. Text, border and hover colours use role-specific semantic tokens.
 CSS declarations are not linted by this plugin.
 
-Button, Badge and shared tab styles resolve their theme-dependent state colours
+Button, Badge and navigation tabs resolve their theme-dependent state colours
 through semantic tokens; local `dark:` branches are forbidden by the linter.
 
 ## Local database

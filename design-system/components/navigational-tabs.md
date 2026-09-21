@@ -1,12 +1,11 @@
 ---
-sourcesHash: 61acbb11a3a6f39bec3f51ed1734c2f1d92a1e876f0c263a6ff9d7f21b9b25d1
+sourcesHash: 6bcd4e160b06b8cb41ea55a70d090988096c7a5ab6b1c70695e4147818a16bc9
 id: navigational-tabs
-description: Navigate between related page destinations through a horizontal group of links styled like Tabs, with a current-page marker and native link behaviour.
+description: Navigate between related page destinations through a horizontal group of links with a filled treatment, with a current-page marker and native link behaviour.
 status: discoverable
 sources:
   - design-system/tokens/semantic.css
   - components/ui/navigational-tabs.tsx
-  - components/ui/tabs-styles.ts
 ---
 
 # NavigationalTabs
@@ -19,12 +18,12 @@ All criteria must hold:
   represented by a URL, including destinations distinguished by query parameters.
 - The destination group belongs together as a horizontal navigation strip with a
   current-page marker when the current destination belongs to the group; the
-  requested treatment matches the default Tabs.
+  requested treatment is a filled, rounded group.
 
 ## When not to use
 
-- Selection only reveals content within the current view without navigation: use
-  [Tabs](tabs.md), which owns panel selection and its keyboard interaction.
+- Selection only reveals content within the current view without navigation:
+  a separately designed panel control is required; this component only navigates URLs.
 - Options set a saved form value: use native radio buttons or a select.
 - Links are unrelated inline references rather than a peer destination group:
   use ordinary links in the surrounding content.
@@ -67,17 +66,16 @@ derivation. Native link operations such as opening in a new tab remain available
 There are no custom events, methods, children slots, attribute forwarding or styling
 overrides. This server-compatible component has no local selection state.
 
-The owner requested the horizontal `default` appearance of [Tabs](tabs.md): muted
-rounded group, foreground active link, background active surface and focus ring.
-It reuses the exact Tabs list and trigger styling from `components/ui/tabs-styles.ts`,
-with existing [semantic tokens](../tokens/semantic.css) in both themes. This one
-treatment is the standard; line, vertical and density variants are not supplied.
+The component owns the horizontal filled treatment: a muted rounded group,
+content-coloured active link, selected surface and focus ring. Styles live directly
+in `components/ui/navigational-tabs.tsx` and use [semantic tokens](../tokens/semantic.css)
+in both themes. Line, vertical and density variants are not supplied.
 The component owns typography, padding, state styling and horizontal overflow.
 Consumers own placement and surrounding spacing and must let its container shrink.
 
 For the filled group, the inner radius equals the outer radius minus the group
-inset, clamped to zero: radius-m minus spacing-s (8px − 4px = 4px at the default
-root size). The inset is equal on all sides. The group has a control-m minimum
+inset, clamped to zero: radius-md minus spacing-sm (8px − 4px = 4px at the default
+root size). The inset is equal on all sides. The group has a control minimum
 height and grows to fit trigger text, borders and padding without squeezing that inset.
 
 ## Behaviour and states

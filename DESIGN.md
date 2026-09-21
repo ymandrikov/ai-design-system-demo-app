@@ -24,20 +24,23 @@ then `use` and its checks. Page-specific compositions do not require pattern ext
 - Layouts: [index](design-system/LAYOUTS.md)
 - Patterns: [index](design-system/PATTERNS.md)
 - Tokens and themes: [token catalogue](design-system/tokens/README.md),
-  [raw values](design-system/tokens/raw.css) and [semantic definitions](design-system/tokens/semantic.css),
-  imported by [app/globals.css](app/globals.css). Semantic tokens reference raw values;
-  components and pages use semantic Tailwind utilities. Existing shadcn semantic roles
-  govern background/foreground, card surfaces, muted content, primary navigation,
-  borders, focus and destructive outcomes. Pair surface tokens with their foreground
-  counterparts. Colour supplements status text. No new status palette is needed.
-- All existing component variants use the same token system. Numeric spacing utilities
-  are replaced by the named scale; structural CSS and private geometric corrections
-  remain local. Use `cn` from `@/lib/utils` so custom typography and spacing names merge correctly.
-  Do not import the unconfigured `cn` package directly.
+  [dimension values](design-system/tokens/raw.css) and [semantic definitions](design-system/tokens/semantic.css),
+  imported by [app/globals.css](app/globals.css). Raw values contain only the shared
+  dimension scale. Semantic colours, typography, states and geometry are defined directly;
+  Tailwind theme names are the public API without a duplicate alias layer.
+  Content, canvas, container and border names describe each colour's purpose.
+  Preserve distinct roles even when their values coincide. Colour supplements status text.
+- Keep only tokens and component variants consumed by application pages, including
+  their loading, empty, error and interaction states and both themes. Documentation
+  or an alias without a final consumer is not usage. The spacing scale stays unchanged;
+  the former 18px text size is consolidated into 16px with semibold emphasis.
+- Components and pages use semantic utilities. Structural CSS and private geometry
+  remain local. Use `cn` from `@/lib/utils` so custom typography and spacing names merge
+  correctly; do not import the unconfigured `cn` package directly.
 - Fonts: [app/layout.tsx](app/layout.tsx) loads Geist Sans and Geist Mono; global sans
-  and mono aliases resolve to these variables. The sans font is applied on HTML.
-- Dark tokens activate under `.dark`; there is no theme-switching UI or system-preference
-  activation. No external visual specification or screenshot baseline is supplied.
+  and mono aliases resolve to those variables. The sans font is applied on HTML.
+- Both themes use CSS `light-dark()` and `color-scheme: light dark`, following the
+  system preference. There is no theme-switching UI or JavaScript theme state.
 
 ## Contracts and public use
 
@@ -53,7 +56,7 @@ retain their route width; the shared service not-found view uses the service det
 width. Pages own content order, placement of branding, spacing between regions and empty-data
 conditions. [PageContent](design-system/layouts/page-content.md) owns the four main
 pages' heading/section composition: spacing-3xl after PageHeader, spacing-4xl between
-sections, spacing-xl from section heading to content and spacing-m before descriptions.
+sections, spacing-xl from section heading to content and spacing-md before descriptions.
 It adds no perimeter padding; cards, grids and form internals remain consumer-owned.
 [AppIdentity](design-system/components/app-identity.md) owns the fixed
 Deploy Board / Local demo text and its typography; the four main pages retain their
@@ -73,8 +76,8 @@ with canonical destination URLs derived by the server. The component renders
 Next.js links with `aria-current="page"`; the server validates the environment and
 loads its data. Follow the [environment browsing pattern](design-system/patterns/environment-browsing.md)
 to keep navigation, record data, empty states and destination context consistent on
-the Services and Service details screens. Tabs remains for local panel switching. Both components reuse
-`components/ui/tabs-styles.ts` as their single source of list and item styling.
+the Services and Service details screens. Unused local-panel Tabs were retired;
+NavigationalTabs owns its filled horizontal styling directly.
 Standalone screen actions use [Button](design-system/components/button.md):
 `Button` for form submission and `buttonVariants` on native/Next.js links for
 navigation. Deploy uses the default treatment.
@@ -89,7 +92,7 @@ preserving native navigation and page-owned destinations. These rules are requir
 
 - **Title links (ссылки-заголовки)** name an object and provide its main entry to
   details in a list, table or card. Service names and deployment numbers in tables
-  use `variant="title"`: `foreground` and semibold weight; hover changes colour to `primary`.
+  use `variant="title"`: `content` and semibold weight; hover uses `content-emphasis-hover`.
 - **Ordinary links** include back navigation, contextual deployment references
   and form Cancel. Omit `variant` or use `variant="default"`. They inherit surrounding
   colour and weight; hover adds an
@@ -118,7 +121,7 @@ treatment with native code; [DeploymentResult](design-system/components/deployme
 uses secondary for success and destructive for failure. Both retain their domain
 labels and public props across the services list, service history and deploy summary.
 [DescriptionItem](design-system/components/description-item.md) owns each read-only
-name/value pair inside a native description list: small muted label and spacing-s
+name/value pair inside a native description list: small muted label and spacing-sm
 before its value. Plain children use ordinary styling; DescriptionItem.Emphasised and DescriptionItem.Empty
 style emphasized values and missing-data text. Consumers own the dl, grid, field order and value formatting. Lists of these pairs
 use spacing-4xl between items on both axes, including wrapped rows;
@@ -132,7 +135,7 @@ text. Pages compose [BorderedCard](design-system/components/bordered-card.md) an
 [Stack](design-system/layouts/stack.md), placing an explicit
 [Separator](design-system/components/separator.md) between regions using that recipe.
 The card owns the surface; Stack owns vertical arrangement, with
-spacing restricted to the design-system scale. Pages supply semantic lists and
+no added gap. Pages supply semantic lists and
 region padding prescribed by the pattern, and arrange supporting content. Service summaries distinguish the current service from its last completed
 deployment; active progress stays in history.
 
@@ -143,7 +146,7 @@ From the repository root: `pnpm lint`, `pnpm build`, and `pnpm exec tsc --noEmit
 using the application's Tailwind entry and shared component import paths. Standard
 rules apply without custom overrides: text and border colours use their semantic
 roles, and hover colours use tokens ending in `-hover`.
-Button, Badge and shared tab styles resolve theme-dependent state colours through
+Button, Badge and navigation tabs resolve theme-dependent state colours through
 semantic tokens, without local `dark:` branches.
 Preview with `pnpm dev`; database setup is in [README.md](README.md).
 No automated tests are added at this stage. Browser checks cover environment switching,
@@ -152,8 +155,7 @@ Deployment checks cover version selection and summary, the production warning,
 Cancel navigation, pending/validation feedback, and preservation of the environment
 in URLs. Verify successful and failed runs, the working version after a failure,
 reload during an active run, competing submissions from two tabs, and the history's
-one-second refresh stopping at completion. Check keyboard focus on actions and,
-when previewing Tabs, on both triggers and active panels in light and dark themes.
+one-second refresh stopping at completion. Check keyboard focus on actions and navigation links in both system colour schemes.
 
 ```sh
 node .agents/skills/design-system/scripts/generate-indexes.mjs .
@@ -165,8 +167,6 @@ with the relevant kind and all three indexes, following [formats](.agents/skills
 Source hashes establish reviewed source snapshots, not runtime correctness.
 
 ## Gaps and decisions
-
-[Tabs](design-system/components/tabs.md) records its remaining verification.
 
 [Open gaps](design-system/gaps.md); [archive](design-system/gaps-archive.md).
 The initial connection was documentation-only. The owner authorized analysis A-01

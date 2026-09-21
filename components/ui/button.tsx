@@ -3,31 +3,19 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-m border border-transparent bg-clip-padding text-s font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-ring/(--alpha-half) active:not-aria-[haspopup]:translate-y-(--press-offset) disabled:pointer-events-none disabled:opacity-(--opacity-disabled) aria-invalid:border-border-invalid aria-invalid:ring-(length:--focus-ring-width) aria-invalid:ring-destructive-ring [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-icon-l",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-border-focus focus-visible:ring-(length:--focus-ring-width) focus-visible:ring-border-focus-ring active:not-aria-[haspopup]:translate-y-(--press-offset) disabled:pointer-events-none disabled:opacity-(--opacity-disabled) aria-invalid:border-border-invalid aria-invalid:ring-(length:--focus-ring-width) aria-invalid:ring-border-destructive-ring [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-icon",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary-hover",
+        default: "bg-container-emphasis text-content-inverted hover:bg-container-emphasis-hover",
         outline:
-          "border-border-outline bg-outline hover:bg-outline-hover hover:text-foreground-hover aria-expanded:bg-outline-expanded aria-expanded:hover:bg-outline-hover aria-expanded:text-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_var(--alpha-secondary-hover))] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
-        ghost:
-          "hover:bg-ghost-hover hover:text-foreground-hover aria-expanded:hover:bg-ghost-hover aria-expanded:bg-muted aria-expanded:text-foreground",
+          "border-border-outline bg-container-outline hover:bg-container-outline-hover hover:text-content-hover aria-expanded:bg-container-outline-expanded aria-expanded:hover:bg-container-outline-hover aria-expanded:text-content",
         destructive:
-          "bg-destructive-surface text-destructive-foreground hover:bg-destructive-hover focus-visible:border-border-destructive-focus focus-visible:ring-destructive-ring",
-        link: "text-primary underline-offset-(--link-underline-offset) hover:underline",
+          "bg-container-destructive text-content-destructive hover:bg-container-destructive-hover focus-visible:border-border-destructive-focus focus-visible:ring-border-destructive-ring",
       },
       size: {
-        default: "h-control-m gap-m px-l has-data-[icon=inline-end]:pr-m has-data-[icon=inline-start]:pl-m",
-        xs: "h-control-xs gap-s rounded-m px-m text-xs in-data-[slot=button-group]:rounded-m has-data-[icon=inline-end]:pr-m has-data-[icon=inline-start]:pl-m [&_svg:not([class*='size-'])]:size-icon-s",
-        sm: "h-control-s gap-s rounded-m px-l text-xs in-data-[slot=button-group]:rounded-m has-data-[icon=inline-end]:pr-m has-data-[icon=inline-start]:pl-m [&_svg:not([class*='size-'])]:size-icon-m",
-        lg: "h-control-l gap-m px-l has-data-[icon=inline-end]:pr-m has-data-[icon=inline-start]:pl-m",
-        icon: "size-control-m",
-        "icon-xs":
-          "size-control-xs rounded-m in-data-[slot=button-group]:rounded-m [&_svg:not([class*='size-'])]:size-icon-s",
-        "icon-sm": "size-control-s rounded-m in-data-[slot=button-group]:rounded-m",
-        "icon-lg": "size-control-l",
+        default: "h-control gap-md px-lg has-data-[icon=inline-end]:pr-md has-data-[icon=inline-start]:pl-md",
+        icon: "size-control",
       },
     },
     defaultVariants: {
