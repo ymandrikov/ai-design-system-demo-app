@@ -1,5 +1,5 @@
 ---
-sourcesHash: d3156c56447353c50755a1341b4208dd50e8330a99e408358882e0640bde60ab
+sourcesHash: d4cedb12af8baf64983930815a107ab533d8138aedf5ec683f4d774969634e04
 id: table
 description: Compare records across shared fields in a read-only semantic table, with horizontal scrolling when the columns exceed available width.
 status: discoverable
@@ -56,6 +56,11 @@ Import the compound parts from `@/components/ui/table`.
 All parts forward native attributes, including refs and events, to their corresponding native element. There are no custom events, methods or variants. Native attributes supply semantics and content relationships; do not replace table roles or introduce row click/selection behaviour. `data-slot` identifies each part. The scroll section's focusability and label remain component-owned.
 
 The component owns shadcn cell spacing, typography, borders and hover treatment, using existing semantic tokens in [global CSS](../tokens/semantic.css). It retains the project's rounded card surface. Consumer `className` may set layout widths/alignment or hide the caption; do not override colours, typography or cell padding. Consumers own surrounding spacing and inline content semantics.
+
+TableRow sets spacing-xl (16px) left padding on its first cell and right padding
+on its last cell, for both header and body rows. This defines the inset from the
+table's side borders to its content. Interior cell padding and vertical spacing
+retain their defaults. A single cell spanning the row receives both edge insets.
 
 ## Behaviour and states
 
