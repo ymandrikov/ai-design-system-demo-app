@@ -7,6 +7,7 @@ import { DescriptionItem } from "@/components/ui/description-item";
 import { PageContainer } from "@/components/layouts/page-container";
 import { notFound } from "next/navigation";
 import { RefreshActiveDeployment } from "@/components/deployments/refresh-active-deployment";
+import { CommitHash } from "@/components/deployments/commit-hash";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { PageHeader } from "@/components/ui/page-header";
@@ -94,7 +95,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                     {version.commit == null ? (
                       <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
                     ) : (
-                      <code className="break-all">{version.commit}</code>
+                      <CommitHash hash={version.commit} />
                     )}
                   </DescriptionItem>
                   <DescriptionItem label="Duration">

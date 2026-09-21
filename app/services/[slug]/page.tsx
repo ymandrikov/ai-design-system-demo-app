@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RefreshActiveDeployment } from "@/components/deployments/refresh-active-deployment";
+import { CommitHash } from "@/components/deployments/commit-hash";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { DeploymentResult } from "@/components/deployments/deployment-result";
 import { NavigationalTabs } from "@/components/ui/navigational-tabs";
@@ -153,7 +154,7 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
                       </TableCell>
                       <TableCell>
                         {deployment.commit ? (
-                          <code>{deployment.commit}</code>
+                          <CommitHash hash={deployment.commit} />
                         ) : (
                           <span className="text-muted-foreground">Not recorded</span>
                         )}

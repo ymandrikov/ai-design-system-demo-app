@@ -40,8 +40,8 @@ Import `DescriptionItem` from `@/components/ui/description-item`.
 Required `label: string` names the property with meaningful nonempty text.
 Required `children: ReactNode` supplies its read-only value, including explicit text
 when data is missing. Use [VersionLabel](version-label.md) for recorded versions,
-[DeploymentResult](deployment-result.md) for completed deployment outcomes, native
-code for commit identifiers, and ordinary text for other values.
+[DeploymentResult](deployment-result.md) for completed deployment outcomes, [CommitHash](commit-hash.md)
+for commit identifiers, and ordinary text for other values.
 
 Value styling is composed with children:
 
@@ -80,8 +80,8 @@ layout, surrounding surface and field order. Use spacing-4xl between pairs on bo
 axes (gap-4xl for flex/grid lists, space-y-4xl for vertical block lists), including
 wrapped rows. This applies to summaries, form metadata and confirmation details;
 the label/value interval within each pair remains spacing-s. Consumers also
-own value formatting: for example, put break-all on a long commit's code element
-and use Emphasised or Empty for plain-value emphasis or missing data. Do not use
+own value composition: use CommitHash for commit identifiers and Emphasised or
+Empty for plain-value emphasis or missing data. Do not use
 value children to override the label or shared spacing, or bypass nested components'
 contracts. The component has no client directive or state and supports both server
 and client compositions.

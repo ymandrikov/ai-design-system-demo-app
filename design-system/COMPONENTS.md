@@ -14,6 +14,10 @@
   - Description: Invoke an action with a styled native button, or present a standalone navigation action as a native link using the same shared button styles.
   - Contract: [contract](components/button.md)
 
+- **CommitHash**
+  - Description: Identify the recorded source commit of a version or deployment as a complete, non-interactive inline hash.
+  - Contract: [contract](components/commit-hash.md)
+
 - **ConfirmationDialog**
   - Description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
   - Contract: [contract](components/confirmation-dialog.md)

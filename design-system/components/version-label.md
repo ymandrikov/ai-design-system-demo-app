@@ -18,7 +18,7 @@ All criteria must hold:
 
 ## When not to use
 
-- The identifier is a commit hash rather than a service version: use separate native code without a version prefix.
+- The identifier is a commit hash rather than a service version: use [CommitHash](commit-hash.md).
 - No version exists: the consumer supplies its missing-version text.
 - The task is choosing or changing a version: use a suitable control; this component only displays a value.
 

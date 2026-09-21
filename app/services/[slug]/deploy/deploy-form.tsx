@@ -4,6 +4,7 @@ import { DescriptionItem } from "@/components/ui/description-item";
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { TextLink } from "@/components/ui/text-link";
+import { CommitHash } from "@/components/deployments/commit-hash";
 import { VersionLabel } from "@/components/deployments/version-label";
 import { deploy } from "./actions";
 
@@ -54,7 +55,7 @@ export function DeployForm({
               {selected.commit == null ? (
                 <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
               ) : (
-                <code className="break-all">{selected.commit}</code>
+                <CommitHash hash={selected.commit} />
               )}
             </DescriptionItem>
             <DescriptionItem label="Description">{selected.description}</DescriptionItem>
