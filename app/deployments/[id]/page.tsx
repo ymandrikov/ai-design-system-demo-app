@@ -89,48 +89,52 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
                 </DescriptionList>
               </BorderedCard.Section>
               <Separator />
-              <div className="text-sm">
-                <BorderedCard.Section>
-                  <DescriptionList>
-                    <DescriptionItem label="Commit">
-                      {version.commit == null ? (
-                        <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
-                      ) : (
-                        <CommitHash hash={version.commit} />
-                      )}
-                    </DescriptionItem>
-                    <DescriptionItem label="Duration">
-                      {elapsedSeconds}s{!deployment.result && " elapsed"}
-                    </DescriptionItem>
-                    <DescriptionItem label="Started">
-                      <Time value={deployment.startedAt} format="dateTime" />
-                    </DescriptionItem>
-                    {deployment.completedAt && (
-                      <DescriptionItem label="Completed">
-                        <Time value={deployment.completedAt} format="dateTime" />
-                      </DescriptionItem>
+              {/* Design-system exception: design-system/gaps.md#e-01-deployment-supporting-typography */}
+              <BorderedCard.Section
+                designSystemException={{
+                  reason: "Keep deployment metadata and explanations at 14px without a typography-only wrapper.",
+                  className: "text-sm",
+                }}
+              >
+                <DescriptionList>
+                  <DescriptionItem label="Commit">
+                    {version.commit == null ? (
+                      <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
+                    ) : (
+                      <CommitHash hash={version.commit} />
                     )}
-                  </DescriptionList>
-                  <Stack spacing="md">
-                    <p>{version.description}</p>
-                    {deployment.sourceDeploymentId && (
-                      <p>
-                        Source:{" "}
-                        <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
-                          Deployment #{deployment.sourceDeploymentId}
-                        </TextLink>
-                      </p>
-                    )}
-                    {deployment.result && (
-                      <p className="text-content-subtle">
-                        {deployment.result === "failed"
-                          ? "Deployment failed. This attempt did not change the environment's current version."
-                          : "Deployment succeeded. The environment version was updated when this run completed."}
-                      </p>
-                    )}
-                  </Stack>
-                </BorderedCard.Section>
-              </div>
+                  </DescriptionItem>
+                  <DescriptionItem label="Duration">
+                    {elapsedSeconds}s{!deployment.result && " elapsed"}
+                  </DescriptionItem>
+                  <DescriptionItem label="Started">
+                    <Time value={deployment.startedAt} format="dateTime" />
+                  </DescriptionItem>
+                  {deployment.completedAt && (
+                    <DescriptionItem label="Completed">
+                      <Time value={deployment.completedAt} format="dateTime" />
+                    </DescriptionItem>
+                  )}
+                </DescriptionList>
+                <Stack spacing="md">
+                  <p>{version.description}</p>
+                  {deployment.sourceDeploymentId && (
+                    <p>
+                      Source:{" "}
+                      <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
+                        Deployment #{deployment.sourceDeploymentId}
+                      </TextLink>
+                    </p>
+                  )}
+                  {deployment.result && (
+                    <p className="text-content-subtle">
+                      {deployment.result === "failed"
+                        ? "Deployment failed. This attempt did not change the environment's current version."
+                        : "Deployment succeeded. The environment version was updated when this run completed."}
+                    </p>
+                  )}
+                </Stack>
+              </BorderedCard.Section>
             </BorderedCard>
           </PageContent.SectionContent>
         </PageContent.Section>

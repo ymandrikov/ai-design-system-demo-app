@@ -111,7 +111,8 @@ incoming classes after their defaults (using `cn`) and apply incoming inline sty
 after any default styles. The helper forwards other props, including refs, unchanged;
 it adds no DOM wrapper, runtime validation or CSS inspection. Apply it only to
 components explicitly adopting this contract; currently those are `TextLink`,
-[Time](design-system/components/time.md) and [Separator](design-system/components/separator.md).
+[Time](design-system/components/time.md), [Separator](design-system/components/separator.md)
+and [BorderedCard.Section](design-system/components/bordered-card.md).
 Each actual exception requires a reason and an entry in the
 [journal](design-system/gaps.md), linked from an adjacent source comment.
 
@@ -137,7 +138,8 @@ vertical arrangement without gaps. Its Section owns spacing-xl padding and gaps
 between blocks; [Separator](design-system/components/separator.md) divides sections.
 [Stack](design-system/layouts/stack.md) with `spacing="md"` owns spacing-md between
 related explanations. Pages supply content, conditions and a typography-only
-`text-sm` wrapper around the supporting Section. Service summaries distinguish the current service from its last completed
+`text-sm` wrapper around the supporting Section, or an authorised Section exception
+for that typography. Service summaries distinguish the current service from its last completed
 deployment; active progress stays in history.
 
 ## Verification

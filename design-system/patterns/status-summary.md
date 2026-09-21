@@ -24,7 +24,8 @@ All criteria must hold:
 Inside a named [PageContent section](../layouts/page-content.md), use
 [BorderedCard](../components/bordered-card.md) with two Section children and an explicit
 [Separator](../components/separator.md) between them. The supporting Section may
-have a typography-only wrapper. Each parent owns its children's spacing.
+have a typography-only wrapper or an authorised Section exception for typography.
+Each parent owns its children's spacing.
 This is a reusable recipe composed on each page, with two levels in source order:
 
 1. Primary Section contains [DescriptionList](../components/description-list.md):
@@ -80,7 +81,8 @@ Minimal React composition (field values are supplied by the page):
 - BorderedCard owns the surface and vertical arrangement without gaps; Separator
   owns the decorative divider, with no external margins. Both Sections are required.
   Section owns `p-xl` and `gap-xl` (16px); the supporting Section has a
-  typography-only `text-sm` wrapper. Preserve existing semantic colours.
+  typography-only `text-sm` wrapper or an authorised Section exception applying
+  `text-sm` directly. Preserve existing semantic colours.
 - Pages own fields, data, links, live regions, order and conditions. Parents own
   spacing: DescriptionList uses `gap-4xl` (40px) on both axes; DescriptionItem uses
   `gap-sm` (4px) between dt and dd; neither child has external margins.
