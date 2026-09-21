@@ -73,7 +73,7 @@ export function DeploymentActions({
             pendingLabel="Starting deployment…"
             error={error}
           >
-            <dl className="grid gap-xl sm:grid-cols-2">
+            <dl className="grid gap-4xl sm:grid-cols-2">
               <DescriptionItem label="Current version">
                 <VersionLabel version={currentVersion} />
               </DescriptionItem>

@@ -55,7 +55,10 @@ pairs, including the formerly tighter Deploy form. There are no density variants
 Colours use [global semantic tokens](../tokens/semantic.css).
 
 Render as a direct child of dl. The consumer owns that list, columns, responsive
-layout, spacing between pairs, surrounding surface and field order. Consumers also
+layout, surrounding surface and field order. Use spacing-4xl between pairs on both
+axes (gap-4xl for flex/grid lists, space-y-4xl for vertical block lists), including
+wrapped rows. This applies to summaries, form metadata and confirmation details;
+the label/value interval within each pair remains spacing-m. Consumers also
 own value formatting: for example, put break-all on a long commit's code element
 and font-medium on a plain value span when retaining existing emphasis. Do not use
 value children to override the label or shared spacing, or bypass nested components'

@@ -49,7 +49,7 @@ export function DeployForm({
       </fieldset>
       {selected && (
         <>
-          <dl className="space-y-xl">
+          <dl className="space-y-4xl">
             <DescriptionItem label="Commit">
               <code className="break-all">{selected.commit ?? "Not recorded"}</code>
             </DescriptionItem>

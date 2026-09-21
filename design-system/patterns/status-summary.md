@@ -48,13 +48,13 @@ Use [TextLink](../components/text-link.md) in its default role for contextual na
   Pass primary DescriptionItem siblings through `primary` and supporting content
   through `children`. Pages own data and the contents of both regions; the layout
   performs no status inference. Keep existing semantic colours.
-- Primary fields use a wrapping flex row with `gap-x-3xl gap-y-xl`; retain the label
+- Primary fields use a wrapping flex row with `gap-4xl`; retain the label
   styling and label/value spacing owned by DescriptionItem. Emphasise plain primary
   values with `text-l font-semibold`. Keep composed badges' own typography.
 - Supporting text is `text-s`; supporting labels and timestamps use
   `text-muted-foreground`. Keep linked text readable and preserve visible focus.
   Use wrapping metadata rows, `gap-x-xl gap-y-m` for inline context and
-  `gap-x-3xl gap-y-xl` for description lists. Long commits wrap; do not truncate values.
+  `gap-4xl` for description lists. Long commits wrap; do not truncate values.
 - Identify service health separately from deployment outcome. An error badge must
   not colour the entire surface or imply that the service is unavailable.
 - Service summaries show the last **completed** deployment, even while another is

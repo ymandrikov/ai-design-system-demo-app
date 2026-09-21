@@ -1,5 +1,5 @@
 ---
-sourcesHash: c3a5ee380724ac2e09a2a91fc01428dd33074898456bb66d88c44470c508c0f5
+sourcesHash: 2e8fb97ec049ae7567cf9cb6d1172cddc6484fb4663e68d4ccfb94570a8adff1
 id: status-summary-layout
 description: Arrange a read-only status and version above supporting metadata in one neutral surface with a separated lower region.
 status: discoverable
@@ -48,9 +48,9 @@ overrides. The layout has no client directive, state or data access.
 - Place inside a named PageContent.SectionContent composition, with the accessible
   name on its parent PageContent.Section. The layout adds no section or main landmark.
 - The layout owns the neutral `rounded-m border bg-card text-card-foreground`
-  surface, upper dl with `flex flex-wrap gap-x-3xl gap-y-xl p-xl`, and lower div with
+  surface, upper dl with `flex flex-wrap gap-4xl p-xl`, and lower div with
   `border-t p-xl text-s`. Primary content precedes supporting content in DOM order.
-  These values preserve Status summary's existing rules under the authorised LP-01 extraction.
+  Spacing between primary fields is spacing-4xl on both axes.
 - Consumers own field labels and values, status interpretation, empty text, data,
   links, value emphasis, live regions and all arrangement inside the lower region.
   Preserve the service's `space-y-m` and deployment's `space-y-xl` on inner wrappers;

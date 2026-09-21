@@ -112,7 +112,8 @@ uses secondary for success and destructive for failure. Both retain their domain
 labels and public props across the services list, service history and deploy summary.
 [DescriptionItem](design-system/components/description-item.md) owns each read-only
 name/value pair inside a native description list: small muted label and spacing-m
-before its value. Consumers own the dl, grid, field order and value formatting;
+before its value. Consumers own the dl, grid, field order and value formatting. Lists of these pairs
+use spacing-4xl between items on both axes, including wrapped rows;
 only the deployment status forwards a polite live region.
 Components receive content through props and never access SQLite.
 

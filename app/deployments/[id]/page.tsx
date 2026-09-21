@@ -88,7 +88,7 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
               }
             >
               <div className="space-y-xl">
-                <dl className="flex flex-wrap gap-x-3xl gap-y-xl">
+                <dl className="flex flex-wrap gap-4xl">
                   <DescriptionItem label="Commit">
                     <code className="break-all">{version.commit ?? "Not recorded"}</code>
                   </DescriptionItem>
