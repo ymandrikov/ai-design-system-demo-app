@@ -14,6 +14,7 @@ import { listServices } from "@/lib/db/queries";
 import { environments } from "@/lib/db/schema";
 import { environmentLabels, stateLabels } from "@/lib/deployments/presentation";
 import { AddServiceDialog } from "./add-service-dialog";
+import { DeleteServiceDialog } from "./delete-service-dialog";
 
 export const metadata: Metadata = {
   title: "Services | Deploy Board",
@@ -68,6 +69,9 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                     <TableHead scope="col">
                       Completed at <span className="font-normal">(UTC)</span>
                     </TableHead>
+                    <TableHead scope="col" className="w-6xl">
+                      <span className="sr-only">Actions</span>
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -104,6 +108,9 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                             "—"
                           )}
                         </span>
+                      </TableCell>
+                      <TableCell>
+                        <DeleteServiceDialog id={service.id} name={service.name} />
                       </TableCell>
                     </TableRow>
                   ))}

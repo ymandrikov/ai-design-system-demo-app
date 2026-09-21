@@ -1,5 +1,5 @@
 ---
-sourcesHash: 2dda7792331efcc2bfc97393ac16ec3246ae6dcbeb8c498cd5e9fbf64dd28498
+sourcesHash: 982b9f5da539bf9d0e158b8c844fc78fa16a4afbd3df5d1f1d7670e684473505
 id: confirmation-dialog
 description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
 status: discoverable
@@ -48,6 +48,18 @@ Use destructive for removing or replacing working state, including rollback;
 use default for ordinary confirmations. Intent controls both trigger and confirm
 button styling, and footer order. Labels and explanatory text must be nonempty.
 
+Optional `triggerIcon: ReactNode` replaces visible trigger text with a decorative
+icon for a compact row action. The dialog selects Button's `icon` size, hides the
+icon from assistive technology, and uses `triggerLabel` as the accessible name and
+native title. Include the resource name in that label for repeated row actions.
+Omit `triggerIcon` for text actions; existing rollback triggers remain unchanged.
+Do not pass interactive content or override the icon's size or colours.
+
+Optional `fallbackFocus(): HTMLElement | null` supplies a focus destination when
+successful deletion removes the trigger. Return a visible, focusable control that
+survives the update. Cancellation still returns focus to the connected trigger.
+Omitting it preserves Base UI's ordinary focus restoration.
+
 Optional `children: ReactNode` supplies read-only context between explanation and
 feedback. Do not supply another action row or interactive form. `pending: boolean`
 defaults to false; set it throughout a request. `pendingLabel: string` defaults to
@@ -90,6 +102,7 @@ uses a polite live region and errors use role alert. Both buttons are native but
 ### Required of consumers
 
 Supply meaningful labels and consequences, including affected resource and context.
-Use semantic markup for read-only details. Keep the trigger mounted through dismissal;
-when navigating after success, the destination owns focus. Set pending before starting
+Use semantic markup for read-only details. Keep the trigger mounted through dismissal
+or supply `fallbackFocus` when deleting its row; when navigating after success,
+the destination owns focus. Set pending before starting
 work and retain server-side validation even if the trigger is unavailable.

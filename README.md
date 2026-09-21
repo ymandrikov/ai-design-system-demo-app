@@ -116,6 +116,23 @@ casing and verify the inline error. Deploy 1.1.0, then 1.2.0: the failure must
 preserve 1.1.0. Check keyboard focus and dismissal in light/dark themes and on a
 narrow viewport.
 
+## Deleting services
+
+The trash button at the end of each service row opens a confirmation dialog.
+**Delete service** permanently removes the service from both environments,
+including versions and all deployment history, even active deployments. The
+selected environment stays unchanged. Errors remain in the dialog for retry;
+deleting a service already removed in another tab succeeds. Recreating the same
+name creates a new service; a stale delete request cannot delete that new record.
+
+Manual check: cancel a deletion with Cancel and Escape; confirm deletion while a
+deployment is active and verify the row disappears from both environments. Reload
+old service/deployment URLs and verify not-found. Delete the same service from two
+open tabs, then delete the last service and check the empty state. Verify keyboard
+focus returns to the trigger on Cancel and to Add service after deletion, including
+in narrow layouts and both themes. Re-running the seed restores missing standard
+demo services.
+
 ## Starting deployments
 
 On a service page, choose an environment and click **Deploy**. The form and Cancel

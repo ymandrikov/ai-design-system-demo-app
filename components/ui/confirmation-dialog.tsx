@@ -10,6 +10,8 @@ export function ConfirmationDialog({
   onOpenChange,
   intent,
   triggerLabel,
+  triggerIcon,
+  fallbackFocus,
   title,
   description,
   children,
@@ -23,6 +25,8 @@ export function ConfirmationDialog({
   onOpenChange: (open: boolean) => void;
   intent: "destructive" | "default";
   triggerLabel: string;
+  triggerIcon?: ReactNode;
+  fallbackFocus?: () => HTMLElement | null;
   title: string;
   description: string;
   children?: ReactNode;
@@ -33,6 +37,7 @@ export function ConfirmationDialog({
   error?: string;
 }) {
   const cancelRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const confirm = (
     <Button type="button" variant={intent} disabled={pending} onClick={onConfirm}>
       {confirmLabel}
@@ -55,14 +60,29 @@ export function ConfirmationDialog({
         }
       }}
     >
-      <AlertDialog.Trigger render={<Button type="button" variant={intent} disabled={pending} />}>
-        {triggerLabel}
+      <AlertDialog.Trigger
+        render={
+          <Button
+            ref={triggerRef}
+            type="button"
+            variant={intent}
+            size={triggerIcon ? "icon" : "default"}
+            aria-label={triggerLabel}
+            title={triggerIcon ? triggerLabel : undefined}
+            disabled={pending}
+          />
+        }
+      >
+        {triggerIcon ? <span aria-hidden="true">{triggerIcon}</span> : triggerLabel}
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Backdrop className="fixed inset-0 bg-foreground/(--alpha-medium)" />
         <AlertDialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-xl">
           <AlertDialog.Popup
             initialFocus={cancelRef}
+            finalFocus={
+              fallbackFocus ? () => (triggerRef.current?.isConnected ? triggerRef.current : fallbackFocus()) : undefined
+            }
             className="flex max-h-full w-full max-w-dialog-width flex-col gap-2xl overflow-y-auto rounded-m border bg-popover p-2xl text-popover-foreground shadow-l"
           >
             <div className="flex flex-col gap-m">

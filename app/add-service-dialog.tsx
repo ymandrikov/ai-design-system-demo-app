@@ -28,7 +28,9 @@ export function AddServiceDialog({ environment }: { environment: Environment }) 
         setError("");
       }}
     >
-      <Dialog.Trigger render={<Button type="button" />}>Add service</Dialog.Trigger>
+      <Dialog.Trigger id="add-service-trigger" render={<Button type="button" />}>
+        Add service
+      </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 bg-foreground/(--alpha-medium)" />
         <Dialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-xl">
