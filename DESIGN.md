@@ -70,6 +70,13 @@ optional description and placement of page-level controls. Follow the
 [modal confirmation pattern](design-system/patterns/modal-confirmation.md): destructive
 main actions before Cancel, ordinary confirmations after Cancel; the button group
 is always right-aligned, preserving order when stacked.
+The locally added shadcn [Dialog](design-system/components/dialog.md) parts support
+forms and focused secondary tasks. [AlertDialog](design-system/components/alert-dialog.md)
+parts support important warnings with custom content or response flows beyond
+ConfirmationDialog's fixed API; use ConfirmationDialog for read-only confirm/cancel
+tasks. AddServiceDialog composes Dialog; ConfirmationDialog composes AlertDialog
+and adds intent-based action order, initial Cancel focus and request feedback.
+The primitives own the shared overlay styling and use the existing Button API.
 Both rollback buttons use destructive styling. Environment
 navigation uses [NavigationalTabs](design-system/components/navigational-tabs.md)
 with canonical destination URLs derived by the server. The component renders

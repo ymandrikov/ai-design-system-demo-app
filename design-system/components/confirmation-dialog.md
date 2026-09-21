@@ -1,11 +1,12 @@
 ---
-sourcesHash: ed027b5ede0d6b94ef543a9c01d935cb2d5f15a658c779b95a6e0bce4c9c9dd3
+sourcesHash: 4e5ee1ec4b8219fc78e7f5303c9947293b3b1d41bf9ce82533aba28a02c6e130
 id: confirmation-dialog
 description: Ask the user to confirm or cancel one consequential action in a modal, with action order and styling determined by destructive or ordinary intent.
 status: discoverable
 sources:
   - design-system/tokens/semantic.css
   - components/ui/confirmation-dialog.tsx
+  - components/ui/alert-dialog.tsx
   - components/ui/request-feedback.tsx
 ---
 
@@ -20,13 +21,16 @@ All criteria must hold:
 
 ## When not to use
 
-- The task requires editable fields: use a form; this component only confirms an already determined action.
+- The task requires an ordinary editable form: use [Dialog](dialog.md); this component only confirms an already determined action.
+- A warning requires typed acknowledgement or a custom response flow beyond confirm/cancel: use [AlertDialog](alert-dialog.md).
 - The content only reports an outcome: show feedback on the page instead of requiring confirmation.
 - An action needs no confirmation: use [Button](button.md) directly.
 
 ## Public API
 
 Import `ConfirmationDialog` from `@/components/ui/confirmation-dialog` in a client component.
+Its implementation composes [AlertDialog](alert-dialog.md); product consumers keep
+using this higher-level API for read-only confirmations.
 
 ```tsx
 <ConfirmationDialog

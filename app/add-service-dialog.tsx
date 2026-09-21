@@ -2,7 +2,16 @@
 
 import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Dialog } from "@base-ui/react/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import type { Environment } from "@/lib/db/schema";
 import { addService } from "./add-service-action";
@@ -16,7 +25,7 @@ export function AddServiceDialog({ environment }: { environment: Environment }) 
   const router = useRouter();
 
   return (
-    <Dialog.Root
+    <Dialog
       open={open}
       onOpenChange={(nextOpen, event) => {
         if (pending) {
@@ -28,92 +37,82 @@ export function AddServiceDialog({ environment }: { environment: Environment }) 
         setError("");
       }}
     >
-      <Dialog.Trigger id="add-service-trigger" render={<Button type="button" />}>
+      <DialogTrigger id="add-service-trigger" render={<Button type="button" />}>
         Add service
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 bg-backdrop" />
-        <Dialog.Viewport className="fixed inset-0 flex items-center justify-center overflow-y-auto p-xl">
-          <Dialog.Popup
-            initialFocus={inputRef}
-            className="flex max-h-full w-full max-w-dialog flex-col gap-2xl overflow-y-auto rounded-md border bg-canvas-overlay p-2xl text-content-overlay shadow-lg"
-          >
-            <div className="flex flex-col gap-md">
-              <Dialog.Title className="text-md font-semibold">Add service</Dialog.Title>
-              <Dialog.Description className="text-sm text-content-subtle">
-                Create a service with production and staging environments, ready for demo deployments.
-              </Dialog.Description>
-            </div>
-            <form
-              className="flex flex-col gap-2xl"
-              aria-busy={pending}
-              onSubmit={(event) => {
-                event.preventDefault();
-                if (pending) {
-                  return;
+      </DialogTrigger>
+      <DialogContent initialFocus={inputRef} showCloseButton={false}>
+        <DialogHeader>
+          <DialogTitle>Add service</DialogTitle>
+          <DialogDescription>
+            Create a service with production and staging environments, ready for demo deployments.
+          </DialogDescription>
+        </DialogHeader>
+        <form
+          className="flex flex-col gap-2xl"
+          aria-busy={pending}
+          onSubmit={(event) => {
+            event.preventDefault();
+            if (pending) {
+              return;
+            }
+            const formData = new FormData(event.currentTarget);
+            setError("");
+            startTransition(async () => {
+              try {
+                const result = await addService(formData);
+                if (result.error) {
+                  setError(result.error);
+                } else if (result.href) {
+                  startTransition(() => router.push(result.href));
                 }
-                const formData = new FormData(event.currentTarget);
+              } catch {
+                setError("Could not save the service. Check your connection and try again.");
+              }
+            });
+          }}
+        >
+          <input type="hidden" name="environment" value={environment} />
+          <div className="flex flex-col gap-md">
+            <label htmlFor="service-name" className="text-sm font-medium">
+              Service name (required)
+            </label>
+            <input
+              ref={inputRef}
+              id="service-name"
+              name="name"
+              value={name}
+              onChange={(event) => {
+                setName(event.target.value);
                 setError("");
-                startTransition(async () => {
-                  try {
-                    const result = await addService(formData);
-                    if (result.error) {
-                      setError(result.error);
-                    } else if (result.href) {
-                      startTransition(() => router.push(result.href));
-                    }
-                  } catch {
-                    setError("Could not save the service. Check your connection and try again.");
-                  }
-                });
               }}
-            >
-              <input type="hidden" name="environment" value={environment} />
-              <div className="flex flex-col gap-md">
-                <label htmlFor="service-name" className="text-sm font-medium">
-                  Service name (required)
-                </label>
-                <input
-                  ref={inputRef}
-                  id="service-name"
-                  name="name"
-                  value={name}
-                  onChange={(event) => {
-                    setName(event.target.value);
-                    setError("");
-                  }}
-                  required
-                  maxLength={64}
-                  pattern="[a-zA-Z0-9\-]{1,64}"
-                  autoComplete="off"
-                  spellCheck={false}
-                  disabled={pending}
-                  aria-invalid={Boolean(error)}
-                  aria-describedby={`service-name-hint${error ? " service-name-error" : ""}`}
-                  className="h-control w-full rounded-md border border-border-input bg-canvas px-lg text-sm text-content focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset) focus-visible:outline-border-focus disabled:opacity-disabled aria-invalid:border-border-destructive"
-                />
-                <p id="service-name-hint" className="text-sm text-content-subtle">
-                  1–64 characters: Latin letters, numbers or hyphens.
-                </p>
-                {error && (
-                  <p id="service-name-error" role="alert" className="text-sm text-content-destructive">
-                    {error}
-                  </p>
-                )}
-              </div>
-              <output className="sr-only">{pending ? "Creating service…" : ""}</output>
-              <div className="flex flex-col items-end gap-lg sm:flex-row sm:justify-end">
-                <Dialog.Close render={<Button type="button" variant="outline" disabled={pending} />}>
-                  Cancel
-                </Dialog.Close>
-                <Button type="submit" disabled={pending}>
-                  {pending ? "Creating…" : "Add service"}
-                </Button>
-              </div>
-            </form>
-          </Dialog.Popup>
-        </Dialog.Viewport>
-      </Dialog.Portal>
-    </Dialog.Root>
+              required
+              maxLength={64}
+              pattern="[a-zA-Z0-9\-]{1,64}"
+              autoComplete="off"
+              spellCheck={false}
+              disabled={pending}
+              aria-invalid={Boolean(error)}
+              aria-describedby={`service-name-hint${error ? " service-name-error" : ""}`}
+              className="h-control w-full rounded-md border border-border-input bg-canvas px-lg text-sm text-content focus-visible:outline-(length:--focus-outline-width) focus-visible:outline-offset-(--focus-offset) focus-visible:outline-border-focus disabled:opacity-disabled aria-invalid:border-border-destructive"
+            />
+            <p id="service-name-hint" className="text-sm text-content-subtle">
+              1–64 characters: Latin letters, numbers or hyphens.
+            </p>
+            {error && (
+              <p id="service-name-error" role="alert" className="text-sm text-content-destructive">
+                {error}
+              </p>
+            )}
+          </div>
+          <output className="sr-only">{pending ? "Creating service…" : ""}</output>
+          <DialogFooter>
+            <DialogClose render={<Button type="button" variant="outline" disabled={pending} />}>Cancel</DialogClose>
+            <Button type="submit" disabled={pending}>
+              {pending ? "Creating…" : "Add service"}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

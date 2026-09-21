@@ -13,15 +13,17 @@ Follow these three paths from an article idea to its implementation and use:
    [ConfirmationDialog contract](design-system/components/confirmation-dialog.md).
    Its selection rules distinguish confirming an action from filling in a form.
    Compare [DeleteServiceDialog](app/delete-service-dialog.tsx), which uses it,
-   with [AddServiceDialog](app/add-service-dialog.tsx), which owns an editable form.
+   with [AddServiceDialog](app/add-service-dialog.tsx), which composes the shared
+   [Dialog](components/ui/dialog.tsx) around an editable form.
    The agent's entry point is the [design-system skill](.agents/skills/design-system/SKILL.md):
    `use` selects and composes capabilities; `craft` maintains the shared system.
 2. **Put rules inside components.** Read
    [ConfirmationDialog](components/ui/confirmation-dialog.tsx), then its consumers:
    [service deletion](app/delete-service-dialog.tsx) and
    [deployment actions](app/deployments/[id]/deployment-actions.tsx).
-   Consumers provide intent, consequences and request state. The dialog owns button
-   order, styling, initial focus and pending feedback. Both consumers select
+   Consumers provide intent, consequences and request state. ConfirmationDialog
+   composes [AlertDialog](components/ui/alert-dialog.tsx) and owns button order,
+   intent styling, initial focus and pending feedback. Both consumers select
    destructive intent; the component also defines ordinary confirmation order.
 3. **Make exceptions inspectable.** Read the
    [BorderedCard contract](design-system/components/bordered-card.md), its
