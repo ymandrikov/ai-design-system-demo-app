@@ -99,6 +99,10 @@ Pair surfaces with their foreground tokens. Light and .dark map roles directly
 to raw palette values; no automatic theme switching or new palette is introduced.
 Existing chart/sidebar/accent definitions remain available without new consumers.
 
+Primary and sidebar-primary use `--raw-color-blue-600`
+(`oklch(0.566 0.2036 258.88)`) in both themes, paired with white foregrounds.
+Primary hover and title-link hover derive from the primary role.
+
 Semantic alpha modifiers faint/subtle/muted/medium/half/strong/hover preserve
 10/20/30/40/50/60/80 percent opacity, for example
 `bg-destructive/(--alpha-faint)`. Disabled controls use opacity-disabled (50%).

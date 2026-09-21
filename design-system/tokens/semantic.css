@@ -6,8 +6,8 @@
   --card-foreground: var(--raw-color-neutral-950);
   --popover: var(--raw-color-white);
   --popover-foreground: var(--raw-color-neutral-950);
-  --primary: var(--raw-color-rose-600);
-  --primary-foreground: var(--raw-color-rose-50);
+  --primary: var(--raw-color-blue-600);
+  --primary-foreground: var(--raw-color-white);
   --secondary: var(--raw-color-neutral-100);
   --secondary-foreground: var(--raw-color-neutral-900);
   --muted: var(--raw-color-rose-100);
@@ -25,8 +25,8 @@
   --chart-5: var(--raw-color-neutral-800);
   --sidebar: var(--raw-color-neutral-50);
   --sidebar-foreground: var(--raw-color-neutral-950);
-  --sidebar-primary: var(--raw-color-neutral-900);
-  --sidebar-primary-foreground: var(--raw-color-neutral-50);
+  --sidebar-primary: var(--raw-color-blue-600);
+  --sidebar-primary-foreground: var(--raw-color-white);
   --sidebar-accent: var(--raw-color-neutral-100);
   --sidebar-accent-foreground: var(--raw-color-neutral-900);
   --sidebar-border: var(--raw-color-neutral-200);
@@ -40,8 +40,8 @@
   --card-foreground: var(--raw-color-neutral-50);
   --popover: var(--raw-color-neutral-900);
   --popover-foreground: var(--raw-color-neutral-50);
-  --primary: var(--raw-color-neutral-200);
-  --primary-foreground: var(--raw-color-neutral-900);
+  --primary: var(--raw-color-blue-600);
+  --primary-foreground: var(--raw-color-white);
   --secondary: var(--raw-color-neutral-800);
   --secondary-foreground: var(--raw-color-neutral-50);
   --muted: var(--raw-color-neutral-800);
@@ -60,7 +60,7 @@
   --sidebar: var(--raw-color-neutral-900);
   --sidebar-foreground: var(--raw-color-neutral-50);
   --sidebar-primary: var(--raw-color-blue-600);
-  --sidebar-primary-foreground: var(--raw-color-neutral-50);
+  --sidebar-primary-foreground: var(--raw-color-white);
   --sidebar-accent: var(--raw-color-neutral-800);
   --sidebar-accent-foreground: var(--raw-color-neutral-50);
   --sidebar-border: var(--raw-color-white-a10);
