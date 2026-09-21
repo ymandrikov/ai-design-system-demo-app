@@ -1,4 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Deploy Board
+
+A local deployment simulation accompanying **Design system guardrails for AI-built
+interfaces**. The demo shows how an AI agent selects components, follows their
+contracts, and records exceptions. It does not perform real deployments.
+
+## Reading the demo
+
+Follow these three paths from an article idea to its implementation and use:
+
+1. **Select by intent and contract.** Start at [DESIGN.md](DESIGN.md), then the
+   [component inventory](design-system/COMPONENTS.md) and the
+   [ConfirmationDialog contract](design-system/components/confirmation-dialog.md).
+   Its selection rules distinguish confirming an action from filling in a form.
+   Compare [DeleteServiceDialog](app/delete-service-dialog.tsx), which uses it,
+   with [AddServiceDialog](app/add-service-dialog.tsx), which owns an editable form.
+   The agent's entry point is the [design-system skill](.agents/skills/design-system/SKILL.md):
+   `use` selects and composes capabilities; `craft` maintains the shared system.
+2. **Put rules inside components.** Read
+   [ConfirmationDialog](components/ui/confirmation-dialog.tsx), then its consumers:
+   [service deletion](app/delete-service-dialog.tsx) and
+   [deployment actions](app/deployments/[id]/deployment-actions.tsx).
+   Consumers provide intent, consequences and request state. The dialog owns button
+   order, styling, initial focus and pending feedback. Both consumers select
+   destructive intent; the component also defines ordinary confirmation order.
+3. **Make exceptions inspectable.** Read the
+   [BorderedCard contract](design-system/components/bordered-card.md), its
+   [implementation](components/ui/bordered-card.tsx) and the
+   [exception helper](lib/with-design-system-exception.tsx). Then find
+   `DeploymentSummary` in the [deployment page](app/deployments/[id]/page.tsx): its
+   supporting section supplies `designSystemException` with a reason and `text-sm`.
+   The adjacent comment leads to [E-01 in the journal](design-system/gaps.md#e-01-deployment-supporting-typography).
+
+### Screens and data flow
+
+Pages load data and arrange the screen's sections. Named screen parts are local
+functions below the page in the same file; they receive data through props and do
+not query the database. Shared design-system components own their styling.
+
+| Screen     | Start reading                                                              | Main content                                              |
+| ---------- | -------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Services   | [app/page.tsx](app/page.tsx)                                               | Environment navigation, service table, add/delete actions |
+| Service    | [app/services/[slug]/page.tsx](app/services/[slug]/page.tsx)               | `ServiceSummary`, `DeploymentHistory`                     |
+| Deploy     | [app/services/[slug]/deploy/page.tsx](app/services/[slug]/deploy/page.tsx) | Client-side `DeployForm`                                  |
+| Deployment | [app/deployments/[id]/page.tsx](app/deployments/[id]/page.tsx)             | `DeploymentSummary`, `DeploymentStages`, `DeploymentLogs` |
+
+For the simulation, follow a form or action to its adjacent `actions.ts`, then to
+[lib/deployments/index.ts](lib/deployments/index.ts). Service reads enter through
+[lib/db/queries.ts](lib/db/queries.ts). Both use `withDeploymentState`: before
+reading or starting work, it completes overdue deployments and saves their results
+in the same transaction. Reading current state can therefore write to the database.
+[simulation.ts](lib/deployments/simulation.ts) calculates progress from server time;
+[RefreshActiveDeployment](components/deployments/refresh-active-deployment.tsx)
+refreshes the route while a deployment is active. There is no background worker.
+
+### Intentional demonstration cases
+
+[G-01 and G-02](design-system/gaps.md) deliberately remain open: a raw colour in
+`DeploymentSummary` and a Badge background override in
+[VersionLabel](components/deployments/version-label.tsx). Their local lint
+suppressions and journal entries demonstrate visible deviations awaiting a system
+decision. They are not approved patterns to copy. E-01 is a separate, authorised
+local typography exception.
+
+### Article examples and the demo API
+
+The draft article includes illustrative snippets. Use the linked contracts for
+runnable examples of this repository's APIs:
+
+- Exceptions use `designSystemException.className` or `.style` directly, with a
+  required `.reason`; there is no nested `attributes` object. Only components
+  explicitly adopting the helper expose it. Badge currently does not.
+- ConfirmationDialog requires `open`, `onOpenChange`, `triggerLabel` and
+  `description` alongside the action props. Its optional children supply additional
+  read-only context.
+- This repository runs design-lint through `pnpm lint` with Oxlint and provides a
+  [contract checker](.agents/skills/design-system/scripts/check-contract.mjs).
+  The article's enforced pre-commit/CI workflow is not configured in this repository;
+  `pnpm build` does not run these checks automatically.
 
 ## Formatting
 

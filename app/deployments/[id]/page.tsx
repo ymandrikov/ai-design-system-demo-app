@@ -22,6 +22,8 @@ import { DeploymentActions } from "./deployment-actions";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Deployment | Deploy Board" };
 
+type DeploymentDetails = NonNullable<ReturnType<typeof getDeploymentDetails>>;
+
 export default async function DeploymentPage({ params }: PageProps<"/deployments/[id]">) {
   const { id } = await params;
   if (!/^[1-9]\d*$/.test(id)) {
@@ -33,12 +35,6 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
   }
   const { deployment, service, version, actions, steps, logs, stage, percent, rollbackVersion, elapsedSeconds } = data;
   const serviceHref = `/services/${encodeURIComponent(service.slug)}?environment=${deployment.environment}`;
-  const stepLabels: Record<string, string> = {
-    pending: "Waiting",
-    active: "In progress",
-    succeeded: "Succeeded",
-    failed: "Failed",
-  };
 
   return (
     <PageContainer>
@@ -71,126 +67,160 @@ export default async function DeploymentPage({ params }: PageProps<"/deployments
           }
         />
         <RefreshActiveDeployment key={`refresh-${deployment.id}`} active={!deployment.result} />
-        <PageContent.Section aria-label="Deployment summary">
-          <PageContent.SectionContent>
-            <BorderedCard>
-              <BorderedCard.Section>
-                <DescriptionList>
-                  <DescriptionItem label="Deployment status" aria-live="polite">
-                    {deployment.result ? (
-                      <DeploymentResult result={deployment.result} />
-                    ) : (
-                      <DescriptionItem.Emphasised>{stage}</DescriptionItem.Emphasised>
-                    )}
-                  </DescriptionItem>
-                  <DescriptionItem label="Version">
-                    <VersionLabel version={version.version} />
-                  </DescriptionItem>
-                </DescriptionList>
-              </BorderedCard.Section>
-              <Separator />
-              {/* Design-system exception: design-system/gaps.md#e-01-deployment-supporting-typography */}
-              <BorderedCard.Section
-                designSystemException={{
-                  reason: "Keep deployment metadata and explanations at 14px without a typography-only wrapper.",
-                  className: "text-sm",
-                }}
-              >
-                <DescriptionList>
-                  <DescriptionItem label="Commit">
-                    {version.commit == null ? (
-                      <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
-                    ) : (
-                      <CommitHash hash={version.commit} />
-                    )}
-                  </DescriptionItem>
-                  <DescriptionItem label="Duration">
-                    {elapsedSeconds}s{!deployment.result && " elapsed"}
-                  </DescriptionItem>
-                  <DescriptionItem label="Started">
-                    <Time value={deployment.startedAt} format="dateTime" />
-                  </DescriptionItem>
-                  {deployment.completedAt && (
-                    <DescriptionItem label="Completed">
-                      <Time value={deployment.completedAt} format="dateTime" />
-                    </DescriptionItem>
-                  )}
-                </DescriptionList>
-                <Stack spacing="md">
-                  <p>{version.description}</p>
-                  {deployment.sourceDeploymentId && (
-                    <p>
-                      Source:{" "}
-                      <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
-                        Deployment #{deployment.sourceDeploymentId}
-                      </TextLink>
-                    </p>
-                  )}
-                  {deployment.result && (
-                    // oxlint-disable-next-line design/no-raw-color -- design-system/gaps.md#g-01-deployment-outcome-text-uses-a-raw-colour
-                    <p className="text-[#777]">
-                      {deployment.result === "failed"
-                        ? "Deployment failed. This attempt did not change the environment's current version."
-                        : "Deployment succeeded. The environment version was updated when this run completed."}
-                    </p>
-                  )}
-                </Stack>
-              </BorderedCard.Section>
-            </BorderedCard>
-          </PageContent.SectionContent>
-        </PageContent.Section>
-        <PageContent.Section aria-labelledby="stages-heading">
-          <PageContent.SectionHeader
-            id="stages-heading"
-            title="Deployment stages"
-            description={
-              <>
-                {percent}% processed{!deployment.result && " · Updates every second"}
-              </>
-            }
-          />
-          <PageContent.SectionContent>
-            <ol className="grid gap-xl sm:grid-cols-2 lg:grid-cols-4">
-              {steps.map((step) => (
-                <li
-                  key={step.name}
-                  aria-current={step.status === "active" ? "step" : undefined}
-                  className="rounded-md border bg-canvas-card p-xl text-content-card"
-                >
-                  <h3 className="font-medium">{step.name}</h3>
-                  <p
-                    className={`mt-md text-sm ${step.status === "failed" ? "text-content-destructive" : "text-content-subtle"}`}
-                  >
-                    {stepLabels[step.status]}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </PageContent.SectionContent>
-        </PageContent.Section>
-        <PageContent.Section aria-labelledby="logs-heading">
-          <PageContent.SectionHeader
-            id="logs-heading"
-            title={
-              <>
-                Logs <span className="text-sm font-normal text-content-subtle">(UTC)</span>
-              </>
-            }
-          />
-          <PageContent.SectionContent>
-            <ol className="space-y-md rounded-md border bg-canvas-card p-xl font-mono text-sm text-content-card">
-              {logs.map((log, index) => (
-                <li key={index} className="flex flex-wrap gap-x-xl gap-y-sm">
-                  <Time value={log.at} format="time" showTimeZone={false} />
-                  <span className={`min-w-0 break-words ${log.level === "error" ? "text-content-destructive" : ""}`}>
-                    {log.level.toUpperCase()} · {log.message}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </PageContent.SectionContent>
-        </PageContent.Section>
+        <DeploymentSummary deployment={deployment} version={version} stage={stage} elapsedSeconds={elapsedSeconds} />
+        <DeploymentStages steps={steps} percent={percent} active={!deployment.result} />
+        <DeploymentLogs logs={logs} />
       </PageContent>
     </PageContainer>
+  );
+}
+
+function DeploymentSummary({
+  deployment,
+  version,
+  stage,
+  elapsedSeconds,
+}: Pick<DeploymentDetails, "deployment" | "version" | "stage" | "elapsedSeconds">) {
+  return (
+    <PageContent.Section aria-label="Deployment summary">
+      <PageContent.SectionContent>
+        <BorderedCard>
+          <BorderedCard.Section>
+            <DescriptionList>
+              <DescriptionItem label="Deployment status" aria-live="polite">
+                {deployment.result ? (
+                  <DeploymentResult result={deployment.result} />
+                ) : (
+                  <DescriptionItem.Emphasised>{stage}</DescriptionItem.Emphasised>
+                )}
+              </DescriptionItem>
+              <DescriptionItem label="Version">
+                <VersionLabel version={version.version} />
+              </DescriptionItem>
+            </DescriptionList>
+          </BorderedCard.Section>
+          <Separator />
+          {/* Design-system exception: design-system/gaps.md#e-01-deployment-supporting-typography */}
+          <BorderedCard.Section
+            designSystemException={{
+              reason: "Keep deployment metadata and explanations at 14px without a typography-only wrapper.",
+              className: "text-sm",
+            }}
+          >
+            <DescriptionList>
+              <DescriptionItem label="Commit">
+                {version.commit == null ? (
+                  <DescriptionItem.Empty>Not recorded</DescriptionItem.Empty>
+                ) : (
+                  <CommitHash hash={version.commit} />
+                )}
+              </DescriptionItem>
+              <DescriptionItem label="Duration">
+                {elapsedSeconds}s{!deployment.result && " elapsed"}
+              </DescriptionItem>
+              <DescriptionItem label="Started">
+                <Time value={deployment.startedAt} format="dateTime" />
+              </DescriptionItem>
+              {deployment.completedAt && (
+                <DescriptionItem label="Completed">
+                  <Time value={deployment.completedAt} format="dateTime" />
+                </DescriptionItem>
+              )}
+            </DescriptionList>
+            <Stack spacing="md">
+              <p>{version.description}</p>
+              {deployment.sourceDeploymentId && (
+                <p>
+                  Source:{" "}
+                  <TextLink href={`/deployments/${deployment.sourceDeploymentId}`}>
+                    Deployment #{deployment.sourceDeploymentId}
+                  </TextLink>
+                </p>
+              )}
+              {deployment.result && (
+                // oxlint-disable-next-line design/no-raw-color -- design-system/gaps.md#g-01-deployment-outcome-text-uses-a-raw-colour
+                <p className="text-[#777]">
+                  {deployment.result === "failed"
+                    ? "Deployment failed. This attempt did not change the environment's current version."
+                    : "Deployment succeeded. The environment version was updated when this run completed."}
+                </p>
+              )}
+            </Stack>
+          </BorderedCard.Section>
+        </BorderedCard>
+      </PageContent.SectionContent>
+    </PageContent.Section>
+  );
+}
+
+function DeploymentStages({
+  steps,
+  percent,
+  active,
+}: Pick<DeploymentDetails, "steps" | "percent"> & { active: boolean }) {
+  const stepLabels: Record<string, string> = {
+    pending: "Waiting",
+    active: "In progress",
+    succeeded: "Succeeded",
+    failed: "Failed",
+  };
+
+  return (
+    <PageContent.Section aria-labelledby="stages-heading">
+      <PageContent.SectionHeader
+        id="stages-heading"
+        title="Deployment stages"
+        description={
+          <>
+            {percent}% processed{active && " · Updates every second"}
+          </>
+        }
+      />
+      <PageContent.SectionContent>
+        <ol className="grid gap-xl sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step) => (
+            <li
+              key={step.name}
+              aria-current={step.status === "active" ? "step" : undefined}
+              className="rounded-md border bg-canvas-card p-xl text-content-card"
+            >
+              <h3 className="font-medium">{step.name}</h3>
+              <p
+                className={`mt-md text-sm ${step.status === "failed" ? "text-content-destructive" : "text-content-subtle"}`}
+              >
+                {stepLabels[step.status]}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </PageContent.SectionContent>
+    </PageContent.Section>
+  );
+}
+
+function DeploymentLogs({ logs }: Pick<DeploymentDetails, "logs">) {
+  return (
+    <PageContent.Section aria-labelledby="logs-heading">
+      <PageContent.SectionHeader
+        id="logs-heading"
+        title={
+          <>
+            Logs <span className="text-sm font-normal text-content-subtle">(UTC)</span>
+          </>
+        }
+      />
+      <PageContent.SectionContent>
+        <ol className="space-y-md rounded-md border bg-canvas-card p-xl font-mono text-sm text-content-card">
+          {logs.map((log, index) => (
+            <li key={index} className="flex flex-wrap gap-x-xl gap-y-sm">
+              <Time value={log.at} format="time" showTimeZone={false} />
+              <span className={`min-w-0 break-words ${log.level === "error" ? "text-content-destructive" : ""}`}>
+                {log.level.toUpperCase()} · {log.message}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </PageContent.SectionContent>
+    </PageContent.Section>
   );
 }
