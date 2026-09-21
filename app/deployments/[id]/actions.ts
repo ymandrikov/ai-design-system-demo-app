@@ -12,7 +12,9 @@ export async function restart(id: number, kind: "retry" | "rollback") {
     revalidatePath("/", "layout");
     return { id: deployment.id };
   } catch (error) {
-    if (error instanceof DeploymentError) return { error: error.message };
+    if (error instanceof DeploymentError) {
+      return { error: error.message };
+    }
     console.error("Deployment action failed", error);
     return { error: "Could not start deployment. Reload the service history before trying again." };
   }

@@ -60,7 +60,9 @@ function seedService(tx: Transaction, slug: string) {
       .returning()
       .all();
     // Re-running the seed preserves existing environment state and history.
-    if (!inserted.length || empty) continue;
+    if (!inserted.length || empty) {
+      continue;
+    }
     tx.insert(deployments)
       .values({
         serviceId: service.id,
@@ -71,7 +73,7 @@ function seedService(tx: Transaction, slug: string) {
         completedAt: new Date("2026-09-15T10:00:00Z"),
       })
       .run();
-    if (failed)
+    if (failed) {
       tx.insert(deployments)
         .values({
           serviceId: service.id,
@@ -83,12 +85,15 @@ function seedService(tx: Transaction, slug: string) {
           completedAt: new Date("2026-09-16T08:30:00Z"),
         })
         .run();
+    }
   }
 }
 
 // One transaction keeps demo state and its history consistent if seeding fails.
 db.transaction((tx) => {
-  for (const slug of ["api", "web", "worker"]) seedService(tx, slug);
+  for (const slug of ["api", "web", "worker"]) {
+    seedService(tx, slug);
+  }
 });
 
 console.log("Seeded services, environment versions, and deployment history.");

@@ -31,7 +31,9 @@ export default async function ServicePage({ params, searchParams }: PageProps<"/
   const query = await searchParams;
   const environment = query.environment === "staging" ? "staging" : "production";
   const service = getServiceDetails(slug, environment);
-  if (!service) notFound();
+  if (!service) {
+    notFound();
+  }
   const pathname = `/services/${encodeURIComponent(service.slug)}`;
 
   return (

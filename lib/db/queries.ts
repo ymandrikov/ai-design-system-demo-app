@@ -48,7 +48,9 @@ export function listServices(environment: Environment) {
 export function getServiceDetails(slug: string, environment: Environment) {
   return withDeploymentState((db, now) => {
     const service = selectServices(db, environment, slug)[0];
-    if (!service) return undefined;
+    if (!service) {
+      return undefined;
+    }
 
     const history = db
       .select({

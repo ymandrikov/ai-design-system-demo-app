@@ -21,7 +21,9 @@ export async function deploy(_previous: { error: string }, formData: FormData) {
   try {
     deployment = startDeployment({ slug, environment, versionId: Number(version) });
   } catch (error) {
-    if (error instanceof DeploymentError) return { error: error.message };
+    if (error instanceof DeploymentError) {
+      return { error: error.message };
+    }
     console.error("Deployment start failed", error);
     return { error: "Could not start deployment. Reload the service history before trying again." };
   }

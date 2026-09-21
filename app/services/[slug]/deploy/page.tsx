@@ -14,7 +14,9 @@ export default async function DeployPage({ params, searchParams }: PageProps<"/s
   const query = await searchParams;
   const environment = query.environment === "staging" ? "staging" : "production";
   const data = getDeploymentForm(slug, environment);
-  if (!data || !data.configured) notFound();
+  if (!data || !data.configured) {
+    notFound();
+  }
   return (
     <PageContainer width="narrow">
       <div className="mb-5xl">

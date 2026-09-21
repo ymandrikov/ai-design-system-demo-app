@@ -29,7 +29,9 @@ export function DeploymentActions({
   const [error, setError] = useState("");
 
   async function run(kind: "retry" | "rollback") {
-    if (pending) return;
+    if (pending) {
+      return;
+    }
     setPending(true);
     setError("");
     try {
@@ -46,7 +48,9 @@ export function DeploymentActions({
     }
   }
 
-  if (!canRetry && !rollbackVersion) return null;
+  if (!canRetry && !rollbackVersion) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col gap-l">
@@ -61,7 +65,9 @@ export function DeploymentActions({
             open={confirming}
             onOpenChange={(open) => {
               setConfirming(open);
-              if (open) setError("");
+              if (open) {
+                setError("");
+              }
             }}
             intent="destructive"
             triggerLabel="Roll back"

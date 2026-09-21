@@ -20,9 +20,13 @@ export const metadata = { title: "Deployment | Deploy Board" };
 
 export default async function DeploymentPage({ params }: PageProps<"/deployments/[id]">) {
   const { id } = await params;
-  if (!/^[1-9]\d*$/.test(id)) notFound();
+  if (!/^[1-9]\d*$/.test(id)) {
+    notFound();
+  }
   const data = getDeploymentDetails(Number(id));
-  if (!data) notFound();
+  if (!data) {
+    notFound();
+  }
   const { deployment, service, version, actions, steps, logs, stage, percent } = data;
   const serviceHref = `/services/${encodeURIComponent(service.slug)}?environment=${deployment.environment}`;
   const rollbackVersion =

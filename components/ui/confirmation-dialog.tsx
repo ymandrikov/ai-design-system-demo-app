@@ -47,8 +47,11 @@ export function ConfirmationDialog({
     <AlertDialog.Root
       open={open}
       onOpenChange={(nextOpen, event) => {
-        if (pending) event.cancel();
-        else onOpenChange(nextOpen);
+        if (pending) {
+          event.cancel();
+        } else {
+          onOpenChange(nextOpen);
+        }
       }}
     >
       <AlertDialog.Trigger render={<Button type="button" variant={intent} disabled={pending} />}>

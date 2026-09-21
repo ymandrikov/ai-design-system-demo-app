@@ -10,6 +10,7 @@ export default defineConfig({
   ...design,
   rules: {
     ...design.rules,
+    curly: ["error", "all"],
   },
   plugins: ["nextjs", "react", "import", "jsx-a11y", "typescript", "unicorn", "oxc"],
   categories: {
