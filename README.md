@@ -2,7 +2,9 @@
 
 Deploy Board is a local deployment simulator for exploring how a design system guides
 AI agents. A working app lets you trace UI decisions from contracts to components and
-recorded exceptions. It accompanies _Design system guardrails for AI-built interfaces_.
+recorded exceptions. It is the reference app for the
+[ai-design-system](https://github.com/ymandrikov/ai-design-system) skill and
+accompanies _Design system guardrails for AI-built interfaces_.
 
 - **Contracts.** Components, layouts and patterns define when to use them and which
   decisions they own.
@@ -70,7 +72,8 @@ instructions without being reminded of the design-system rules.
 ## Design-system workflows
 
 [DESIGN.md](DESIGN.md) defines the app's design rules; the installed
-[design-system skill](.agents/skills/design-system/SKILL.md) guides agent work.
+[design-system skill](.agents/skills/design-system/SKILL.md) from
+[ai-design-system](https://github.com/ymandrikov/ai-design-system) guides agent work.
 
 | Workflow | Purpose                                                                |
 | -------- | ---------------------------------------------------------------------- |
