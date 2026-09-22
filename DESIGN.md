@@ -97,7 +97,7 @@ feedback remains owned by the form.
 Text navigation uses [TextLink](design-system/components/text-link.md),
 preserving native navigation and page-owned destinations. These rules are required:
 
-- **Title links (ссылки-заголовки)** name an object and provide its main entry to
+- **Title links** name an object and provide its main entry to
   details in a list, table or card. Service names and deployment numbers in tables
   use `variant="title"`: `content` and semibold weight; hover uses `content-emphasis-hover`.
 - **Ordinary links** include back navigation, contextual deployment references

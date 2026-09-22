@@ -40,7 +40,7 @@ Handlers require a client consumer. There are no additional events or methods.
 - `"default"` (also used when omitted): ordinary text navigation, including back
   links, contextual references to another deployment and form Cancel. Referencing
   an object alone does not make a link a title link.
-- `"title"`: a **title link** (ссылка-заголовок) names an object and serves as its
+- `"title"`: a **title link** names an object and serves as its
   main entry to details within a list, table or card. Use it for service names and
   deployment numbers in tables. Multiple title links may coexist on a page;
   the term does not require a heading element.
