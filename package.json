@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "setup": "pnpm run db:migrate && pnpm run db:seed",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
