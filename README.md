@@ -98,6 +98,23 @@ shows an authorised use. G-01 and G-02 remain deliberately unresolved, not patte
 to copy. Review recurring needs through triage, then authorise a shared solution
 through `craft`; see the [gap procedure](.agents/skills/design-system/reference/gaps.md).
 
+For example, the [deployment details page](app/deployments/[id]/page.tsx) uses the
+authorised E-01 exception to keep supporting metadata at 14px:
+
+```tsx
+<BorderedCard.Section
+  designSystemException={{
+    reason: "Keep supporting metadata at 14px (E-01).",
+    className: "text-sm",
+  }}
+>
+  Deployment metadata
+</BorderedCard.Section>
+```
+
+The helper forwards `className` and `style` without adding a wrapper. `reason`
+documents the intent; it does not replace authorisation or the journal entry.
+
 ## Project structure
 
 The app uses Next.js App Router, TypeScript, SQLite, Drizzle, shadcn and Tailwind.
